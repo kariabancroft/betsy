@@ -1,5 +1,15 @@
 <h1>Create New Merchant Account</h1>
 
+<% if !flash[:error].nil? %>
+  <%= flash["error"] %>
+<% end %>
+
+<ul>
+  <% @merchant.errors.each do |column, message| %>
+    <li><strong><%= column.capitalize %></strong>: <%= message %></li>
+  <% end %>
+</ul>
+
 <%= form_for @merchant do |f| %>
   <%= f.label :username %>
   <%= f.text_field :username %>
@@ -9,6 +19,5 @@
   <%= f.password_field :password %>
   <%= f.label :password_confirmation %>
   <%= f.password_field :password_confirmation %>
-  <br>
   <%= f.submit %>
 <% end %>
