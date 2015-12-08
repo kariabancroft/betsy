@@ -5,3 +5,57 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+seed_categories = [
+  {name: "Animals"},
+  {name: "Plants"},
+  {name: "Seashells"},
+  {name: "Clothing"}
+]
+
+seed_categories.each do |cat|
+  Category.create cat
+end
+
+seed_merchants = [
+
+]
+
+seed_merchants.each do |mer|
+  Merchant.create mer
+end
+
+seed_products = [
+  {name: "Sea Anemone", price: 500, photo_url: "http://www.cabrillomarineaquarium.org/_photos/species-green-sea-anemone.jpg", description: "Is it fluffy, or slimy?", quantity: 5},
+  {name: "Starfish", price: 500, photo_url: "http://www.buckeyescuba.com/wp-content/uploads/2012/04/starfish2.jpg", description: "", quantity: 5}
+]
+
+seed_products.each do |pro|
+  Product.create pro
+end
+
+
+seed_orders = [
+  {purchase_time: Time.now, status: "pending", name: "Ricky", email: "ricky@awesome.com", street: "Ada Street", city: "Seattle", state: "WA", zip: 98112, cc_num: 1234, cc_exp: Time.now.to_date, sec_code: 123, bill_zip: 98112}
+]
+
+seed_orders.each do |ord|
+  Order.create ord
+end
+
+seed_order_items = [
+
+]
+
+seed_order_items.each do |oi|
+  OrderItem.create oi
+end
+
+seed_reviews = [
+  {rating: 5, description: "Amazing"},
+  {rating: 3, description: "Mediocre"},
+  {rating: 1, description: "Super Lame"}
+]
+
+seed_reviews.each do |r|
+  Review.create r
+end
