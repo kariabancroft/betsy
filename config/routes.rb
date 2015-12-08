@@ -2,6 +2,28 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
+  resources :sessions, :only => [:new, :create, :cart]
+  delete "/logout", to: 'sessions#destroy', as: :logout
+
+  get 'orders/checkout' => 'orders#checkout', as: :checkout
+  post 'orders/:id/confirm' => 'orders#confirm', as: :order_confirm
+
+  resources :categories
+
+  post "products/:id/review" => "reviews#create", as: :new_review
+  resources :products, :only => [:show]
+
+  get "merchants/:id/home" => "merchants#home", as: :merchant_home
+
+  resources :merchants do
+    resources :products
+    resources :orders, :only => [:index, :show, :edit, :update]
+  end
+
+  
+
+
+
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
