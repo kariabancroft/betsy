@@ -1,5 +1,5 @@
 class Review < ActiveRecord::Base
   belongs_to product
-  # rating - integer, must be present, must be an integer, must be between 1 and 5
-  
+  validates :rating, presence: true
+  validates :rating, numericality: { less_than_or_equal_to 5 }
 end
