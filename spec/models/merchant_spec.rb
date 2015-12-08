@@ -24,5 +24,10 @@ RSpec.describe Merchant, type: :model do
         expect(test_merchant2.save).to eq false
         expect(test_merchant2.errors.keys).to include :email
       end
+      it "must have a password confirmation that matches password" do
+        test_merchant = Merchant.new({ username: "merchant1", email: "sdfs@sdf.com", password: "123", password_confirmation: "321" })
+        expect(test_merchant.save).to eq false
+        expect(test_merchant.errors.keys).to include :password_confirmation
+      end
     end
 end
