@@ -1,0 +1,22 @@
+<nav>
+  <ul>
+    <li>
+      Log In
+    </li>
+    <li>
+      Register
+    </li>
+    <li>
+      View Cart
+    </li>
+    <li>
+      Browse by Merchant
+    </li>
+  </ul>
+</nav>
+<h1>Welcome to SeaBay!</h1>
+<div>
+  <% @categories.each do |category| %>
+    <%= category.name %>
+  <% end %>
+</div>
