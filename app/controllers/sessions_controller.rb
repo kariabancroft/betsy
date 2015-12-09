@@ -20,4 +20,8 @@ class SessionsController < ApplicationController
     redirect_to root_path
   end
 
+  def cart
+    @cart_items = cookies[:cart]
+  end
+
 end
