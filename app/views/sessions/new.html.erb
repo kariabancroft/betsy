@@ -1,5 +1,9 @@
 <h1>Login</h1>
 
+<% if !flash.now[:error].nil? %>
+  <%= flash.now[:error] %>
+<% end %>
+
 <%= form_for(:session_data, url: sessions_path) do |f| %>
   <div class="form-group">
     <%= f.label :username %>
