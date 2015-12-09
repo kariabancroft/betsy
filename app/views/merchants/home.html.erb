@@ -1,8 +1,8 @@
 <h1>Merchant Home</h1>
-<h4>Welcome, <%= @merchant.username %></h4>
+<h4>Welcome, <%= @current_merchant.username %></h4>
 
-<%= link_to "View Your Products", merchant_products_path(@merchant.id) %>
+<%= link_to "View Your Products", merchant_products_path(@current_merchant.id) %>
 <br>
-<%= link_to "View Your Orders", merchant_orders_path(@merchant.id) %>
+<%= link_to "View Your Orders", merchant_orders_path(@current_merchant.id) %>
 <br>
 <%= link_to "Log Out", logout_path, method: :delete %>
