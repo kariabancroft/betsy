@@ -1,0 +1,6 @@
+<h1><%= @title %></h1>
+  <%= form_for @category, url: {action: @action} do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name, :required => true %>
+  <%= f.submit "Save" %>
+  <% end %>
