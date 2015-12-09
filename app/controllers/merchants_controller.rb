@@ -15,7 +15,7 @@ class MerchantsController < ApplicationController
   end
 
   def home
-    @merchant = Merchant.find(params[:id])
+    current_merchant
   end
 
   private
