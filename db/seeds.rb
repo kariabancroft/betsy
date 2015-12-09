@@ -17,7 +17,8 @@ seed_categories.each do |cat|
 end
 
 seed_merchants = [
-
+  {username: "kdefliese", email: "kdefliese@gmail.com", password: "cats", password_confirmation: "cats"},
+  {username: "seabay", email: "seabay@seabay.com", password: "seabay", password_confirmation: "seabay"}
 ]
 
 seed_merchants.each do |mer|
@@ -25,14 +26,16 @@ seed_merchants.each do |mer|
 end
 
 seed_products = [
-  {name: "Sea Anemone", price: 500, photo_url: "http://www.cabrillomarineaquarium.org/_photos/species-green-sea-anemone.jpg", description: "Is it fluffy, or slimy?", quantity: 5, merchant_id: 1, category_id: 2},
-  {name: "Starfish", price: 500, photo_url: "http://www.buckeyescuba.com/wp-content/uploads/2012/04/starfish2.jpg", description: "", quantity: 5, merchant_id: 1, category_id: 1}
+  {name: "Sea Anemone", price: 500, photo_url: "http://www.cabrillomarineaquarium.org/_photos/species-green-sea-anemone.jpg", description: "Is it fluffy, or slimy?", quantity: 5, merchant_id: 1},
+  {name: "Starfish", price: 500, photo_url: "http://www.buckeyescuba.com/wp-content/uploads/2012/04/starfish2.jpg", description: "", quantity: 5, merchant_id: 2}
 ]
 
 seed_products.each do |pro|
   Product.create pro
 end
 
+Product.find(1).categories << Category.find(2)
+Product.find(2).categories << Category.find(1)
 
 seed_orders = [
   {purchase_time: Time.now, status: "pending", name: "Ricky", email: "ricky@awesome.com", street: "Ada Street", city: "Seattle", state: "WA", zip: 98112, cc_num: 1234, cc_exp: Time.now.to_date, sec_code: 123, bill_zip: 98112}
@@ -52,9 +55,9 @@ seed_order_items.each do |oi|
 end
 
 seed_reviews = [
-  {rating: 5, description: "Amazing"},
-  {rating: 3, description: "Mediocre"},
-  {rating: 1, description: "Super Lame"}
+  {rating: 5, description: "Amazing", product_id: 1},
+  {rating: 3, description: "Mediocre", product_id: 2},
+  {rating: 1, description: "Super Lame", product_id: 1}
 ]
 
 seed_reviews.each do |r|
