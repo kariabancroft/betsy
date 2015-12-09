@@ -8,7 +8,7 @@ class MerchantsController < ApplicationController
     # create the new merchant then display merchant home page
     @merchant = Merchant.new(strong_params)
       if @merchant.save
-        redirect_to merchant_home_path(@merchant.id)
+        redirect_to new_session_path
       else
         render :new
       end
