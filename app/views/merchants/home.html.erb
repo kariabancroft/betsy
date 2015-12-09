@@ -4,3 +4,5 @@
 <%= link_to "View Your Products", merchant_products_path(@merchant.id) %>
 <br>
 <%= link_to "View Your Orders", merchant_orders_path(@merchant.id) %>
+<br>
+<%= link_to "Log Out", logout_path, method: :delete %>
