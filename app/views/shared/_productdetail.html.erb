@@ -1,0 +1,19 @@
+<h1><%= @title %></h1>
+  <%= form_for @product, url: {action: @action} do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name, :required => true %>
+  <br>
+  <%= f.label :price %>
+  <%= f.number_field :price, in: 1.0..1000000.0, step: 0.1, :required => true %>
+  <br>
+  <%= f.label :photo_url %>
+  <%= f.text_field :photo_url %>
+  <br>
+  <%= f.label :description %>
+  <%= f.text_area :description %>
+  <br>
+  <%= f.label :quantity %>
+  <%= f.number_field :quantity, in: 1...100000, step: 1, :required => true %>
+  <br>
+  <%= f.submit "Save" %>
+  <% end %>
