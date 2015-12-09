@@ -1,9 +1,5 @@
 <h1>Create New Merchant Account</h1>
 
-<% if !flash[:error].nil? %>
-  <%= flash["error"] %>
-<% end %>
-
 <ul>
   <% @merchant.errors.each do |column, message| %>
     <li><strong><%= column.capitalize %></strong>: <%= message %></li>
