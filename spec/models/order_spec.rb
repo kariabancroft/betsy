@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
-  describe ".validates" do
+  describe "model validations" do
     let(:bad_order){Order.new}
 
     required_fields = [:name, :bill_zip, :cc_exp, :cc_num, :city, :email, :sec_code, :state, :street, :zip]
