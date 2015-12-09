@@ -25,8 +25,8 @@ seed_merchants.each do |mer|
 end
 
 seed_products = [
-  {name: "Sea Anemone", price: 500, photo_url: "http://www.cabrillomarineaquarium.org/_photos/species-green-sea-anemone.jpg", description: "Is it fluffy, or slimy?", quantity: 5},
-  {name: "Starfish", price: 500, photo_url: "http://www.buckeyescuba.com/wp-content/uploads/2012/04/starfish2.jpg", description: "", quantity: 5}
+  {name: "Sea Anemone", price: 500, photo_url: "http://www.cabrillomarineaquarium.org/_photos/species-green-sea-anemone.jpg", description: "Is it fluffy, or slimy?", quantity: 5, merchant_id: 1, category_id: 2},
+  {name: "Starfish", price: 500, photo_url: "http://www.buckeyescuba.com/wp-content/uploads/2012/04/starfish2.jpg", description: "", quantity: 5, merchant_id: 1, category_id: 1}
 ]
 
 seed_products.each do |pro|
@@ -43,7 +43,8 @@ seed_orders.each do |ord|
 end
 
 seed_order_items = [
-
+  {quantity: 1, order_id: 1, product_id: 1},
+  {quantity: 1, order_id: 1, product_id: 2}
 ]
 
 seed_order_items.each do |oi|
