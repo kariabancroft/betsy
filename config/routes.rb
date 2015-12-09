@@ -2,8 +2,10 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   root 'welcome#index'
-  
-  resources :sessions, :only => [:new, :create, :cart]
+
+  resources :carts
+  post "/products/:id" => 'carts#add_item'
+  resources :sessions, :only => [:new, :create]
   delete "/logout", to: 'sessions#destroy', as: :logout
 
   get 'orders/checkout' => 'orders#checkout', as: :checkout
