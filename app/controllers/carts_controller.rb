@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-  before_action :cart_exists, only: [:add_item, :remove_item]
+  before_action :cart_exists, only: [:add_quantity, :remove_quantity]
 
   def create
     session[:cart] = {}
@@ -20,7 +20,6 @@ class CartsController < ApplicationController
     # if product is not yet in cart, add one of it
     if session[:cart][id].nil?
       session[:cart][id] = 1
-      raise
     # if trying to add more to cart than are in stock, flash error
     elsif session[:cart][id] + 1 > @product.quantity
       flash[:error] = "You cannot add more items than are in stock."
