@@ -23,7 +23,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop by merchant <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <% @merchants.each do |m| %>
-                    <li><a href="#"><%= m.username %></a></li>
+                    <li><%= link_to m.username, merchant_products_path(m.id) %></li>
                   <% end %>
                 </ul>
               </li>
@@ -52,7 +52,7 @@
       <div class="thumbnail">
         <img src="<%= cat.photo_url %>" alt="<% cat.name %>">
         <div class="caption">
-          <h3><%= cat.name %></h3>
+          <%= link_to cat.name, category_path(cat.id), class: "h3" %>
         </div>
       </div>
     </div>
