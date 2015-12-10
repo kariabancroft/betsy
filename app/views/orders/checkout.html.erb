@@ -1,0 +1,25 @@
+<%= form_for @order, url: checkout_path do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name, :required => true %>
+  <%= f.label :email%>
+  <%= f.email_field :email, :required => true %>
+  <%= f.label :street %>
+  <%= f.text_field :street, :required => true %>
+  <%= f.label :city %>
+  <%= f.text_field :city, :required => true %>
+  <%= f.label :state %>
+  <%= f.text_field :state, :required => true %>
+  <%= f.label :zip %>
+  <%= f.number_field :zip, :required => true %>
+  <%= f.label :cc_num %>
+  <%= f.number_field :cc_num, :required => true %>
+  <%= f.label :cc_exp %>
+  <%= f.number_field :cc_exp, :required => true %>
+  <%= f.label :sec_code %>
+  <%= f.number_field :sec_code, :required => true %>
+  <%= f.label :bill_zip %>
+  <%= f.number_field :bill_zip, :required => true %>
+  <%= f.hidden_field :purchase_time, value: Time.now %>
+  <%= f.hidden_field :status, value: "Pending" %>
+  <%= f.submit "Place Order" %>
+<% end %>
