@@ -1,44 +1,37 @@
 class CartsController < ApplicationController
-  before_action :create
+  before_action :cart_exists
 
   def create
-    if cookies[:cart_id].nil?
-      @current_cart = Cart.create
-        { 1: 3,
-          2: 6,
-          3: 7
-        }
-      session[:cart_id] = @current_cart.id
-    else
-      @current_cart
-    end
+    session[:cart] = {}
   end
 
   def destroy
-    session[:cart_id] = nil
+    session[:cart] = nil
   end
 
-  def show
-
+  def index
+    @cart_items = session[:cart]
   end
 
   def add_item
-    @current_cart <<
+    id = params[:id]
+
+    if session[:cart][id].nil?
+      session[:cart][id] = 1
+    else
+      session[:cart][id] += 1
+    end
+
+    redirect_to carts_path
 
 
     # include adding quantity
-    if quantity <= product.quantity
-      cookies[:current_cart].push({ product.id: quantity })
-    else
-      flash.now[:error] = "You cannot add more items than are in stock."
-      render product_path(product.id)
-    end
-
-    # cookies[:current_cart] = [
-    #     { 5: 3 },
-    #     { 1: 20 },
-    #     { 3: 1}
-    # ]
+    # if quantity <= product.quantity
+    #   cookies[:current_cart].push({ product.id: quantity })
+    # else
+    #   flash.now[:error] = "You cannot add more items than are in stock."
+    #   render product_path(product.id)
+    # end
 
   end
 
@@ -48,6 +41,14 @@ class CartsController < ApplicationController
 
   def change_quantity(product)
     # similar to upvote
+  end
+
+  private
+
+  def cart_exists
+    if session[:cart].nil?
+      create
+    end
   end
 
 end
