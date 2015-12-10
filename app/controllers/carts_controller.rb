@@ -17,21 +17,19 @@ class CartsController < ApplicationController
   def add_item
     id = params[:id]
 
+    # if product is not yet in cart, add one of it
     if session[:cart][id].nil?
       session[:cart][id] = 1
+    # if trying to add more to cart than are in stock, flash error
+    elsif session[:cart][id]
+      flash.now[:error] = "You cannot add more items than are in stock."
+      # render product_path(product.id)
+    # add another of product to cart
     else
       session[:cart][id] += 1
     end
 
     redirect_to carts_path
-
-    # include adding quantity
-    # if quantity <= product.quantity
-    #   cookies[:current_cart].push({ product.id: quantity })
-    # else
-    #   flash.now[:error] = "You cannot add more items than are in stock."
-    #   render product_path(product.id)
-    # end
 
   end
 
