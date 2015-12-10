@@ -4,15 +4,10 @@
   <p>You have no items in your cart. Get shopping!</p>
 <% else %>
 <ul>
-  <% @cart_items.each do |item_hash| %>
-    <% item_hash.each do |product_id, quantity| %>
+  <% @cart_items.each do |product_id, quantity| %>
       <li><%= Product.find(product_id).name %>: <%= quantity %></li>
-
-    <% end %>
-
-
   <% end %>
 </ul>
 <% end %>
 
-<%= button_to "Empty Cart", cart_path(1), action: :delete %>
+<%= button_to "Empty Cart", cart_path(1), method: :delete %>
