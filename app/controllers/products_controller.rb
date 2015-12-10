@@ -23,6 +23,7 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find(params[:id])
     @reviews = @product.reviews
+    @review = Review.new
   end
 
   def edit
@@ -30,10 +31,19 @@ class ProductsController < ApplicationController
     @action = :update
   end
 
+  def create_review
+    @review = Review.create(review_params)
+    redirect_to product_path(@review.product.id)
+  end
+
   private
 
   def product_params
     params.require(:product).permit(:name, :price, :photo_url, :description, :quantity)
+  end
+
+  def review_params
+    params.require(:review).permit(:rating, :description, :product_id)
   end
 
 end
