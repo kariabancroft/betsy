@@ -14,35 +14,32 @@ class CartsController < ApplicationController
     @cart_items = session[:cart]
   end
 
-  def add_item
-    id = params[:id]
+  def add_quantity
+    id = params[:product_id]
     @product = Product.find(id)
     # if product is not yet in cart, add one of it
     if session[:cart][id].nil?
       session[:cart][id] = 1
+      raise
     # if trying to add more to cart than are in stock, flash error
-  elsif session[:cart][id] + 1 > @product.quantity
+    elsif session[:cart][id] + 1 > @product.quantity
       flash[:error] = "You cannot add more items than are in stock."
     # add another of product to cart
     else
       session[:cart][id] += 1
     end
-    redirect_to product_path(@product.id)
+    redirect_to carts_path
   end
 
-  def remove_item
-    id = params[:id]
+  def remove_quantity
+    id = params[:product_id]
     @product = Product.find(id)
     if session[:cart][id].nil?
       flash[:error] = "This item has already been removed from your cart."
     else
       session[:cart][id] -= 1
     end
-    redirect_to product_path(@product.id)
-  end
-
-  def change_quantity(product)
-    # similar to upvote
+    redirect_to carts_path
   end
 
   private

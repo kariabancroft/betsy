@@ -3,9 +3,21 @@
 <% if @cart_items.nil? %>
   <p>You have no items in your cart. Get shopping!</p>
 <% else %>
+
+<% if !flash[:error].nil? %>
+  <div class= "alert alert-danger" role="alert"><%= flash[:error] %></div>
+<% end %>
+
 <ul>
   <% @cart_items.each do |product_id, quantity| %>
-      <li><%= Product.find(product_id).name %>: <%= quantity %></li>
+    <% if quantity > 0 %>
+      <li><%= Product.find(product_id).name %>
+        <%= button_to "+", add_quantity_path(product_id) %>
+        <%= quantity %>
+        <%= button_to "-", remove_quantity_path(product_id) %>
+      </li>
+
+    <% end %>
   <% end %>
 </ul>
 <% end %>

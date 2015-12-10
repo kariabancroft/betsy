@@ -4,8 +4,10 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   resources :carts
-  post "/products/:id/remove" => 'carts#remove_item', as: :remove_item
-  post "/products/:id/add" => 'carts#add_item', as: :add_item
+
+  post "/carts/:product_id/remove" => 'carts#remove_quantity', as: :remove_quantity
+  post "/carts/:product_id/add" => 'carts#add_quantity', as: :add_quantity
+
   resources :sessions, :only => [:new, :create]
   delete "/logout", to: 'sessions#destroy', as: :logout
 

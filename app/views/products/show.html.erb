@@ -11,6 +11,5 @@ List of all existing reviews
 Form to add a new review - merchants cannot make reviews for their own products
 Can add product to cart
 
-<%= button_to "Add to Cart", add_item_path(@product.id) %>
-<%= @product.quantity %>
-<%= button_to "Remove 1 from cart", remove_item_path(@product.id) %>
+<%= button_to "+", add_item_path(@product.id) %>
+<%= button_to "-", remove_item_path(@product.id) %>
