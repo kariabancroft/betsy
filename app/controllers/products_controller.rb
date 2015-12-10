@@ -1,18 +1,19 @@
 class ProductsController < ApplicationController
 
-  # @product = Product.find(params[:id])
   def index
     current_merchant
   end
 
   def new
+    current_merchant
     @product = Product.new
     @action = "create"
     @method = :post
   end
 
   def create
-    @product = Product.new(product_params)
+    merchant = Merchant.find(params[:merchant_id])
+    @product = merchant.products.new(product_params)
     if @product.save
       redirect_to merchant_products_path
     else
