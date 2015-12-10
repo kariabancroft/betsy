@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-  before_action :cart_exists
+  before_action :cart_exists, only: :add_item
 
   def create
     session[:cart] = {}
@@ -7,6 +7,7 @@ class CartsController < ApplicationController
 
   def destroy
     session[:cart] = nil
+    redirect_to root_path
   end
 
   def index
@@ -23,7 +24,6 @@ class CartsController < ApplicationController
     end
 
     redirect_to carts_path
-
 
     # include adding quantity
     # if quantity <= product.quantity
