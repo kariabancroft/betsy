@@ -1,19 +1,22 @@
 class ProductsController < ApplicationController
 
   # @product = Product.find(params[:id])
+  def index
+    current_merchant
+  end
 
   def new
-    @title = "Create a product"
-    @new_prod = Product.new
-    @action = :create
+    @product = Product.new
+    @action = "create"
+    @method = :post
   end
 
   def create
-    @create_product = Product.new(product_params[:product])
-    if @create_product.save
-      redirect_to product_path(@create_product)
+    @product = Product.new(product_params)
+    if @product.save
+      redirect_to merchant_products_path
     else
-      render "new"
+      render :new
     end
   end
 
@@ -29,7 +32,7 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.permit(category:[:id, :name, :price, :photo_url, :description, :quantity])
+    params.require(:product).permit(:name, :price, :photo_url, :description, :quantity)
   end
 
 end
