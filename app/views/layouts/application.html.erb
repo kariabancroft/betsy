@@ -7,14 +7,13 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div class="container">
-    <%= yield %>
-    <div class="footer">
-      <div class="container">
-        <% t=Time.new %>
-        <p class="text-muted">Copyright &copy;<%= t.year%>. All Rights Reserved.</p>
-      </div>
+  <%= yield %>
+  <div class="footer">
+    <div class="container">
+      <% t=Time.new %>
+      <p class="text-muted">Copyright &copy;<%= t.year%>. All Rights Reserved.</p>
     </div>
   </div>
+</div>
 </body>
 </html>
