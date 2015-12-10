@@ -6,17 +6,17 @@ class ProductsController < ApplicationController
   end
 
   def new
-    @title = "Create a product"
     @product = Product.new
-    @action = :create
+    @action = "create"
+    @method = :post
   end
 
   def create
-    @create_product = Product.new(product_params[:product])
-    if @create_product.save
-      redirect_to product_path(@create_product)
+    @product = Product.new(product_params)
+    if @product.save
+      redirect_to merchant_products_path
     else
-      render "new"
+      render :new
     end
   end
 
