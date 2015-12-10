@@ -13,3 +13,16 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+$jumbo-height: 350px;
+
+.jumbotron {
+  background: image_url("jumping-dolphins-sea.jpg") no-repeat center center;
+  width: 100%;
+  background-position: 50% 40%;
+  height: $jumbo-height;
+  padding-top: 290px;
+  h3{
+    padding-left: 25%;
+  }
+}

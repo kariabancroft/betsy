@@ -6,10 +6,10 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 seed_categories = [
-  {name: "Animals"},
-  {name: "Plants"},
-  {name: "Seashells"},
-  {name: "Clothing"}
+  {name: "Animals", photo_url: "http://www.sfltimes.com/wp-content/uploads/2015/07/Green-Sea-Turtle.jpg"},
+  {name: "Plants", photo_url: "http://b.fastcompany.net/multisite_files/coexist/poster/2013/07/1682596-poster-1280-seaweed.jpg"},
+  {name: "Seashells", photo_url: "http://miriadna.com/desctopwalls/images/max/Seashell-on-the-sand.jpg"},
+  {name: "Clothing", photo_url: "http://www.animalshirts.net/dolphinshirts/10-3081.jpg"}
 ]
 
 seed_categories.each do |cat|
