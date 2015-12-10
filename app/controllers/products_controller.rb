@@ -1,10 +1,13 @@
 class ProductsController < ApplicationController
 
   # @product = Product.find(params[:id])
+  def index
+    current_merchant
+  end
 
   def new
     @title = "Create a product"
-    @new_prod = Product.new
+    @product = Product.new
     @action = :create
   end
 
