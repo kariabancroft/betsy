@@ -2,32 +2,50 @@
   <div class= "alert alert-danger" role="alert"><%= flash[:error] %></div>
 <% end %>
 
-<h1><%= @product.name %></h1>
-
-<%= image_tag(@product.photo_url) %>
-
-<p>Description: <%= @product.description %></p>
-<p>Price: $<%= @product.price/100.0 %></p>
-
-
-<div>
-  <p>Add to or remove from cart:</p>
-
-  <%= button_to "+", add_quantity_path(@product.id) %>
-  Available: <%= @product.quantity %>
-  <%= button_to "-", remove_quantity_path(@product.id) %>
-</div>
-
-<div>
-<p>Reviews:</p>
-  <% @reviews.each do |review| %>
-    <div>
-      Rating: <%= review.rating %>
-      <br>
-      <%= review.description %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <%= image_tag(@product.photo_url) %>
     </div>
-  <% end %>
-</div>
+    <div class="col-md-8">
+      <h1><%= @product.name %></h1>
+      <h2><%= @product.merchant.username %></h2>
 
-<h3>Add a Review:</h3>
-<%= render partial: "shared/formforreviews" %>
+      <h4>$<%= @product.price/100.0 %></h4>
+
+      <%= link_to "+", add_quantity_path(@product.id), :class => "btn btn-primary btn-sm", :method => :post %>
+
+      Available: <%= @product.quantity %>
+
+      <%= link_to "-", remove_quantity_path(@product.id), :class => "btn btn-primary btn-sm", :method => :post %>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Description:</h2>
+      <p><%= @product.description %></p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+
+      <h2>Reviews:</h2>
+        <% @reviews.each do |review| %>
+          <div>
+            <%= review.rating %>: <%= review.description %>
+          </div>
+        <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <% if !@current_merchant %>
+        <%= render partial: "shared/formforreviews" %>
+      <% end %>
+    </div>
+  </div>
+</div>
