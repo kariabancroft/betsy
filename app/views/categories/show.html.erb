@@ -1,5 +1,20 @@
-<h1>Here are products that are in the category you selected</h1>
+<div class="container">
+<h1>Category: <%= @category.name %></h1>
 
-<h2><%= @category.name %></h2>
-
-<h3>List of products that fit within this category</h3>
+<% @category.products.each_with_index do |product, i| %>
+  <% if i.odd? %>
+    <div class="row">
+  <% end %>
+  <div class="col-sm-6 col-md-6">
+    <div class="thumbnail">
+      <img src="<%= product.photo_url %>" alt="<% product.name %>">
+      <div class="caption">
+        <%= link_to product.name, product_path(product.id), class: "h3" %>
+      </div>
+    </div>
+  </div>
+  <% if i.odd? %>
+    </div>
+  <% end %>
+<% end %>
+</div>
