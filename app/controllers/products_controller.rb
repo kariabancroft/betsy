@@ -1,6 +1,4 @@
 class ProductsController < ApplicationController
-
-  # @product = Product.find(params[:id])
   def index
     current_merchant
   end
@@ -24,7 +22,7 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @reviews = @product.reviews
     @review = Review.new
-    current_merchant
+    @can_review = current_merchant_product?
   end
 
   def edit
@@ -38,6 +36,20 @@ class ProductsController < ApplicationController
   end
 
   private
+
+  def current_merchant_product?
+    if current_merchant.nil?
+      return true
+    else
+      current_merchant.products.each do |product|
+        if product.id == params[:id].to_i
+          return false
+        else
+          return true
+        end
+      end
+    end
+  end
 
   def product_params
     params.require(:product).permit(:name, :price, :photo_url, :description, :quantity)
