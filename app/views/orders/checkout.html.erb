@@ -3,9 +3,12 @@
     <div class="col-lg-12">
       <h1>Checkout</h1>
       <h3>Cart Items:</h3>
-        <%= @products.each do |product| %>
-          <%= product.name %>
+        <% @products.each do |product| %>
+          <%= product.name %> quantity: 1 price: <%= product.price %>
+          <br />
         <% end %>
+      <h4>Order Total: <%= @order_total %></h4>
+      <h3>Enter Order Details:</h3>
       <%= form_for @order, url: checkout_path do |f| %>
         <div class="form-group">
           <%= f.label :name %>

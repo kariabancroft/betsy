@@ -11,6 +11,10 @@ class OrdersController < ApplicationController
     end
     @order = Order.new
     @order_item = OrderItem.new
+    @order_total = 0
+    @products.each do |product|
+      @order_total += product.price
+    end
   end
 
   def confirm
