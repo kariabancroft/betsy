@@ -2,7 +2,15 @@ class OrdersController < ApplicationController
   def checkout
     # get @current_order info from carts controller
     @cart_items = session[:cart]
+    # @cart_items looks like { "1" => 2 }
+    # want instance_vars @p1, @p2, etc. set equal to the keys of the hash
+    @products = []
+    @cart_items.each do |k,v|
+      product = Product.find(k.to_i)
+      v.times { @products.push(product) }
+    end
     @order = Order.new
+    @order_item = OrderItem.new
   end
 
   def confirm
