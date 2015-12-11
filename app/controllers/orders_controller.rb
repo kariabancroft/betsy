@@ -7,9 +7,11 @@ class OrdersController < ApplicationController
     @order = Order.new
     @order_item = OrderItem.new
     @products = []
-    @cart_items.each do |k,v|
-      product = Product.find(k.to_i)
-      v.times { @products.push(product) }
+    if !@cart_items.nil?
+      @cart_items.each do |k,v|
+        product = Product.find(k.to_i)
+        v.times { @products.push(product) }
+      end
     end
     @order_total = 0
     @products.each do |product|
@@ -19,7 +21,7 @@ class OrdersController < ApplicationController
 
   def create
     @cart_items = session[:cart]
-    @order = Order.create(order_params[:order])
+    @order = Order.new(order_params[:order])
     if @order.save
       # create order items
       @cart_items.each do |k,v|
@@ -29,9 +31,12 @@ class OrdersController < ApplicationController
         product_id: product.id,
         quantity: v
         )
+        # decrement stock of purchased products
+        new_product_quantity = product.quantity - v
+        product.update(quantity: new_product_quantity)
       end
       # remove items from cart
-      # decrement stock of purchased products
+      session[:cart] = nil
       redirect_to order_confirm_path(@order.id)
     else
       render action: 'new'
