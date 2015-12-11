@@ -11,20 +11,13 @@ RSpec.describe Review, type: :model do
   end
   # does not work - fix!
   describe "model validations for integer input" do
-    let(:bad_params) do
-        {
-          review: {
-            review_id: 1,
-            rating: 6,
-            description: "A good product"
-          }
-        }
-      end
-
     it "requires an integer between 1-5" do
-        expect(bad_params).to be_invalid
-        expect(bad_params.errors.keys).to include :rating
+      review = Review.new(rating: "")
+        expect(review).to be_invalid
+        expect(review.errors.keys).to include(:rating)
     end
   end
+
+
 
 end
