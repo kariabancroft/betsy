@@ -9,6 +9,14 @@ RSpec.describe MerchantsController, type: :controller do
       password_confirmation: "cats"}
     }
   end
+  let(:bad_params) do
+    {merchant: {
+      username: nil,
+      email: nil,
+      password: nil,
+      password_confirmation: nil}
+    }
+  end
 
   describe "GET 'new'" do
     it "is successful" do
@@ -24,6 +32,11 @@ RSpec.describe MerchantsController, type: :controller do
       expect(response.status).to eq 302
       expect(subject).to redirect_to new_session_path
     end
+    it "unsuccessful create renders new page" do
+      post :create, bad_params
+      expect(response.status).to eq 200
+      expect(subject).to render_template :new
+    end
   end
 
   describe "GET 'home'" do
@@ -33,8 +46,10 @@ RSpec.describe MerchantsController, type: :controller do
       get :home, id: test_merchant.id
       expect(subject).to render_template :home
     end
-    # it "does not show merchant home page if not logged in" do
-    #
-    # end
+    it "does not show merchant home page if not logged in" do
+      session[:user_id] = nil
+      get :home, id: 1
+      expect(subject).to redirect_to new_session_path
+    end
   end
 end
