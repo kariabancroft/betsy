@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   delete "/logout", to: 'sessions#destroy', as: :logout
 
   get 'orders/checkout' => 'orders#checkout', as: :checkout
-  post 'orders/:id/confirm' => 'orders#confirm', as: :order_confirm
+  post 'orders/checkout' => 'orders#create'
+  get 'orders/:id/confirm' => 'orders#confirm', as: :order_confirm
 
   resources :categories
 
