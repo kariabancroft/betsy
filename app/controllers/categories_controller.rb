@@ -1,5 +1,4 @@
 class CategoriesController < ApplicationController
-
   def new
     @title = "Create a new category for your product"
     @category = Category.new
