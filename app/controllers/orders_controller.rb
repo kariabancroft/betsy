@@ -22,7 +22,7 @@ class OrdersController < ApplicationController
   def create
     @cart_items = session[:cart]
     @order = Order.new(order_params[:order])
-    if @order.save
+    if !@cart_items.nil? && @order.save
       # create order items
       @cart_items.each do |k,v|
         product = Product.find(k.to_i)
@@ -39,7 +39,7 @@ class OrdersController < ApplicationController
       session[:cart] = nil
       redirect_to order_confirm_path(@order.id)
     else
-      render action: 'new'
+      render action: 'checkout'
     end
   end
 
