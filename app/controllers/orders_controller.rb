@@ -44,6 +44,9 @@ class OrdersController < ApplicationController
   end
 
   def confirm
+    @order = Order.find(params[:id])
+    @order_items = @order.order_items
+    # do something with order items to make them accessible
   end
 
   private
