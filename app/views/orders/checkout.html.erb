@@ -3,6 +3,9 @@
     <div class="col-lg-12">
       <h1>Checkout</h1>
       <h3>Cart Items:</h3>
+        <% if @cart_items.nil? %>
+        You don't have any items in your cart!
+        <% end %>
         <% @products.each do |product| %>
           <%= product.name %> quantity: 1 price: <%= product.price %>
           <br />
