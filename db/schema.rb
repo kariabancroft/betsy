@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151210224120) do
+ActiveRecord::Schema.define(version: 20151211202817) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20151210224120) do
     t.string   "city"
     t.string   "state"
     t.integer  "zip"
-    t.integer  "cc_num"
+    t.string   "cc_num"
     t.date     "cc_exp"
     t.integer  "sec_code"
     t.integer  "bill_zip"
