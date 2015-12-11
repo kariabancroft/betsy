@@ -17,4 +17,7 @@
     </div>
   <% end %>
 <% end %>
+<% if @category.products.count == 0 %>
+  <h3> We're sorry, there are currently no products in the <%= @category.name %> category.</h3>
+<% end %>
 </div>
