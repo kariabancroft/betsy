@@ -26,8 +26,20 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    @title = "Edit your product"
-    @action = :update
+    current_merchant
+    @product = Product.find(params[:id])
+    @action = "update"
+    @method = :patch
+  end
+
+  def update
+    # merchant = Merchant.find(params[:merchant_id])
+    @product = Product.update(params[:id], product_params)
+    if @product.save
+      redirect_to merchant_products_path
+    else
+      render :edit
+    end
   end
 
   private

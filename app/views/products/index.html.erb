@@ -4,6 +4,7 @@
     <% @current_merchant.products.each do |product| %>
     <tr>
       <td><%= link_to product.name, product_path(product.id) %></td>
+      <td><%= link_to "|edit|", edit_merchant_product_path(@current_merchant.id, product.id) %></td>
     </tr>
     <% end %>
     <% if @current_merchant.products.count == 0 %>
