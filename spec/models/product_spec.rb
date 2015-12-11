@@ -1,9 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  let(:empty_product) do
-    Product.new
-  end
+
+  empty_product = Product.new
 
   let(:good_product) do
   Product.create({
@@ -30,23 +29,17 @@ RSpec.describe Product, type: :model do
 
     it "requires that the price is present" do
       expect(empty_product).to be_invalid
-      expect(empty_product.errors.keys).to include (:price)
+      expect(empty_product.errors.keys).to include(:price)
     end
 
     it "expects price to be an integer" do
-      bad_price = Product.create(price: "notaprice")
       expect(bad_price).to be_invalid
+      expect(bad_price.errors.keys).to include (:price)
+    end
+    it "expects price to be greater than 0" do
+      bad_price = Product.create({ name: "Dolphin", price: 0, photo_url: "www.dolphin.com", description: "description"})
+      expect(bad_price).to be_invalid
+      expect(bad_price.errors.keys).to include (:price)
     end
   end
 end
-
-  # belongs_to :merchant
-  # has_many :reviews
-  # has_many :orderitems
-  # has_and_belongs_to_many :categories
-  #
-  # validates_associated :reviews
-  # validates_associated :orderitems
-  # validates :name, presence: true, uniqueness: true
-  # validates :price, presence: true, numericality: true, greater_than: 0
-  #

@@ -1,9 +1,12 @@
+<div class="container">
 <h2>My Products</h2>
-<table>
+<table class="table table-striped">
   <tbody>
-    <%= @current_merchant.products.each do |product| %>
+    <% @current_merchant.products.each do |product| %>
     <tr>
-      <td><%= product.name %></td>
+      <td><%= link_to product.name, merchant_product_path(@current_merchant.id, product.id) %></td>
+      <td><%= link_to "edit", edit_merchant_product_path(@current_merchant.id, product.id) %></td>
+      <td><%= link_to "delete", merchant_product_path(@current_merchant.id, product.id), method: :delete, data: {confirm: "Confirm Deletion"} %></td>
     </tr>
     <% end %>
     <% if @current_merchant.products.count == 0 %>
@@ -14,4 +17,5 @@
   </tbody>
 </table>
 <br>
-<%= link_to "Add A New Product", new_merchant_product_path(@current_merchant.id) %>
+<%= link_to "Add A New Product", new_merchant_product_path(@current_merchant.id), class:"btn btn-default" %>
+</div>

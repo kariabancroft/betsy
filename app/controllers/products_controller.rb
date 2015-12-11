@@ -4,13 +4,15 @@ class ProductsController < ApplicationController
   end
 
   def new
+    current_merchant
     @product = Product.new
     @action = "create"
     @method = :post
   end
 
   def create
-    @product = Product.new(product_params)
+    merchant = Merchant.find(params[:merchant_id])
+    @product = merchant.products.new(product_params)
     if @product.save
       redirect_to merchant_products_path
     else
@@ -26,8 +28,24 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    @title = "Edit your product"
-    @action = :update
+    current_merchant
+    @product = Product.find(params[:id])
+    @action = "update"
+    @method = :patch
+  end
+
+  def update
+    @product = Product.update(params[:id], product_params)
+    if @product.save
+      redirect_to merchant_products_path
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+   Product.find(params[:id]).destroy
+   redirect_to merchant_products_path(params[:merchant_id])
   end
 
   def create_review
