@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
     end
   end
 
-  def confirm
+  def create
     @order = Order.create(order_params)
     @order_item = OrderItem.create()
     if @order.save
@@ -25,6 +25,9 @@ class OrdersController < ApplicationController
     else
       render action: 'new'
     end
+  end
+
+  def confirm
   end
 
   private
