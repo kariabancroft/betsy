@@ -15,7 +15,12 @@ class MerchantsController < ApplicationController
   end
 
   def home
-    current_merchant
+    if current_merchant.nil?
+      flash[:error] = "You must be logged in to view this page."
+      redirect_to new_session_path
+    else
+      render :home
+    end
   end
 
   private
