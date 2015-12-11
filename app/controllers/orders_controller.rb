@@ -22,6 +22,7 @@ class OrdersController < ApplicationController
   def create
     @cart_items = session[:cart]
     @order = Order.new(order_params[:order])
+    # product quantity must be sufficient before you can save the order - how to do?
     if !@cart_items.nil? && @order.save
       # create order items
       @cart_items.each do |k,v|
