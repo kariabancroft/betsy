@@ -1,4 +1,4 @@
-<h1>Login</h1>
+<h1>Login to Seabay</h1>
 
 <% if !flash.now[:error].nil? %>
   <%= flash.now[:error] %>
@@ -10,6 +10,7 @@
     <%= f.text_field :username, class: "form-control" %>
     <%= f.label :password %>
     <%= f.password_field :password, class: "form-control" %>
+    <br>
     <%= f.submit "Log In", class: "btn btn-info" %>
   </div>
 <% end %>

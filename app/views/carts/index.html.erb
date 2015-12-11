@@ -8,18 +8,21 @@
   <div class= "alert alert-danger" role="alert"><%= flash[:error] %></div>
 <% end %>
 
-<ul>
+<table class="table table-hover">
+<th> Item </th>
+<th> Quantity </th>
+<th> Add or remove items </th>
   <% @cart_items.each do |product_id, quantity| %>
     <% if quantity > 0 %>
-      <li><%= Product.find(product_id).name %>
-        <%= button_to "+", add_quantity_path(product_id) %>
-        <%= quantity %>
-        <%= button_to "-", remove_quantity_path(product_id) %>
-      </li>
-
+      <tr>
+        <td><%= Product.find(product_id).name %></td>
+        <td><%= quantity %></td>
+        <td><%= button_to "+", add_quantity_path(product_id) %> <%= button_to "- ", remove_quantity_path(product_id) %></td>
+      </tr>
     <% end %>
   <% end %>
-</ul>
 <% end %>
-
+</table>
 <%= button_to "Empty Cart", cart_path(1), method: :delete %>
+
+<%= button_to "Checkout - Need to create post method for checkout_path", checkout_path %>
