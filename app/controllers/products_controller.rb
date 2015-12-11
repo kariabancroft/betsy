@@ -33,13 +33,17 @@ class ProductsController < ApplicationController
   end
 
   def update
-    # merchant = Merchant.find(params[:merchant_id])
     @product = Product.update(params[:id], product_params)
     if @product.save
       redirect_to merchant_products_path
     else
       render :edit
     end
+  end
+
+  def destroy
+   Product.find(params[:id]).destroy
+   redirect_to merchant_products_path(params[:merchant_id])
   end
 
   private
