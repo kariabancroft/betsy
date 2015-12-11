@@ -34,6 +34,8 @@ class OrdersController < ApplicationController
         # decrement stock of purchased products
         new_product_quantity = product.quantity - v
         product.update(quantity: new_product_quantity)
+        # update order status from pending to paid
+        @order.update(status: "Paid")
       end
       # remove items from cart
       session[:cart] = nil
