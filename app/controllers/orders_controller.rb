@@ -50,6 +50,34 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @order_items = @order.order_items
     # do something with order items to make them accessible
+    @purchased_products = []
+    @order_items.each do |item|
+      product = Product.find(item.product_id)
+      quantity = item.quantity
+      quantity.times { @purchased_products.push(product) }
+    end
+    # @purchased_products now looks like [Product.find(1), Product.find(1), Product.find(2)]
+  end
+
+  def index
+    @merchant = Merchant.find(params[:merchant_id])
+
+    # find all products for this merchant
+    @products = @merchant.products
+    # find all order itmes for these products
+    @orderitems = []
+
+    @products.each do |product|
+      @orderitems.push(product.order_items)
+    end
+
+    @orderitems = @orderitems.flatten
+
+    # find all orders with those order items
+    @orders = []
+    @orderitems.each do |orderitem|
+      @orders.push(orderitem.order)
+    end
   end
 
   private

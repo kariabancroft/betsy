@@ -1,7 +1,12 @@
 <h3>Thanks for your order, <%= @order.name %>!</h3>
 <h4>Here are your order details: </h4>
 <p>
-  Need to include summary of order items here
+  Need to include more details of order items here
+  <% @purchased_products.each do |product| %>
+  <p>
+    <%= product.name %>
+  </p>
+  <% end %>
 </p>
 <%= @order.name %>
 <%= @order.purchase_time %>

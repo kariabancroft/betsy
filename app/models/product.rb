@@ -1,7 +1,7 @@
 class Product < ActiveRecord::Base
   belongs_to :merchant
   has_many :reviews
-  has_many :orderitems
+  has_many :order_items
   has_and_belongs_to_many :categories
 
   validates_associated :reviews

@@ -52,4 +52,13 @@ RSpec.describe MerchantsController, type: :controller do
       expect(subject).to redirect_to new_session_path
     end
   end
+
+  describe "GET 'show page'" do
+    it "is successful" do
+      test_merchant = Merchant.create(good_params[:merchant])
+      get :show, id: test_merchant.id
+      expect(response.status).to eq 200
+      expect(subject).to render_template :show
+    end
+  end
 end
