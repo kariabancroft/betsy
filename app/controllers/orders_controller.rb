@@ -61,11 +61,16 @@ class OrdersController < ApplicationController
     @orderitems = []
 
     @products.each do |product|
-      @orderitems.push(product.orderitems)
+      @orderitems.push(product.order_items)
     end
 
+    @orderitems = @orderitems.flatten
+
     # find all orders with those order items
-    @orderitems.orders
+    @orders = []
+    @orderitems.each do |orderitem|
+      @orders.push(orderitem.order)
+    end
   end
 
   private
