@@ -52,6 +52,22 @@ class OrdersController < ApplicationController
     # do something with order items to make them accessible
   end
 
+  def index
+    @merchant = Merchant.find(params[:merchant_id])
+
+    # find all products for this merchant
+    @products = @merchant.products
+    # find all order itmes for these products
+    @orderitems = []
+
+    @products.each do |product|
+      @orderitems.push(product.orderitems)
+    end
+
+    # find all orders with those order items
+    @orderitems.orders
+  end
+
   private
 
   def order_params
