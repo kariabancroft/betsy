@@ -16,6 +16,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "Dashboard", merchant_home_path(@current_merchant) %></li>
             <li><a href="/carts">Cart</a></li>
             <li><%= link_to "Log Out", logout_path, method: :delete %></li>
           </ul>
