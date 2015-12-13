@@ -27,7 +27,8 @@ end
 
 seed_products = [
   {name: "Sea Anemone", price: 500, photo_url: "http://www.cabrillomarineaquarium.org/_photos/species-green-sea-anemone.jpg", description: "Is it fluffy, or slimy?", quantity: 5, merchant_id: 1},
-  {name: "Starfish", price: 500, photo_url: "http://www.buckeyescuba.com/wp-content/uploads/2012/04/starfish2.jpg", description: "", quantity: 5, merchant_id: 2}
+  {name: "Starfish", price: 500, photo_url: "http://www.buckeyescuba.com/wp-content/uploads/2012/04/starfish2.jpg", description: "", quantity: 5, merchant_id: 2},
+  {name: "Dolphin", price: 500, photo_url: "http://weknowyourdreams.com/images/dolphin/dolphin-01.jpg", description: "", quantity: 0, merchant_id: 2}
 ]
 
 seed_products.each do |pro|
