@@ -1,12 +1,12 @@
 <div class="container">
 <h2>My Products</h2>
-<table class="table table-striped">
+<table class="table table-striped table-hover">
   <tbody>
     <% @current_merchant.products.each do |product| %>
     <tr>
-      <td><%= link_to product.name, merchant_product_path(@current_merchant.id, product.id) %></td>
-      <td><%= link_to "edit", edit_merchant_product_path(@current_merchant.id, product.id) %></td>
-      <td><%= link_to "delete", merchant_product_path(@current_merchant.id, product.id), method: :delete, data: {confirm: "Confirm Deletion"} %></td>
+      <td><%= link_to product.name.capitalize, merchant_product_path(@current_merchant.id, product.id) %></td>
+      <td><%= link_to "Edit", edit_merchant_product_path(@current_merchant.id, product.id) %></td>
+      <td><%= link_to "Delete", merchant_product_path(@current_merchant.id, product.id), method: :delete, data: {confirm: "Confirm Deletion"} %></td>
     </tr>
     <% end %>
     <% if @current_merchant.products.count == 0 %>
