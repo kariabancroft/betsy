@@ -6,7 +6,52 @@ RSpec.describe OrdersController, type: :controller do
   end
 
   let(:product) do
-    Product.create(name: "Stuff", price: 500)
+    Product.create(name: "Stuff", price: 500, quantity: 5)
+  end
+
+  let(:good_params) do
+    {order: {
+      name: "Katherine",
+      email: "kdefliese@gmail.com",
+      street: "123 Ada St",
+      city: "Seattle",
+      state: "WA",
+      zip: 12345,
+      cc_num: 1234,
+      cc_exp: Time.now.to_date,
+      sec_code: 123,
+      bill_zip: 12345,
+      status: "Pending",
+      purchase_time: Time.now
+      }
+    }
+  end
+
+  let(:bad_params) do
+    {order: {
+      name: nil,
+      email: nil,
+      street: nil,
+      city: nil,
+      state: nil,
+      zip: nil,
+      cc_num: nil,
+      cc_exp: nil,
+      sec_code: nil,
+      bill_zip: nil,
+      status: nil,
+      purchase_time: nil
+      }
+    }
+  end
+
+  let(:good_merchant_params) do
+    {merchant: {
+      username: "kdefliese",
+      email: "kdefliese@gmail.com",
+      password: "cats",
+      password_confirmation: "cats"}
+    }
   end
 
   before :each do
@@ -18,6 +63,39 @@ RSpec.describe OrdersController, type: :controller do
     it "renders the checkout page" do
       get :checkout
       expect(subject).to render_template :checkout
+    end
+  end
+
+  describe "POST 'create'" do
+    it "redirects to order confirm view" do
+      post :create, good_params
+      expect(subject).to redirect_to order_confirm_path(1)
+    end
+
+    it "renders checkout view again if given bad data" do
+      post :create, bad_params
+      expect(subject).to render_template :checkout
+    end
+  end
+
+  describe "GET 'confirm'" do
+    it "renders the order confirm page" do
+      order = Order.create(good_params[:order])
+      get :confirm, id: order.id
+      expect(subject).to render_template :confirm
+    end
+
+    it "shows order items on the order confirm page" do
+      @purchased_products = [Product.find(1), Product.find(1)]
+      expect(@purchased_products).to be_an Array
+    end
+  end
+
+  describe "GET 'index'" do
+    it "renders the index page for merchants to see their orders" do
+      test_merchant = Merchant.create(good_merchant_params[:merchant])
+      get :index, merchant_id: test_merchant.id
+      expect(subject).to render_template :index
     end
   end
 end

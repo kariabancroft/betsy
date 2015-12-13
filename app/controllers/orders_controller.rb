@@ -64,7 +64,7 @@ class OrdersController < ApplicationController
 
     # find all products for this merchant
     @products = @merchant.products
-    # find all order itmes for these products
+    # find all order items for these products
     @orderitems = []
 
     @products.each do |product|
