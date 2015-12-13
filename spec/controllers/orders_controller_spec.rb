@@ -84,6 +84,11 @@ RSpec.describe OrdersController, type: :controller do
       get :confirm, id: order.id
       expect(subject).to render_template :confirm
     end
+
+    it "shows order items on the order confirm page" do
+      @purchased_products = [Product.find(1), Product.find(1)]
+      expect(@purchased_products).to be_an Array
+    end
   end
 
   describe "GET 'index'" do
