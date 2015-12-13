@@ -27,11 +27,15 @@ $jumbo-height: 350px;
   }
 }
 
-#merchant_home {
+.below_navbar {
   padding-top: 60px;
 }
 
 .form-control label{
   margin: 0px 10px 5px 5px;
   font-weight: normal;
+}
+
+.container {
+  padding-top: 60px;
 }
