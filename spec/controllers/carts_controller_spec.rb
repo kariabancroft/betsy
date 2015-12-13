@@ -38,12 +38,7 @@ RSpec.describe CartsController, type: :controller do
       expect(flash[:error]).to eq "You cannot add more items than are in stock."
     end
 
-  it "redirects to the cart page if was already in cart and quantity is available to add another" do
-    post :add_quantity, product_id: product.id
-    expect(subject).to redirect_to carts_path
   end
-  
-end
 
   describe "POST 'remove_quantity'" do
     it "redirects to the cart page" do
