@@ -45,6 +45,15 @@ RSpec.describe OrdersController, type: :controller do
     }
   end
 
+  let(:good_merchant_params) do
+    {merchant: {
+      username: "kdefliese",
+      email: "kdefliese@gmail.com",
+      password: "cats",
+      password_confirmation: "cats"}
+    }
+  end
+
   before :each do
     session[:cart] = cart_items
   end
@@ -74,6 +83,14 @@ RSpec.describe OrdersController, type: :controller do
       order = Order.create(good_params[:order])
       get :confirm, id: order.id
       expect(subject).to render_template :confirm
+    end
+  end
+
+  describe "GET 'index'" do
+    it "renders the index page for merchants to see their orders" do
+      test_merchant = Merchant.create(good_merchant_params[:merchant])
+      get :index, merchant_id: test_merchant.id
+      expect(subject).to render_template :index
     end
   end
 end
