@@ -22,6 +22,10 @@ class CartsController < ApplicationController
       flash[:error] = "You cannot add more items than are in stock."
     elsif session[:cart][id].nil?
       session[:cart][id] = 1
+      # if trying to add more to cart than are in stock, flash error
+    elsif session[:cart][id] + 1 > @product.quantity
+      flash[:error] = "You cannot add more items than are in stock."
+      # add another of product to cart
     else
       session[:cart][id] += 1
     end
