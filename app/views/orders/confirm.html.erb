@@ -1,22 +1,25 @@
-<h3>Thanks for your order, <%= @order.name %>!</h3>
-<h4>Here are your order details: </h4>
-<p>
-  Need to include more details of order items here
-  <% @purchased_products.each do |product| %>
+<div class="container">
+  <%= render 'layouts/navbar' %>
+  <h3>Thanks for your order, <%= @order.name %>!</h3>
+  <h4>Here are your order details: </h4>
   <p>
-    <%= product.name %>
+    Need to include more details of order items here
+    <% @purchased_products.each do |product| %>
+    <p>
+      <%= product.name %>
+    </p>
+    <% end %>
   </p>
-  <% end %>
-</p>
-<%= @order.name %>
-<%= @order.purchase_time %>
-<%= @order.status %>
-<%= @order.email %>
-<%= @order.street %>
-<%= @order.city %>
-<%= @order.state %>
-<%= @order.zip %>
-<%= @order.cc_num %>
-<%= @order.cc_exp %>
-<%= @order.sec_code %>
-<%= @order.bill_zip %>
+  <%= @order.name %>
+  <%= @order.purchase_time %>
+  <%= @order.status %>
+  <%= @order.email %>
+  <%= @order.street %>
+  <%= @order.city %>
+  <%= @order.state %>
+  <%= @order.zip %>
+  <%= @order.cc_num %>
+  <%= @order.cc_exp %>
+  <%= @order.sec_code %>
+  <%= @order.bill_zip %>
+</div>
