@@ -26,7 +26,6 @@ RSpec.describe CartsController, type: :controller do
   end
 
   describe "POST 'add_quantity'" do
-
     it "redirects to the cart page if product was not yet in cart" do
       post :add_quantity, product_id: product.id
       expect(subject).to redirect_to carts_path
@@ -39,6 +38,7 @@ RSpec.describe CartsController, type: :controller do
     end
 
   end
+
 
   describe "POST 'remove_quantity'" do
     it "redirects to the cart page" do
