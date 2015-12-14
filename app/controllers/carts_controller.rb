@@ -16,7 +16,6 @@ class CartsController < ApplicationController
     # delete any items in cart whose values are 0
     session[:cart].delete_if { |k,v| v == 0 }
 
-    binding.pry
     if session[:cart].length == 0
       @cart_items = nil
     else
