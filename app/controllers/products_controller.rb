@@ -1,12 +1,11 @@
+
 class ProductsController < ApplicationController
   before_action :require_login, only: [:index, :edit, :new]
 
   def index
-    current_merchant
   end
 
   def new
-    current_merchant
     @product = Product.new
     @action = "create"
     @method = :post
@@ -30,7 +29,6 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    current_merchant
     @product = Product.find(params[:id])
     @action = "update"
     @method = :patch
