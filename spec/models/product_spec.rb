@@ -8,7 +8,6 @@ RSpec.describe Product, type: :model do
   Product.create({
       name: "Dolphin",
       price: 2,
-      photo_url: "www.dolphin.com",
       description: "description"
     })
   end
@@ -33,11 +32,12 @@ RSpec.describe Product, type: :model do
     end
 
     it "expects price to be an integer" do
+      bad_price = Product.create({ name: "Dolphin", price: "a", description: "description"})
       expect(bad_price).to be_invalid
       expect(bad_price.errors.keys).to include (:price)
     end
     it "expects price to be greater than 0" do
-      bad_price = Product.create({ name: "Dolphin", price: 0, photo_url: "www.dolphin.com", description: "description"})
+      bad_price = Product.create({ name: "Dolphin", price: 0, description: "description"})
       expect(bad_price).to be_invalid
       expect(bad_price.errors.keys).to include (:price)
     end

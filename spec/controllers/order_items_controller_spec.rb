@@ -1,4 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe MerchantsController, type: :controller do
+RSpec.describe OrderItemsController, type: :controller do
+
 end

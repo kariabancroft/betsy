@@ -1,4 +1,6 @@
 class MerchantsController < ApplicationController
+  before_action :require_login, only: [:home]
+
   def new
     @merchant = Merchant.new
   end
@@ -13,12 +15,6 @@ class MerchantsController < ApplicationController
   end
 
   def home
-    if current_merchant.nil?
-      flash[:error] = "You must be logged in to view this page."
-      redirect_to new_session_path
-    else
-      render :home
-    end
   end
 
   def show
