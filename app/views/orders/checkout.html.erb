@@ -3,6 +3,9 @@
   <div class="row">
     <div class="col-lg-12">
       <h1>Checkout</h1>
+      <% if !flash[:error].nil? %>
+        <div class= "alert alert-danger" role="alert"><%= flash[:error] %></div>
+      <% end %>
         <% if @cart_items.nil? %>
           You don't have any items in your cart! You must add products before you can checkout.
         <% elsif @products.nil? %>

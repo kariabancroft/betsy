@@ -31,10 +31,17 @@ class OrdersController < ApplicationController
     @cart_items.each do |k,v|
       product = Product.find(k.to_i)
       if product.quantity < v
-        error = "Product #{product.name} does not have sufficient stock to purchase. Please check current quantity of that product and try again."
+        # stores error which will go into flash later
+        error = "#{product.name} does not have sufficient stock to purchase. This item has been removed from your cart."
         @inventory_errors.push(error)
+        # removes the sold out items from the cart
+        discrepancy = (v - product.quantity).abs
+        discrepancy.times do
+          session[:cart][k] -= 1
+        end
       end
     end
+    # if there are no inventory problems and the cart isn't empty and the order saves
     if @inventory_errors.empty? && !@cart_items.nil? && @order.save
       # create order items
       @cart_items.each do |k,v|
@@ -54,11 +61,11 @@ class OrdersController < ApplicationController
       session[:cart] = nil
       redirect_to order_confirm_path(@order.id)
     else
-      # tells guest which products were sold out
+      # tells guest which products were sold out and removed from cart
       if !@inventory_errors.empty?
-        flash[:error] = @inventory_errors
+        flash[:error] = @inventory_errors.join(", ")
       end
-      render action: 'checkout'
+      redirect_to orders_checkout_path
     end
   end
 
