@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  before_action :require_login, only: [:index]
+
   def checkout
     # get @current_order info from carts controller
     @cart_items = session[:cart]
