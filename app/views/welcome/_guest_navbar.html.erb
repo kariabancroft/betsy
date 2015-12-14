@@ -19,7 +19,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop by merchant <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <% @merchants.each do |m| %>
-                  <li><%= link_to m.username, merchant_products_path(m.id) %></li>
+                  <li><%= link_to m.username, merchant_path(m.id) %></li>
                 <% end %>
               </ul>
             </li>

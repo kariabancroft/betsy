@@ -39,7 +39,7 @@ Product.find(1).categories << Category.find(2)
 Product.find(2).categories << Category.find(1)
 
 seed_orders = [
-  {purchase_time: Time.now, name: "Ricky", email: "ricky@awesome.com", street: "Ada Street", city: "Seattle", state: "WA", zip: 98112, cc_num: "1234", cc_exp: Time.now.to_date, sec_code: 123, bill_zip: 98112}
+  {purchase_time: Time.now, name: "Ricky", email: "ricky@awesome.com", street: "Ada Street", city: "Seattle", state: "WA", zip: 98112, cc_num: "1234", cc_exp: Time.now.to_date, sec_code: 123, bill_zip: 98112, status: "Paid"}
 ]
 
 seed_orders.each do |ord|

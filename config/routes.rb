@@ -30,9 +30,7 @@ Rails.application.routes.draw do
     resources :order_items, :only => [:edit, :update]
   end
 
-
-
-
+  get "merchants/:id/orders/show/:status" => 'orders#status', as: :status_orders
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
