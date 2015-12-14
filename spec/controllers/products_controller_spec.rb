@@ -17,11 +17,11 @@ RSpec.describe ProductsController, type: :controller do
   end
 
   let :update_params do
-  {
+  {merchant_id: 1,
+
     product: {
       name: "Catfish",
       price: 2,
-      merchant_id: 3,
       description: "new description"
     }
   }
@@ -69,63 +69,23 @@ RSpec.describe ProductsController, type: :controller do
     end
   end
 
-  describe "PATCH #update" do
-    @merchant = Merchant.update()
-  end
-end
-
-#   describe "DESTROY #destroy" do
-#
-#   end
-#
-#   def destroy
-#    Product.find(params[:id]).destroy
-#    redirect_to merchant_products_path(params[:merchant_id])
-#   end
-#
-#   describe "#create_review" do
-#
-#   end
-#
-#   def create_review
-#     @review = Review.create(review_params)
-#     redirect_to product_path(@review.product.id)
-#   end
-#
-#   describe "current_merchant_product" do
-#
-#   end
-#
-#   private
-#
-#   def current_merchant_product?
-#     if current_merchant.nil?
-#       return true
-#     else
-#       current_merchant.products.each do |product|
-#         if product.id == params[:id].to_i
-#           return false
-#         else
-#           return true
-#         end
-#       end
-#     end
-#   end
-#
-#   def product_params
-#     params.require(:product).permit(:name, :price, :image, :description, :quantity, {category_ids:[]})
-#   end
-#
-#   def review_params
-#     params.require(:review).permit(:rating, :description, :product_id)
-#   end
-#
-# end
-
-  # merchant = Merchant.find(params[:merchant_id])
-  # @product = merchant.products.new(product_params)
-  # if @product.save
-  #   redirect_to merchant_products_path
-  # else
-  #   render :new
+  # describe "PATCH #update" do
+  #   it "goes to the product show page" do
+  #     patch :update, update_params
+  #     expect(subject).to redirect_to send(merchant_product_path,*@product.merchant_id)
+  #   end
   # end
+
+  # describe "DESTROY #destroy" do
+  #   it "redirects to merchant index page" do
+  #     delete :destroy, create_params
+  #      redirect_to merchant_products_path(@product.merchant_id)
+  #     end
+  #   end
+
+  # describe "#create a review" do
+  #   it "redirects to product show page" do
+  #     @review = Review.create(rating: 3, description: "good!")
+  #   end
+  # end
+end
