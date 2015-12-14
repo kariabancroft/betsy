@@ -64,6 +64,7 @@ class OrdersController < ApplicationController
 
     # find all products for this merchant
     @products = @merchant.products
+    
     # find all order items for these products
     @orderitems = []
 
@@ -78,6 +79,10 @@ class OrdersController < ApplicationController
     @orderitems.each do |orderitem|
       @orders.push(orderitem.order)
     end
+  end
+
+  def show
+
   end
 
   private
