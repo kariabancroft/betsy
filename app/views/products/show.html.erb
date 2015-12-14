@@ -16,7 +16,7 @@
       <h1><%= @product.name %></h1>
       <h2><%= @product.merchant.username %></h2>
 
-      <h4><%= number_to_currency(@product.price/100.to_f) %></h4>
+      <h4><%= number_to_currency(@product.price) %></h4>
 
       <%= link_to "+", add_quantity_path(@product.id), :class => "btn btn-primary btn-sm", :method => :post %>
 
