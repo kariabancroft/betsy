@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :require_login, only: [:index]
+  before_action :require_login, only: [:index, :pending, :cancelled, :paid, :completed]
 
   def checkout
     # get @current_order info from carts controller
@@ -61,9 +61,7 @@ class OrdersController < ApplicationController
   end
 
   def index
-    # @merchant = Merchant.find(params[:merchant_id])
-
-    # find all products for this merchant
+    # find all products for current merchant
     @products = current_merchant.products
     # find all order items for these products
     @orderitems = []
@@ -85,11 +83,59 @@ class OrdersController < ApplicationController
     @orderitems.each do |orderitem|
       @total_revenue += Product.find(orderitem.product_id).price * orderitem.quantity
     end
-
   end
 
   def show
 
+  end
+
+  def status
+    # find all products for current merchant
+    @products = current_merchant.products
+    # find all order items for these products
+    @all_orderitems = []
+
+    @products.each do |product|
+      @all_orderitems.push(product.order_items)
+    end
+
+    @all_orderitems = @all_orderitems.flatten
+
+    # find all orders with those order items
+    @orders = []
+    @all_orderitems.each do |orderitem|
+      @orders.push(orderitem.order)
+    end
+
+    @orderitems = []
+
+    @status = params[:status]
+
+    if @status == "pending"
+      @all_orderitems.each do |orderitem|
+        if orderitem.order.status == "Pending"
+          @orderitems.push(orderitem)
+        end
+      end
+    elsif @status == "paid"
+      @all_orderitems.each do |orderitem|
+        if orderitem.order.status == "Paid"
+          @orderitems.push(orderitem)
+        end
+      end
+    elsif @status == "completed"
+      @all_orderitems.each do |orderitem|
+        if orderitem.order.status == "Completed"
+          @orderitems.push(orderitem)
+        end
+      end
+    elsif @status == "cancelled"
+      @all_orderitems.each do |orderitem|
+        if orderitem.order.status == "Cancelled"
+          @orderitems.push(orderitem)
+        end
+      end
+    end
   end
 
   private
