@@ -6,6 +6,8 @@ class OrderItemsController < ApplicationController
   end
 
   def update
+    binding.pry
+    @orderitem = OrderItem.find(params[:id])
 
   end
 end
