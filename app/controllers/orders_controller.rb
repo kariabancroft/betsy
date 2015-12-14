@@ -80,6 +80,13 @@ class OrdersController < ApplicationController
     @orderitems.each do |orderitem|
       @orders.push(orderitem.order)
     end
+
+    @total_revenue = 0
+
+    @orderitems.each do |orderitem|
+      @total_revenue += Product.find(orderitem.product_id).price * orderitem.quantity
+    end
+
   end
 
   def show
