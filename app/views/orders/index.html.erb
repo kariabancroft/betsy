@@ -34,7 +34,7 @@
             <td><%= orderitem.quantity %></td>
             <td><%= Product.find(orderitem.product_id).price * orderitem.quantity %></td>
             <td><%= orderitem.order.status %></td>
-            <td>Edit link/button</td>
+            <td><%= link_to "Edit Status", edit_merchant_order_item_path(@current_merchant.id, orderitem.id) %></td>
           </tr>
         <% end %>
       </table>
