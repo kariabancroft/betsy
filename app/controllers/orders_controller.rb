@@ -60,11 +60,11 @@ class OrdersController < ApplicationController
   end
 
   def index
-    @merchant = Merchant.find(params[:merchant_id])
+    @current_merchant = Merchant.find(params[:merchant_id])
 
     # find all products for this merchant
-    @products = @merchant.products
-    
+    @products = @current_merchant.products
+
     # find all order items for these products
     @orderitems = []
 
