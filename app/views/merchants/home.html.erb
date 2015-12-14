@@ -1,12 +1,13 @@
 <div class="container">
   <%= render 'layouts/navbar' %>
+  <div class="row">
     <div class="col-lg-12">
       <h3>Welcome, <%= @current_merchant.username %>!</h3>
-
-      <%= link_to "View Your Products", merchant_products_path(@current_merchant.id) %>
-      <br>
-      <%= link_to "View Your Orders", merchant_orders_path(@current_merchant.id) %>
-      <br>
-      <%= link_to "Create a New Category", new_category_path %>
+      <ul class="list-group">
+        <li class="list-group-item"><%= link_to "View Your Products", merchant_products_path(@current_merchant.id) %></li>
+        <li class="list-group-item"><%= link_to "View Your Orders", merchant_orders_path(@current_merchant.id) %></li>
+        <li class="list-group-item"><%= link_to "Create a New Category", new_category_path %></li>
+      </ul>
     </div>
+  </div>
 </div>
