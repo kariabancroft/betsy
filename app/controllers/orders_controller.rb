@@ -62,9 +62,7 @@ class OrdersController < ApplicationController
   end
 
   def index
-    # @merchant = Merchant.find(params[:merchant_id])
-
-    # find all products for this merchant
+    # find all products for current merchant
     @products = current_merchant.products
     # find all order items for these products
     @orderitems = []
@@ -86,6 +84,8 @@ class OrdersController < ApplicationController
     @orderitems.each do |orderitem|
       @total_revenue += Product.find(orderitem.product_id).price * orderitem.quantity
     end
+
+    @statuses = ["pending", "paid", "complete", "cancelled"]
 
   end
 

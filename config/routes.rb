@@ -24,13 +24,16 @@ Rails.application.routes.draw do
 
   get "merchants/:id/home" => "merchants#home", as: :merchant_home
 
+  get "merchants/:id/orders/pending" => 'orders#pending', as: :pending_orders
+  get "merchants/:id/orders/paid" => 'orders#paid', as: :paid_orders
+  get "merchants/:id/orders/completed" => 'orders#completed', as: :completed_orders
+  get "merchants/:id/orders/cancelled" => 'orders#cancelled', as: :cancelled_orders
+
   resources :merchants do
     resources :products
     resources :orders, :only => [:index, :show, :edit, :update]
     resources :order_items, :only => [:edit, :update]
   end
-
-
 
 
 
