@@ -19,7 +19,7 @@
       <th>Edit Status</th>
         <% @orderitems.each do |orderitem| %>
           <tr>
-            <td><%= link_to orderitem.order_id, merchant_order_path(@merchant.id, orderitem.order_id) %></td>
+            <td><%= link_to orderitem.order_id, merchant_order_path(@current_merchant.id, orderitem.order_id) %></td>
             <td><%= orderitem.created_at.to_date %></td>
             <td><%= link_to Product.find(orderitem.product_id).name, product_path(Product.find(orderitem.product_id).id) %></td>
             <td><%= Product.find(orderitem.product_id).price %></td>
