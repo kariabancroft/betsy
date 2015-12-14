@@ -29,6 +29,7 @@ RSpec.describe ProductsController, type: :controller do
 
   let :bad_params do
     {merchant_id: 1,
+      id: 1,
       product: {
         name: "",
       }
@@ -69,23 +70,28 @@ RSpec.describe ProductsController, type: :controller do
     end
   end
 
-  # describe "PATCH #update" do
-  #   it "goes to the product show page" do
-  #     patch :update, update_params
-  #     expect(subject).to redirect_to send(merchant_product_path,*@product.merchant_id)
-  #   end
-  # end
+  describe "PATCH #update" do
+    it "goes to the product index page when successful" do
+      patch :update, update_params
+      expect(subject).to redirect_to merchant_products_path(@product.merchant_id)
+    end
+    it "renders the edit view when unsuccessful" do
+      patch :update, bad_params
+      expect(subject).to render_template :edit,(@product.id)
+    end
+  end
 
-  # describe "DESTROY #destroy" do
-  #   it "redirects to merchant index page" do
-  #     delete :destroy, id: 1
-  #      redirect_to merchant_products_path(@product.merchant_id)
-  #     end
-  #   end}
 
-  # describe "#create a review" do
-  #   it "redirects to product show page" do
-  #     @review = Review.create(rating: 3, description: "good!")
-  #   end
-  # end
+  describe "DESTROY #destroy" do
+    it "redirects to merchant index page" do
+      delete :destroy, update_params
+      redirect_to merchant_products_path(@product.merchant_id)
+      end
+    end
+
+  describe "#create a review" do
+    it "redirects to product show page" do
+      @review = Review.create(rating: 3, description: "good!")
+    end
+  end
 end
