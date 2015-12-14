@@ -108,20 +108,24 @@ class OrdersController < ApplicationController
     end
 
     @orderitems = []
-
+    @total_revenue = 0
     @status = params[:status]
 
     if @status == "pending"
-      @all_orderitems.each do |orderitem|
-        if orderitem.order.status == "Pending"
-          @orderitems.push(orderitem)
+      @all_orderitems.each do |oi|
+        if oi.order.status == "Pending"
+          @orderitems.push(oi)
         end
       end
+
     elsif @status == "paid"
       @all_orderitems.each do |orderitem|
         if orderitem.order.status == "Paid"
           @orderitems.push(orderitem)
         end
+      end
+      @orderitems.each do |orderitem|
+        @total_revenue += Product.find(orderitem.product_id).price * orderitem.quantity
       end
     elsif @status == "completed"
       @all_orderitems.each do |orderitem|

@@ -14,12 +14,13 @@
 
   <div class="row">
     <div class="col-lg-12">
-      <h3>View Orders by Status: <%= link_to "Pending", status_orders_path(@current_merchant.id, :pending) %>
+      <h3>View Orders by Status:</h3>
+      <p>
+        <%= link_to "Pending", status_orders_path(@current_merchant.id, :pending) %>
         <%= link_to "Paid", status_orders_path(@current_merchant.id, :paid) %>
         <%= link_to "Completed", status_orders_path(@current_merchant.id, :completed) %>
         <%= link_to "Cancelled", status_orders_path(@current_merchant.id, :cancelled) %>
-      </h3>
-
+      </p>
     </div>
   </div>
 
