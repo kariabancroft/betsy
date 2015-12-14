@@ -2,6 +2,17 @@
   <%= render 'layouts/navbar' %>
   <h3>Thanks for your order, <%= @order.name %>!</h3>
   <h4>Here are your order details: </h4>
+  <h5>Order Status: <%= @order.status %></h5>
+  <p>Placed On: <%= @order.purchase_time %></p>
+  <p>Updates will be sent to: <%= @order.email %></p>
+  <h5>Shipping Address:</h5>
+  <p><%= @order.name %></p>
+  <p><%= @order.street %></p>
+  <p><%= @order.city %>, <%= @order.state %> <%= @order.zip %></p>
+  <h5>Billing Information:</h5>
+  <p>Credit Card Number: <%= @order.cc_num %></p>
+  <p>Expiration Date: <%= @order.cc_exp %></p>
+  <p>Billing Zip Code: <%= @order.bill_zip %></p>
   <p>
     Need to include more details of order items here
     <% @purchased_products.each do |product| %>
@@ -10,16 +21,4 @@
     </p>
     <% end %>
   </p>
-  <%= @order.name %>
-  <%= @order.purchase_time %>
-  <%= @order.status %>
-  <%= @order.email %>
-  <%= @order.street %>
-  <%= @order.city %>
-  <%= @order.state %>
-  <%= @order.zip %>
-  <%= @order.cc_num %>
-  <%= @order.cc_exp %>
-  <%= @order.sec_code %>
-  <%= @order.bill_zip %>
 </div>
