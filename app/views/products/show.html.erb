@@ -6,7 +6,11 @@
   <%= render 'layouts/navbar' %>
   <div class="row">
     <div class="col-md-4">
-      <%= image_tag(@product.image.url(:medium)) %>
+      <% if @product.image_file_name.nil? %>
+        <%= image_tag(@product.photo_url) %>
+      <% else %>
+      <%= image_tag(@product.image.url(:medium))%>
+      <% end %>
     </div>
     <div class="col-md-8">
       <h1><%= @product.name %></h1>
