@@ -36,6 +36,26 @@ RSpec.describe ProductsController, type: :controller do
     }
   end
 
+  let :create_params do
+  {merchant_id: 1,
+    product: {
+      name: "Dogfish",
+      price: 2,
+      description: "new description"
+    }
+  }
+  end
+
+  let :good_review do
+    {product_id: 1,
+     id: 1,
+      review: {
+        rating: 3,
+        description: "Aight",
+    }
+  }
+  end
+
   describe "GET #index" do
     it "is successful" do
       get :index, merchant_id: @product.merchant_id
@@ -85,13 +105,15 @@ RSpec.describe ProductsController, type: :controller do
   describe "DESTROY #destroy" do
     it "redirects to merchant index page" do
       delete :destroy, update_params
-      redirect_to merchant_products_path(@product.merchant_id)
+      expect(subject).to redirect_to merchant_products_path(@product.merchant_id)
       end
     end
 
-  describe "#create a review" do
-    it "redirects to product show page" do
-      @review = Review.create(rating: 3, description: "good!")
-    end
-  end
+  # describe "#create a review" do
+  #   it "redirects to product show page" do
+  #     @review = Review.create(rating: 3, description: "good!", product_id: 1)
+  #     post :create, product_id: 1
+  #     expect(subject).redirect_to product_path(product_id)
+  #   end
+  # end
 end
