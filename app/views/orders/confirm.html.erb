@@ -5,7 +5,7 @@
       <h3>Thanks for your order, <%= @order.name %>!</h3>
       <h4>Here are your order details: </h4>
       <h5>Order Status: <%= @order.status %></h5>
-      <p>Placed On: <%= @order.purchase_time %></p>
+      <p>Placed On: <%= @order.purchase_time.strftime("%b %-d, %Y at %I:%M%p") %></p>
       <p>Updates will be sent to: <%= @order.email %></p>
     </div>
   </div>
@@ -30,14 +30,21 @@
       <th>Quantity</th>
       <th>Price</th>
       <th>Subtotal</th>
-        <% @purchased_products.each do |product| %>
-          <tr>
-            <td><%= link_to product.name, product_path(product.id) %></td>
-            <td>quantity</td>
-            <td><%= product.price %></td>
-            <td>add up the prices</td>
-          </tr>
-        <% end %>
+      <% @order_items.each do |orderitem| %>
+      <% product = Product.find(orderitem.product_id) %>
+        <tr>
+          <td><%= link_to product.name, product_path(product.id) %></td>
+          <td><%= orderitem.quantity %></td>
+          <td><%= product.price %></td>
+          <td><%= product.price * orderitem.quantity %></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>Order Total:</td>
+        <td><%= @order_total %></td>
+      </tr>
       </table>
     </div>
   </div>
