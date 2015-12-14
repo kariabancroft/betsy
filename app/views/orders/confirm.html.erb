@@ -35,15 +35,15 @@
         <tr>
           <td><%= link_to product.name, product_path(product.id) %></td>
           <td><%= orderitem.quantity %></td>
-          <td><%= product.price %></td>
-          <td><%= product.price * orderitem.quantity %></td>
+          <td><%= number_to_currency(product.price) %></td>
+          <td><%= number_to_currency(product.price * orderitem.quantity) %></td>
         </tr>
       <% end %>
       <tr>
         <td></td>
         <td></td>
         <td>Order Total:</td>
-        <td><%= @order_total %></td>
+        <td><%= number_to_currency(@order_total) %></td>
       </tr>
       </table>
     </div>

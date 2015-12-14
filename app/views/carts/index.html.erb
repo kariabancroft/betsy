@@ -28,7 +28,7 @@
                  <%= quantity %>
                  <%= link_to "- ", remove_quantity_path(product_id), method: :post, class: "btn btn-primary btn-sm" %>
                </td>
-               <td><%= Product.find(product_id).price * quantity %></td>
+               <td><%= number_to_currency(Product.find(product_id).price * quantity) %></td>
             </tr>
           <% end %>
         <% end %>
