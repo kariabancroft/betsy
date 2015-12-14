@@ -1,22 +1,29 @@
 <div class="container">
   <%= render 'layouts/navbar' %>
-  <h1>Create New Merchant Account</h1>
+  <div class="row">
+    <h1>Create New Merchant Account</h1>
+  </div>
 
-  <ul>
-    <% @merchant.errors.each do |column, message| %>
-      <li><strong><%= column.capitalize %></strong>: <%= message %></li>
+  <div class="row">
+    <ul>
+      <% @merchant.errors.each do |column, message| %>
+        <li><strong><%= column.capitalize %></strong>: <%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="row">
+    <%= form_for @merchant, class: "form" do |f| %>
+      <%= f.label :username %>
+      <%= f.text_field :username, class: "form-control" %>
+      <%= f.label :email %>
+      <%= f.email_field :email, class: "form-control" %>
+      <%= f.label :password %>
+      <%= f.password_field :password, class: "form-control" %>
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, class: "form-control" %>
+      <br>
+      <%= f.submit class: "btn btn-primary" %>
     <% end %>
-  </ul>
-
-  <%= form_for @merchant do |f| %>
-    <%= f.label :username %>
-    <%= f.text_field :username %>
-    <%= f.label :email %>
-    <%= f.email_field :email %>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-    <%= f.submit %>
-  <% end %>
+  </div>
 </div>
