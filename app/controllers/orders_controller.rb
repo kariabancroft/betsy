@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  before_action :require_login, only: [:index]
+
   def checkout
     # get @current_order info from carts controller
     @cart_items = session[:cart]
@@ -60,11 +62,10 @@ class OrdersController < ApplicationController
   end
 
   def index
-    @current_merchant = Merchant.find(params[:merchant_id])
+    # @merchant = Merchant.find(params[:merchant_id])
 
     # find all products for this merchant
-    @products = @current_merchant.products
-
+    @products = current_merchant.products
     # find all order items for these products
     @orderitems = []
 
