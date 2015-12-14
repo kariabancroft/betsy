@@ -1,9 +1,12 @@
 <div class="container">
   <%= render 'layouts/navbar' %>
   <h1><%= @title %></h1>
-    <%= form_for @category, url: {action: @action} do |f| %>
+    <%= form_for @category, html: { multipart: true }, url: {action: @action} do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name, :required => true %>
+    <br>
+    <%= f.label :image %>
+    <%= f.file_field :image, class:"form-control" %>
     <%= f.submit "Save" %>
     <% end %>
 </div>

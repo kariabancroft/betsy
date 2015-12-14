@@ -18,7 +18,7 @@ RSpec.describe ProductsController, type: :controller do
 
   let :update_params do
   {merchant_id: 1,
-
+    id: 1,
     product: {
       name: "Catfish",
       price: 2,
@@ -78,10 +78,10 @@ RSpec.describe ProductsController, type: :controller do
 
   # describe "DESTROY #destroy" do
   #   it "redirects to merchant index page" do
-  #     delete :destroy, create_params
+  #     delete :destroy, id: 1
   #      redirect_to merchant_products_path(@product.merchant_id)
   #     end
-  #   end
+  #   end}
 
   # describe "#create a review" do
   #   it "redirects to product show page" do

@@ -1,0 +1,11 @@
+<h1>Edit OrderItem Status</h1>
+
+<form class="form">
+  <div class="form-group">
+    <%= form_for @orderitem, url: merchant_orders_path(@current_merchant.id) do |f| %>
+      <%= f.label :rating %>
+      <%= f.number_field :rating, :required => true, :max => 5, :min => 0 %>
+      <%= f.submit "Edit", class: "btn btn-default" %>
+    <% end %>
+  </div>
+</div>

@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   resources :merchants do
     resources :products
     resources :orders, :only => [:index, :show, :edit, :update]
+    resources :order_items, :only => [:edit, :update]
   end
 
 
