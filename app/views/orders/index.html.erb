@@ -35,7 +35,8 @@
       <th>Price</th>
       <th>Quantity</th>
       <th>Subtotal</th>
-      <th>Status</th>
+      <th>Order Status</th>
+      <th>Your Status</th>
       <th>Edit Status</th>
         <% @orderitems.each do |orderitem| %>
           <tr>
@@ -46,6 +47,7 @@
             <td><%= orderitem.quantity %></td>
             <td><%= Product.find(orderitem.product_id).price * orderitem.quantity %></td>
             <td><%= orderitem.order.status %></td>
+            <td><%= orderitem.status %></td>
             <td><%= link_to "Edit Status", edit_merchant_order_item_path(@current_merchant.id, orderitem.id) %></td>
           </tr>
         <% end %>
