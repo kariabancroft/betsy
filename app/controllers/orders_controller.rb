@@ -86,7 +86,15 @@ class OrdersController < ApplicationController
   end
 
   def show
-
+    @order = Order.find(params[:id])
+    @order_items = @order.order_items
+    # find total $ amount for order
+    @order_total = 0
+    @order_items.each do |item|
+      product = Product.find(item.product_id)
+      subtotal = product.price * item.quantity
+      @order_total += subtotal
+    end
   end
 
   def status
