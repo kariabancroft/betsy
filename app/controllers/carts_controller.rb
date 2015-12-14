@@ -11,7 +11,17 @@ class CartsController < ApplicationController
   end
 
   def index
-    @cart_items = session[:cart]
+    cart_exists
+
+    # delete any items in cart whose values are 0
+    session[:cart].delete_if { |k,v| v == 0 }
+
+    binding.pry
+    if session[:cart].length == 0
+      @cart_items = nil
+    else
+      @cart_items = session[:cart]
+    end
   end
 
   def add_quantity
