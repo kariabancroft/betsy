@@ -5,6 +5,8 @@
       <h1>Checkout</h1>
         <% if @cart_items.nil? %>
           You don't have any items in your cart! You must add products before you can checkout.
+        <% elsif @products.nil? %>
+          It looks like all the products that were in your cart are sold out! You must add in-stock products before you can checkout.
         <% else %>
           <table class="table table-hover">
             <tr>
