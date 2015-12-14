@@ -51,14 +51,13 @@ class OrdersController < ApplicationController
   def confirm
     @order = Order.find(params[:id])
     @order_items = @order.order_items
-    # do something with order items to make them accessible
-    @purchased_products = []
+    # find total $ amount for order
+    @order_total = 0
     @order_items.each do |item|
       product = Product.find(item.product_id)
-      quantity = item.quantity
-      quantity.times { @purchased_products.push(product) }
+      subtotal = product.price * item.quantity
+      @order_total += subtotal
     end
-    # @purchased_products now looks like [Product.find(1), Product.find(1), Product.find(2)]
   end
 
   def index
