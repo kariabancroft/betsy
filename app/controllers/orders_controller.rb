@@ -133,11 +133,17 @@ class OrdersController < ApplicationController
           @orderitems.push(orderitem)
         end
       end
+      @orderitems.each do |orderitem|
+        @total_revenue += Product.find(orderitem.product_id).price * orderitem.quantity
+      end
     elsif @status == "cancelled"
       @all_orderitems.each do |orderitem|
         if orderitem.order.status == "Cancelled"
           @orderitems.push(orderitem)
         end
+      end
+      @orderitems.each do |orderitem|
+        @total_revenue += Product.find(orderitem.product_id).price * orderitem.quantity
       end
     end
   end
