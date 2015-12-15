@@ -148,7 +148,6 @@ RSpec.describe ProductsController, type: :controller do
       session[:user_id] = merchant.id
       merchant.products << @product
       post :create_review, good_review
-binding.pry
       expect(Review.count).to eq(1)
       expect(subject).to redirect_to product_path(1)
     end
