@@ -18,8 +18,6 @@ Rails.application.routes.draw do
   get 'orders/:id/confirm' => 'orders#confirm', as: :order_confirm
 
   resources :categories
-
-  post "products/:id/review" => "reviews#create", as: :new_review
   resources :products, :only => [:show]
 
   get "merchants/:id/home" => "merchants#home", as: :merchant_home

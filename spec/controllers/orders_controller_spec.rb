@@ -218,6 +218,15 @@ RSpec.describe OrdersController, type: :controller do
   end
 
   describe "GET 'show'" do
-    it "renders show template"
+    it "renders show template" do
+      merchant.authenticate(session_data)
+      session[:user_id] = merchant.id
+      merchant.products << product
+      product.order_items << orderitem
+      order.order_items << orderitem
+
+      get :show, merchant_id: merchant.id, id: order.id
+      expect(subject).to render_template :show
+    end
   end
 end
