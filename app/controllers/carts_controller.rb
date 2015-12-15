@@ -11,7 +11,13 @@ class CartsController < ApplicationController
   end
 
   def index
-    @cart_items = session[:cart]
+    cart_exists
+    
+    if session[:cart].length == 0
+      @cart_items = nil
+    else
+      @cart_items = session[:cart]
+    end
   end
 
   def add_quantity
@@ -29,16 +35,6 @@ class CartsController < ApplicationController
     else
       session[:cart][id] += 1
     end
-  # original code, in case my bugfix broke something else:
-  #   if session[:cart][id].nil?
-  #     session[:cart][id] = 1
-  #   # if trying to add more to cart than are in stock, flash error
-  # elsif session[:cart][id] + 1 > @product.quantity
-  #     flash[:error] = "You cannot add more items than are in stock."
-  #   # add another of product to cart
-  #   else
-  #     session[:cart][id] += 1
-  #   end
     redirect_to carts_path
   end
 
@@ -49,6 +45,7 @@ class CartsController < ApplicationController
       flash[:error] = "This item has already been removed from your cart."
     else
       session[:cart][id] -= 1
+      session[:cart].delete_if { |k,v| v == 0 }
     end
     redirect_to carts_path
   end

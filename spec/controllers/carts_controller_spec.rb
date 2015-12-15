@@ -19,13 +19,25 @@ RSpec.describe CartsController, type: :controller do
   end
 
   describe "GET 'index'" do
-    it "shows the cart index view" do
+    it "shows the cart index template with nothing in cart" do
+      get :index
+      expect(subject).to render_template :index
+    end
+
+    it "shows the cart index template with something in cart" do
+      post :add_quantity, product_id: product.id
       get :index
       expect(subject).to render_template :index
     end
   end
 
   describe "POST 'add_quantity'" do
+    it "successfully adds item to cart" do
+      post :add_quantity, product_id: product.id
+      post :add_quantity, product_id: product.id
+      expect(subject).to redirect_to carts_path
+    end
+
     it "redirects to the cart page if product was not yet in cart" do
       post :add_quantity, product_id: product.id
       expect(subject).to redirect_to carts_path
@@ -37,11 +49,22 @@ RSpec.describe CartsController, type: :controller do
       expect(flash[:error]).to eq "You cannot add more items than are in stock."
     end
 
+    it "gives flash error if you try to add more of an item than is in stock" do
+      one_of_product = Product.create(name: "Stuff", price: 500, quantity: 1)
+      post :add_quantity, product_id: one_of_product.id
+      post :add_quantity, product_id: one_of_product.id
+      expect(flash[:error]).to eq "You cannot add more items than are in stock."
+    end
   end
 
-
   describe "POST 'remove_quantity'" do
+    it "gives flash error if you try to remove an item that doesn't exist in cart" do
+      post :remove_quantity, product_id: product.id
+      expect(flash[:error]).to eq "This item has already been removed from your cart."
+    end
+
     it "redirects to the cart page" do
+      post :add_quantity, product_id: product.id
       post :remove_quantity, product_id: product.id
       expect(subject).to redirect_to carts_path
     end
