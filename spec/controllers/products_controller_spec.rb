@@ -36,16 +36,6 @@ RSpec.describe ProductsController, type: :controller do
     }
   end
 
-  let :create_params do
-  {merchant_id: 1,
-    product: {
-      name: "Dogfish",
-      price: 2,
-      description: "new description"
-    }
-  }
-  end
-
   let :good_review do
     {product_id: 1,
      id: 1,
@@ -117,11 +107,19 @@ RSpec.describe ProductsController, type: :controller do
       end
     end
 
-  # describe "#create a review" do
-  #   it "redirects to product show page" do
-  #     @review = Review.create(rating: 3, description: "good!", product_id: 1)
-  #     post :create, product_id: 1
-  #     expect(subject).redirect_to product_path(product_id)
-  #   end
-  # end
+  describe "create a review" do
+    it "redirects to product show page" do
+      post :create_review, product_id: 1, :review => good_params
+      expect(subject).redirect_to product_path(product_id)
+      expect(Review.count).to eq(1)
+    end
+  end
+
+  describe "retire a product" do
+    it "redirects to merchant index page" do
+       patch :retire_product, update_params
+       expect(subject).to redirect_to products_path(@product.merchant_id)
+    end
+  end
+
 end
