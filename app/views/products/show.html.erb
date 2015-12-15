@@ -15,30 +15,29 @@
     </div>
     <div class="col-md-8">
       <h1><%= @product.name %></h1>
-      <h2><%= @product.merchant.username %></h2>
-
-      <h4><%= number_to_currency(@product.price) %></h4>
-
-      <%= link_to "+", add_quantity_path(@product.id), :class => "btn btn-primary btn-sm", :method => :post %>
-
-      Available: <%= @product.quantity %>
-
-      <%= link_to "-", remove_quantity_path(@product.id), :class => "btn btn-primary btn-sm", :method => :post %>
-
+      <h4>Sold by: <%= @product.merchant.username %></h4>
+      <br>
+      <h4>Price: <%= number_to_currency(@product.price) %></h4>
+      <%= link_to "Add to Cart", add_quantity_path(@product.id), :class => "btn btn-success btn-sm", :method => :post %>
+      <p>Remaining Stock: <%= @product.quantity %></p>
+      <!-- <%= link_to "-", remove_quantity_path(@product.id), :class => "btn btn-primary btn-sm", :method => :post %> -->
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-12">
-      <h2>Description:</h2>
+      <h3>Description:</h3>
       <p><%= @product.description %></p>
+      <% if @product.description.length == 0 %>
+      <p>For just <%= number_to_currency(@product.price) %>, this ocean-related item can soon be yours!</p>
+      <% end %>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-12">
 
-      <h2>Reviews:</h2>
+      <h3>Reviews:</h3>
         <% @reviews.each do |review| %>
           <div>
             <%= review.rating %>: <%= review.description %>
