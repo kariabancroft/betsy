@@ -49,6 +49,7 @@ RSpec.describe ProductsController, type: :controller do
 
   let :good_review do
     {
+      id: 1,
       review: {
         rating: 3,
         description: "Aight",
@@ -117,7 +118,6 @@ RSpec.describe ProductsController, type: :controller do
     end
   end
 
-
   describe "DESTROY #destroy" do
     it "redirects to merchant index page" do
       delete :destroy, update_params
@@ -125,12 +125,11 @@ RSpec.describe ProductsController, type: :controller do
       end
     end
 
-
   describe "create a review" do
     it "redirects to product show page" do
       post :create_review, good_review
-      expect(subject).to redirect_to product_path(good_review.product_id)
-      # expect(Review.count).to eq(1)
+      expect(Review.count).to eq(1)
+      expect(subject).to redirect_to product_path(1)
     end
   end
 
