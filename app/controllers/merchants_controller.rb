@@ -20,6 +20,7 @@ class MerchantsController < ApplicationController
   def show
     @merchant = Merchant.find(params[:id])
     @products = @merchant.products
+    @retiredproducts = @products.where(status:"Retired")
   end
 
   private

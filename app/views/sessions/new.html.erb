@@ -2,7 +2,7 @@
     <%= render 'layouts/navbar' %>
 
     <% if !flash.now[:error].nil? %>
-      <%= flash.now[:error] %>
+      <div class= "alert alert-danger" role="alert"><%= flash.now[:error] %></div>
     <% end %>
 
     <div class="row">
