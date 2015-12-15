@@ -15,7 +15,6 @@ RSpec.describe OrderItemsController, type: :controller do
 
   let(:session_data) do
     {
-      email: "info@seabay.com",
       username: "Seabay",
       password: "password"
     }

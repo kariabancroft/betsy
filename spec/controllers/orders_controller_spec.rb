@@ -10,7 +10,11 @@ RSpec.describe OrdersController, type: :controller do
   end
 
   let(:order) do
-    Order.create(:good_params)
+    Order.create(good_params[:order])
+  end
+
+  let(:paid_order) do
+    Order.create(paid_params)
   end
 
   let(:good_params) do
@@ -28,6 +32,22 @@ RSpec.describe OrdersController, type: :controller do
       status: "Pending",
       purchase_time: Time.now
       }
+    }
+  end
+
+  let(:paid_params) do
+    { name: "Katherine",
+      email: "kdefliese@gmail.com",
+      street: "123 Ada St",
+      city: "Seattle",
+      state: "WA",
+      zip: 12345,
+      cc_num: 1234,
+      cc_exp: Time.now.to_date,
+      sec_code: 123,
+      bill_zip: 12345,
+      status: "Paid",
+      purchase_time: Time.now
     }
   end
 
@@ -60,7 +80,6 @@ RSpec.describe OrdersController, type: :controller do
 
   let(:session_data) do
     {
-      email: "info@kdefliese.com",
       username: "kdefliese",
       password: "cats"
     }
@@ -122,12 +141,42 @@ RSpec.describe OrdersController, type: :controller do
       # log in merchant
       merchant.authenticate(session_data)
       session[:user_id] = merchant.id
+      # set up product with orderitem
       merchant.products << product
       product.order_items << orderitem
-      binding.pry
+      # get index page
       get :index, merchant_id: merchant.id
       expect(subject).to render_template :index
     end
-
   end
+
+  describe "GET 'status'" do
+    it "renders status page if :status is pending" do
+      # log in merchant
+      merchant.authenticate(session_data)
+      session[:user_id] = merchant.id
+      # set up product with orderitem
+      merchant.products << product
+      product.order_items << orderitem
+      orderitem.order = order
+
+      get :status, id: merchant.id, status: "pending"
+      expect(subject).to render_template :status
+    end
+
+    it "renders status page if :status is paid" do
+      # log in merchant
+      merchant.authenticate(session_data)
+      session[:user_id] = merchant.id
+      # set up product with orderitem
+      merchant.products << product
+      product.order_items << orderitem
+      orderitem.order = paid_order
+
+      get :status, id: merchant.id, status: "paid"
+      expect(subject).to render_template :status
+    end
+  end
+
+
 end
