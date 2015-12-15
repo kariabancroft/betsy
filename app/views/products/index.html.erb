@@ -8,6 +8,7 @@
       <td><%= link_to product.name.capitalize, merchant_product_path(@current_merchant.id, product.id) %></td>
       <td><%= link_to "Edit", edit_merchant_product_path(@current_merchant.id, product.id) %></td>
       <td><%= link_to "Delete", merchant_product_path(@current_merchant.id, product.id), method: :delete, data: {confirm: "Confirm Deletion"} %></td>
+      <td><%= link_to "Retire Product", retire_product_path(product.id), method: :patch %>
     </tr>
     <% end %>
     <% if @current_merchant.products.count == 0 %>

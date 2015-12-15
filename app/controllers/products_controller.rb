@@ -53,6 +53,13 @@ class ProductsController < ApplicationController
     redirect_to product_path(@review.product.id)
   end
 
+  def retire
+    @product = Product.find(params[:id])
+    @product.status = "retired"
+    @product.save!
+    redirect_to merchant_products_path(@product.merchant_id)
+  end
+
   private
 
   def current_merchant_product?

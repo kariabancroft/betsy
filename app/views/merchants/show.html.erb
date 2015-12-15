@@ -13,19 +13,21 @@
       </div>
     <% else %>
       <% @products.each_with_index do |product, i| %>
-        <% if i.odd? %>
-          <div class="row">
-        <% end %>
-        <div class="col-sm-6 col-md-6">
-          <div class="thumbnail">
-            <img src="<%= product.photo_url %>" alt="<% product.name %>">
-            <div class="caption">
-              <%= link_to product.name, product_path(product.id), class: "h3" %>
+        <% if product.status == "Active" %>
+          <% if i.odd? %>
+            <div class="row">
+          <% end %>
+          <div class="col-sm-6 col-md-6">
+            <div class="thumbnail">
+              <img src="<%= product.photo_url %>" alt="<% product.name %>">
+              <div class="caption">
+                <%= link_to product.name, product_path(product.id), class: "h3" %>
+              </div>
             </div>
           </div>
-        </div>
-        <% if i.odd? %>
-          </div>
+          <% if i.odd? %>
+            </div>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>
