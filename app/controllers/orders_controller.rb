@@ -1,5 +1,7 @@
 class OrdersController < ApplicationController
   before_action :require_login, only: [:index, :pending, :cancelled, :paid, :completed]
+  before_action :get_order_items, only: [:index, :status]
+  before_action :get_order_item_revenue, only: [:confirm, :show]
 
   def checkout
     # get @current_order info from carts controller
@@ -70,72 +72,22 @@ class OrdersController < ApplicationController
   end
 
   def confirm
-    @order = Order.find(params[:id])
-    @order_items = @order.order_items
-    # find total $ amount for order
-    @order_total = 0
-    @order_items.each do |item|
-      product = Product.find(item.product_id)
-      subtotal = product.price * item.quantity
-      @order_total += subtotal
-    end
+
   end
 
   def index
-    # find all products for current merchant
-    @products = current_merchant.products
-    # find all order items for these products
-    @orderitems = []
-
-    @products.each do |product|
-      @orderitems.push(product.order_items)
-    end
-
-    @orderitems = @orderitems.flatten
-
-    # find all orders with those order items
-    @orders = []
-    @orderitems.each do |orderitem|
-      @orders.push(orderitem.order)
-    end
-
     @total_revenue = 0
 
-    @orderitems.each do |orderitem|
+    @all_orderitems.each do |orderitem|
       @total_revenue += Product.find(orderitem.product_id).price * orderitem.quantity
     end
   end
 
   def show
-    @order = Order.find(params[:id])
-    @order_items = @order.order_items
-    # find total $ amount for order
-    @order_total = 0
-    @order_items.each do |item|
-      product = Product.find(item.product_id)
-      subtotal = product.price * item.quantity
-      @order_total += subtotal
-    end
+
   end
 
   def status
-    # find all products for current merchant
-    @products = current_merchant.products
-    # find all order items for these products
-    @all_orderitems = []
-
-    @products.each do |product|
-      @all_orderitems.push(product.order_items)
-    end
-
-    @all_orderitems = @all_orderitems.flatten
-
-    # find all orders with those order items
-    @orders = []
-    @all_orderitems.each do |orderitem|
-      @orders.push(orderitem.order)
-    end
-
     @orderitems = []
     @total_revenue = 0
     @status = params[:status]
@@ -183,7 +135,35 @@ class OrdersController < ApplicationController
     params.permit(order:[:purchase_time, :name, :email, :street, :city, :state, :zip, :cc_num, :cc_exp, :sec_code, :bill_zip, :status])
   end
 
-  def order_item_params
+  def get_order_items
+    # find all products for current merchant
+    @products = current_merchant.products
+    # find all order items for these products
+    @all_orderitems = []
 
+    @products.each do |product|
+      @all_orderitems.push(product.order_items)
+    end
+
+    @all_orderitems = @all_orderitems.flatten
+
+    # find all orders with those order items
+    @orders = []
+    @all_orderitems.each do |orderitem|
+      @orders.push(orderitem.order)
+    end
   end
+
+  def get_order_item_revenue
+    @order = Order.find(params[:id])
+    @order_items = @order.order_items
+    # find total $ amount for order
+    @order_total = 0
+    @order_items.each do |item|
+      product = Product.find(item.product_id)
+      subtotal = product.price * item.quantity
+      @order_total += subtotal
+    end
+  end
+
 end
