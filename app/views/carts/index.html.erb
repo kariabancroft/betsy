@@ -9,7 +9,7 @@
   <div class="row">
     <div class="col-lg-12">
       <% if @cart_items.nil? %>
-        <p>You have no items in your cart. Get shopping!</p>
+        <p>You have no items in your cart. <%= link_to "Get shopping!", root_path %></p>
       <% else %>
 
       <% if !flash[:error].nil? %>

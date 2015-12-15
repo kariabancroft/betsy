@@ -183,7 +183,4 @@ class OrdersController < ApplicationController
     params.permit(order:[:purchase_time, :name, :email, :street, :city, :state, :zip, :cc_num, :cc_exp, :sec_code, :bill_zip, :status])
   end
 
-  def order_item_params
-
-  end
 end
