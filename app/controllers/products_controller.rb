@@ -60,6 +60,13 @@ class ProductsController < ApplicationController
     redirect_to merchant_products_path(@product.merchant_id)
   end
 
+  def activate
+    @product = Product.find(params[:id])
+    @product.status = "Active"
+    @product.save!
+    redirect_to merchant_products_path(@product.merchant_id)
+  end
+
   private
 
   def current_merchant_product?
