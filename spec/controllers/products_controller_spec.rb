@@ -86,7 +86,7 @@ RSpec.describe ProductsController, type: :controller do
 
   describe "POST #create" do
     it "redirects to merchant_products path" do
-      @merchant = Merchant.create(username: "Bobbby", email: "email@email.com", password: "password", password_confirmation: "password")
+      Merchant.create(username: "Bobbby", email: "email@email.com", password: "password", password_confirmation: "password")
       post :create, create_params
       expect(subject).to redirect_to merchant_products_path(@product.merchant_id)
     end
@@ -141,14 +141,25 @@ RSpec.describe ProductsController, type: :controller do
       expect(Review.count).to eq(0)
       expect(subject).to redirect_to product_path(1)
     end
+
+    it "can be created if merchant reviews a product they don't own" do
+      # log in merchant
+      merchant.authenticate(session_data)
+      session[:user_id] = merchant.id
+      merchant.products << @product
+      post :create_review, good_review
+binding.pry
+      expect(Review.count).to eq(1)
+      expect(subject).to redirect_to product_path(1)
+    end
   end
 
   describe "retire a product" do
     it "redirects to merchant index page" do
       merchant.authenticate(session_data)
       session[:user_id] = merchant.id
-       patch :retire, update_params
-       expect(subject).to redirect_to merchant_products_path(@product.merchant_id)
+      patch :retire, update_params
+      expect(subject).to redirect_to merchant_products_path(@product.merchant_id)
     end
   end
 
@@ -156,8 +167,8 @@ RSpec.describe ProductsController, type: :controller do
     it "redirects to merchant index page" do
       merchant.authenticate(session_data)
       session[:user_id] = merchant.id
-       patch :activate, update_params
-       expect(subject).to redirect_to merchant_products_path(@product.merchant_id)
+      patch :activate, update_params
+      expect(subject).to redirect_to merchant_products_path(@product.merchant_id)
     end
   end
 end
