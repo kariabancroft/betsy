@@ -108,9 +108,9 @@ class OrdersController < ApplicationController
       @orderitems.each do |orderitem|
         @total_revenue += Product.find(orderitem.product_id).price * orderitem.quantity
       end
-    elsif @status == "completed"
+    elsif @status == "complete"
       @all_orderitems.each do |orderitem|
-        if orderitem.order.status == "Completed"
+        if orderitem.order.status == "Complete"
           @orderitems.push(orderitem)
         end
       end

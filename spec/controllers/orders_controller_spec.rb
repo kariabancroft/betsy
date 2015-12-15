@@ -13,10 +13,6 @@ RSpec.describe OrdersController, type: :controller do
     Order.create(good_params[:order])
   end
 
-  let(:paid_order) do
-    Order.create(paid_params)
-  end
-
   let(:good_params) do
     {order: {
       name: "Katherine",
@@ -47,6 +43,38 @@ RSpec.describe OrdersController, type: :controller do
       sec_code: 123,
       bill_zip: 12345,
       status: "Paid",
+      purchase_time: Time.now
+    }
+  end
+
+  let(:completed_params) do
+    { name: "Katherine",
+      email: "kdefliese@gmail.com",
+      street: "123 Ada St",
+      city: "Seattle",
+      state: "WA",
+      zip: 12345,
+      cc_num: 1234,
+      cc_exp: Time.now.to_date,
+      sec_code: 123,
+      bill_zip: 12345,
+      status: "Complete",
+      purchase_time: Time.now
+    }
+  end
+
+  let(:cancelled_params) do
+    { name: "Katherine",
+      email: "kdefliese@gmail.com",
+      street: "123 Ada St",
+      city: "Seattle",
+      state: "WA",
+      zip: 12345,
+      cc_num: 1234,
+      cc_exp: Time.now.to_date,
+      sec_code: 123,
+      bill_zip: 12345,
+      status: "Cancelled",
       purchase_time: Time.now
     }
   end
@@ -131,8 +159,8 @@ RSpec.describe OrdersController, type: :controller do
     end
 
     it "shows order items on the order confirm page" do
-      @purchased_products = [Product.find(1), Product.find(1)]
-      expect(@purchased_products).to be_an Array
+      purchased_products = [Product.find(1), Product.find(1)]
+      expect(purchased_products).to be_an Array
     end
   end
 
@@ -151,32 +179,45 @@ RSpec.describe OrdersController, type: :controller do
   end
 
   describe "GET 'status'" do
-    it "renders status page if :status is pending" do
+    before(:each) do
       # log in merchant
       merchant.authenticate(session_data)
       session[:user_id] = merchant.id
       # set up product with orderitem
       merchant.products << product
       product.order_items << orderitem
+    end
+
+    it "renders status template if :status is pending" do
       orderitem.order = order
 
       get :status, id: merchant.id, status: "pending"
       expect(subject).to render_template :status
     end
 
-    it "renders status page if :status is paid" do
-      # log in merchant
-      merchant.authenticate(session_data)
-      session[:user_id] = merchant.id
-      # set up product with orderitem
-      merchant.products << product
-      product.order_items << orderitem
-      orderitem.order = paid_order
+    it "renders status template if :status is paid" do
+      orderitem.order = Order.create(paid_params)
 
       get :status, id: merchant.id, status: "paid"
       expect(subject).to render_template :status
     end
+
+    it "renders status template if :status is complete" do
+      orderitem.order = Order.create(completed_params)
+
+      get :status, id: merchant.id, status: "complete"
+      expect(subject).to render_template :status
+    end
+
+    it "renders status template if :status is cancelled" do
+      orderitem.order = Order.create(cancelled_params)
+
+      get :status, id: merchant.id, status: "cancelled"
+      expect(subject).to render_template :status
+    end
   end
 
-
+  describe "GET 'show'" do
+    it "renders show template"
+  end
 end
