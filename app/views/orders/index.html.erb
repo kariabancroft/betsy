@@ -38,7 +38,7 @@
       <th>Order Status</th>
       <th>Your Status</th>
       <th>Edit Status</th>
-        <% @orderitems.each do |orderitem| %>
+        <% @all_orderitems.each do |orderitem| %>
           <tr>
             <td><%= link_to orderitem.order_id, merchant_order_path(@current_merchant.id, orderitem.order_id) %></td>
             <td><%= orderitem.created_at.to_date %></td>
