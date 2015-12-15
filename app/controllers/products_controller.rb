@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
 
   def create_review
     @review = Review.create(review_params)
-    redirect_to product_path(@review.product.id)
+    redirect_to product_path(@review.product_id)
   end
 
   def retire
