@@ -5,6 +5,10 @@ class ProductsController < ApplicationController
   def index
   end
 
+  def all_products
+    @products = Product.all
+  end
+
   def new
     @product = Product.new
     @action = "create"

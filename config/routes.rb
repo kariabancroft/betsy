@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :carts
 
   post "/products/:id/add_review" => 'products#create_review', as: :create_review
+  get "/products/" => 'products#all_products', as: :products
 
   post "/carts/:product_id/remove" => 'carts#remove_quantity', as: :remove_quantity
   post "/carts/:product_id/add" => 'carts#add_quantity', as: :add_quantity
