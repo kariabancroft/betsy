@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   end
 
   patch "products/:id/retire" => "products#retire", as: :retire_product
+  patch "products/:id/activate" => "products#activate", as: :activate_product
 
   get "merchants/:id/orders/show/:status" => 'orders#status', as: :status_orders
 
