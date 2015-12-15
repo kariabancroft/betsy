@@ -13,26 +13,23 @@ RSpec.describe SessionsController, type: :controller do
         username: "Seabay",
         password: "password"
       }
+
     end
 
     it "creates an authenticated session" do
       merchant = Merchant.find_by_username(session_data[:username])
+      merchant.authenticate(session_data[:password])
       post :create, :session_data => session_data
-      expect(response).to redirect_to merchant_home_path(merchant.id)
+      expect(subject).to redirect_to merchant_home_path(merchant.id)
+    end
+
+    it "flashes an error with incorrect data" do
+      merchant = Merchant.find_by_username(session_data[:username])
+      merchant.authenticate("badpass")
+      post :create, :session_data => {email: "info@seabay.com", password: "badpass"}
+      expect(subject).to render_template :new
     end
   end
-
-  #   it "redirects to merchant index page" do
-  #     post :create, create_params
-  #     new_object = medium_class.last
-  #     expect(subject).to redirect_to send(medium_path,*new_object.id)
-  #   end
-  #
-  #   it "renders new template on error" do
-  #     post :create, bad_params
-  #     expect(subject).to render_template :new
-  #   end
-  # end
 
   describe "DELETE #destroy" do
     it "allows merchant to log out" do
@@ -42,9 +39,4 @@ RSpec.describe SessionsController, type: :controller do
     end
   end
 
-  # describe "cart" do
-  #   it "sets the cart value in the cookies" do
-  #     # expect(cookies[:cart].to
-  #   end
-  # end
 end

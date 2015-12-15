@@ -29,10 +29,31 @@ RSpec.describe ProductsController, type: :controller do
 
   let :bad_params do
     {merchant_id: 1,
+      id: 1,
       product: {
         name: "",
       }
     }
+  end
+
+  let :create_params do
+  {merchant_id: 1,
+    product: {
+      name: "Dogfish",
+      price: 2,
+      description: "new description"
+    }
+  }
+  end
+
+  let :good_review do
+    {product_id: 1,
+     id: 1,
+      review: {
+        rating: 3,
+        description: "Aight",
+    }
+  }
   end
 
   describe "GET #index" do
@@ -42,10 +63,11 @@ RSpec.describe ProductsController, type: :controller do
     end
   end
 
-  describe "GET #new" do
-    it "renders new view" do
-    get :new, merchant_id: @product.merchant_id
-    expect(subject).to render_template :new
+  describe "GET 'new'" do
+    it "is renders new view" do
+      get :new, merchant_id: @product.merchant_id
+      expect(response.status).to eq 200
+      expect(subject).to render_template :new
     end
   end
 
@@ -69,23 +91,37 @@ RSpec.describe ProductsController, type: :controller do
     end
   end
 
-  # describe "PATCH #update" do
-  #   it "goes to the product show page" do
-  #     patch :update, update_params
-  #     expect(subject).to redirect_to send(merchant_product_path,*@product.merchant_id)
-  #   end
-  # end
+  describe 'GET #edit' do
+    it "renders edit template" do
+    get :edit, merchant_id: @product.merchant_id, id: @product.id
+    expect(subject).to render_template :edit
+    end
+  end
 
-  # describe "DESTROY #destroy" do
-  #   it "redirects to merchant index page" do
-  #     delete :destroy, id: 1
-  #      redirect_to merchant_products_path(@product.merchant_id)
-  #     end
-  #   end}
+  describe "PATCH #update" do
+    it "goes to the product index page when successful" do
+      patch :update, update_params
+      expect(subject).to redirect_to merchant_products_path(@product.merchant_id)
+    end
+    it "renders the edit view when unsuccessful" do
+      patch :update, bad_params
+      expect(subject).to render_template :edit,(@product.id)
+    end
+  end
+
+
+  describe "DESTROY #destroy" do
+    it "redirects to merchant index page" do
+      delete :destroy, update_params
+      expect(subject).to redirect_to merchant_products_path(@product.merchant_id)
+      end
+    end
 
   # describe "#create a review" do
   #   it "redirects to product show page" do
-  #     @review = Review.create(rating: 3, description: "good!")
+  #     @review = Review.create(rating: 3, description: "good!", product_id: 1)
+  #     post :create, product_id: 1
+  #     expect(subject).redirect_to product_path(product_id)
   #   end
   # end
 end
