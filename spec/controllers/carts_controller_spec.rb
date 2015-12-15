@@ -58,7 +58,13 @@ RSpec.describe CartsController, type: :controller do
   end
 
   describe "POST 'remove_quantity'" do
+    it "gives flash error if you try to remove an item that doesn't exist in cart" do
+      post :remove_quantity, product_id: product.id
+      expect(flash[:error]).to eq "This item has already been removed from your cart."
+    end
+
     it "redirects to the cart page" do
+      post :add_quantity, product_id: product.id
       post :remove_quantity, product_id: product.id
       expect(subject).to redirect_to carts_path
     end
