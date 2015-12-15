@@ -1,8 +1,12 @@
 <div class="container fill">
   <%= render 'layouts/navbar' %>
-    <% if !flash.now[:error].nil? %>
-      <%= flash.now[:error] %>
-    <% end %>
+  <div class="row">
+    <div class="col-lg-12">
+      <% if !flash.now[:error].nil? %>
+        <div class= "alert alert-danger" role="alert"><%= flash.now[:error] %></div>
+      <% end %>
+    </div>
+  </div>
     <div class="row">
       <div class="col-md-4">
       </div>
