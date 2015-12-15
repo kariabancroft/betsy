@@ -27,6 +27,16 @@ RSpec.describe OrderItemsController, type: :controller do
     Product.create(name: "starfish", price: 3.00, merchant_id: 1, description: "A starfish!")
   end
 
+  let(:order_item_update) do
+    {
+      id: 1,
+      merchant_id: 1,
+      order_item: {
+        status: "shipped"
+      }
+    }
+  end
+
   describe "GET 'edit'" do
     it "renders edit template" do
       # must be logged in as merchant
@@ -39,6 +49,22 @@ RSpec.describe OrderItemsController, type: :controller do
       get :edit, id: orderitem.id, merchant_id: merchant.id
       expect(response.status).to eq 200
       expect(subject).to render_template :edit
+    end
+  end
+
+  describe "PATCH 'edit'" do
+    it "redirects to merchant orders page after updating" do
+      # must be logged in as merchant
+      merchant.authenticate(session_data)
+      session[:user_id] = merchant.id
+
+      # merchant must own the product
+      product
+      orderitem
+
+      patch :update, order_item_update
+      expect(response.status).to eq 302
+      expect(subject).to redirect_to merchant_orders_path(merchant.id)
     end
   end
 end

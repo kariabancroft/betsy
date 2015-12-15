@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214232727) do
+ActiveRecord::Schema.define(version: 20151215002826) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -79,13 +79,14 @@ ActiveRecord::Schema.define(version: 20151214232727) do
     t.string   "photo_url"
     t.string   "description"
     t.integer  "quantity"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.integer  "merchant_id"
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.string   "status",             default: "Active"
   end
 
   add_index "products", ["merchant_id"], name: "index_products_on_merchant_id"
