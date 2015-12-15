@@ -46,5 +46,5 @@ RSpec.describe SessionsController, type: :controller do
   #   it "sets the cart value in the cookies" do
   #     # expect(cookies[:cart].to
   #   end
-  # end 
+  # end
 end

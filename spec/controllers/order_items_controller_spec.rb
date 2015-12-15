@@ -1,5 +1,44 @@
 require 'rails_helper'
 
 RSpec.describe OrderItemsController, type: :controller do
+  let(:orderitem) do
+    OrderItem.create(quantity: 3, order_id: 1, product_id: 1, status: "shipped")
+  end
 
+  let(:params) do
+    {
+      id: 1
+    }
+  end
+
+  let(:merchant) do
+    Merchant.create(username: "Seabay", email: "info@seabay.com", password: "password", password_confirmation: "password")
+  end
+
+  let(:session_data) do
+    {
+      email: "info@seabay.com",
+      username: "Seabay",
+      password: "password"
+    }
+  end
+
+  let(:product) do
+    Product.create(name: "starfish", price: 3.00, merchant_id: 1, description: "A starfish!")
+  end
+
+  describe "GET 'edit'" do
+    it "renders edit template" do
+      # must be logged in as merchant
+      merchant.authenticate(session_data)
+      session[:user_id] = merchant.id
+
+      # merchant must own the product
+      product
+
+      get :edit, id: orderitem.id, merchant_id: merchant.id
+      expect(response.status).to eq 200
+      expect(subject).to render_template :edit
+    end
+  end
 end
