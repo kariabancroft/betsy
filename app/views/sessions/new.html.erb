@@ -1,7 +1,8 @@
+<div class="container">
 <h1>Login to Seabay</h1>
 
 <% if !flash.now[:error].nil? %>
-  <%= flash.now[:error] %>
+  <div class= "alert alert-danger" role="alert"><%= flash.now[:error] %></div>
 <% end %>
 
 <%= form_for(:session_data, url: sessions_path) do |f| %>
@@ -14,3 +15,4 @@
     <%= f.submit "Log In", class: "btn btn-info" %>
   </div>
 <% end %>
+</div>
