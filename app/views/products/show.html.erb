@@ -15,7 +15,7 @@
     </div>
     <div class="col-md-8">
       <h1><%= @product.name %></h1>
-      <h2><%= @product.merchant.username %></h2>
+      <h3>Sold by: <%= @product.merchant.username %></h3>
 
       <h4><%= number_to_currency(@product.price) %></h4>
 
@@ -30,8 +30,10 @@
 
   <div class="row">
     <div class="col-md-12">
+      <% if @product.description.length != 0 %>
       <h2>Description:</h2>
       <p><%= @product.description %></p>
+      <% end %>
     </div>
   </div>
 
