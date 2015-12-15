@@ -30,8 +30,6 @@ class OrdersController < ApplicationController
     @inventory_errors = []
     @cart_items.each do |k,v|
       product = Product.find(k.to_i)
-      puts product.inspect
-      puts v
       if product.quantity < v
         # stores error which will go into flash later
         error = "#{product.name} does not have sufficient stock to purchase. This item has been removed from your cart."

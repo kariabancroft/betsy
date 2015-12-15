@@ -79,9 +79,7 @@ RSpec.describe OrdersController, type: :controller do
 
     it "redirects to the checkout view if products are out of stock" do
       unavailable_product = Product.create(name: "Stuff 2", price: 500, quantity: 0)
-      # puts unavailable_product.errors.inspect
       session[:cart][unavailable_product.id] = 1
-      # puts session[:cart].inspect
       post :create, good_params
       expect(subject).to redirect_to orders_checkout_path
     end
