@@ -1,7 +1,13 @@
-<div class="container fill">
+<div class="container fill-register">
   <%= render 'layouts/navbar' %>
   <div class="row">
-    <h1>Create New Merchant Account</h1>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+      <h1>Create New Account</h1>
+    </div>
+    <div class="col-md-4">
+    </div>
   </div>
 
   <div class="row">
@@ -13,17 +19,23 @@
   </div>
 
   <div class="row">
-    <%= form_for @merchant, class: "form" do |f| %>
-      <%= f.label :username %>
-      <%= f.text_field :username, class: "form-control" %>
-      <%= f.label :email %>
-      <%= f.email_field :email, class: "form-control" %>
-      <%= f.label :password %>
-      <%= f.password_field :password, class: "form-control" %>
-      <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation, class: "form-control" %>
-      <br>
-      <%= f.submit class: "btn btn-primary" %>
-    <% end %>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+      <%= form_for @merchant, class: "form" do |f| %>
+        <%= f.label "Username:" %>
+        <%= f.text_field :username, class: "form-control" %>
+        <%= f.label "Email address:" %>
+        <%= f.email_field :email, class: "form-control" %>
+        <%= f.label "Password:" %>
+        <%= f.password_field :password, class: "form-control" %>
+        <%= f.label "Confirm password:" %>
+        <%= f.password_field :password_confirmation, class: "form-control" %>
+        <br>
+        <%= f.submit class: "btn btn-danger" %>
+      <% end %>
+    </div>
+    <div class="col-md-4">
+    </div>
   </div>
 </div>
