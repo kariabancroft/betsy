@@ -1,5 +1,16 @@
 <div class="container fill-register">
   <%= render 'layouts/navbar' %>
+  <% if !@merchant.errors.empty? %>
+    <div class="row">
+      <div class= "alert alert-danger" role="alert">
+        <ul>
+          <% @merchant.errors.each do |column, message| %>
+            <li><strong><%= column.capitalize %></strong>: <%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
   <div class="row">
     <div class="col-md-4">
     </div>
@@ -9,15 +20,6 @@
     <div class="col-md-4">
     </div>
   </div>
-
-  <div class="row">
-    <ul>
-      <% @merchant.errors.each do |column, message| %>
-        <li><strong><%= column.capitalize %></strong>: <%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-
   <div class="row">
     <div class="col-md-4">
     </div>
