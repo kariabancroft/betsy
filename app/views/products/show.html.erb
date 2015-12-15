@@ -15,16 +15,12 @@
     </div>
     <div class="col-md-8">
       <h1><%= @product.name %></h1>
-      <h3>Sold by: <%= @product.merchant.username %></h3>
-
-      <h4><%= number_to_currency(@product.price) %></h4>
-
-      <%= link_to "+", add_quantity_path(@product.id), :class => "btn btn-primary btn-sm", :method => :post %>
-
-      Available: <%= @product.quantity %>
-
-      <%= link_to "-", remove_quantity_path(@product.id), :class => "btn btn-primary btn-sm", :method => :post %>
-
+      <h4>Sold by: <%= @product.merchant.username %></h4>
+      <br>
+      <h4>Price: <%= number_to_currency(@product.price) %></h4>
+      <%= link_to "Add to Cart", add_quantity_path(@product.id), :class => "btn btn-success btn-sm", :method => :post %>
+      <p>Remaining Stock: <%= @product.quantity %></p>
+      <!-- <%= link_to "-", remove_quantity_path(@product.id), :class => "btn btn-primary btn-sm", :method => :post %> -->
     </div>
   </div>
 
