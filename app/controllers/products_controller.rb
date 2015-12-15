@@ -1,12 +1,11 @@
+
 class ProductsController < ApplicationController
   before_action :require_login, only: [:index, :edit, :new]
 
   def index
-    current_merchant
   end
 
   def new
-    current_merchant
     @product = Product.new
     @action = "create"
     @method = :post
@@ -30,7 +29,6 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    current_merchant
     @product = Product.find(params[:id])
     @action = "update"
     @method = :patch
@@ -53,6 +51,20 @@ class ProductsController < ApplicationController
   def create_review
     @review = Review.create(review_params)
     redirect_to product_path(@review.product.id)
+  end
+
+  def retire
+    @product = Product.find(params[:id])
+    @product.status = "retired"
+    @product.save!
+    redirect_to merchant_products_path(@product.merchant_id)
+  end
+
+  def activate
+    @product = Product.find(params[:id])
+    @product.status = "Active"
+    @product.save!
+    redirect_to merchant_products_path(@product.merchant_id)
   end
 
   private
