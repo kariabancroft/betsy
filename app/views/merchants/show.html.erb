@@ -7,7 +7,7 @@
   </div>
 
   <div class="row">
-    <% if @products.length == 0 %>
+    <% if @products.count == 0 || @products.count == @retiredproducts.count %>
       <div class="col-md-12">
         <h3>We're sorry, <%= @merchant.username %> does not have anything for sale right now.</h3>
       </div>
