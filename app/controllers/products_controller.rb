@@ -55,7 +55,7 @@ class ProductsController < ApplicationController
       flash[:error] = "A merchant cannot review their own product."
     end
 
-    redirect_to product_path(@review.product_id)
+    redirect_to product_path(review_params[:product_id])
   end
 
   def retire

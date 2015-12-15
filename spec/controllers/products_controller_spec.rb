@@ -1,13 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe ProductsController, type: :controller do
-
   before :each do
     @product = Product.create(name: "starfish", price: 3, merchant_id: 1, description: "A starfish!")
   end
 
   let :create_params do
-  {merchant_id: 1,
+  { merchant_id: 1,
     product: {
       name: "Dogfish",
       price: 2,
@@ -17,7 +16,7 @@ RSpec.describe ProductsController, type: :controller do
   end
 
   let :update_params do
-  {merchant_id: 1,
+  { merchant_id: 1,
     id: 1,
     product: {
       name: "Catfish",
@@ -28,7 +27,7 @@ RSpec.describe ProductsController, type: :controller do
   end
 
   let :bad_params do
-    {merchant_id: 1,
+    { merchant_id: 1,
       id: 1,
       product: {
         name: "",
@@ -49,7 +48,7 @@ RSpec.describe ProductsController, type: :controller do
 
   let :good_review do
     {
-      id: 1,
+      id: 2,
       review: {
         rating: 3,
         description: "Aight",
@@ -129,6 +128,17 @@ RSpec.describe ProductsController, type: :controller do
     it "redirects to product show page" do
       post :create_review, good_review
       expect(Review.count).to eq(1)
+      expect(subject).to redirect_to product_path(1)
+    end
+
+    it "can't be created if merchant tries to review their own product" do
+      # log in merchant
+      merchant.authenticate(session_data)
+      session[:user_id] = merchant.id
+      merchant.products << Product.create(create_params[:product])
+      post :create_review, good_review
+
+      expect(Review.count).to eq(0)
       expect(subject).to redirect_to product_path(1)
     end
   end
