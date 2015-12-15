@@ -6,9 +6,7 @@ RSpec.describe OrderItemsController, type: :controller do
   end
 
   let(:params) do
-    {
-      id: 1
-    }
+    { id: 1 }
   end
 
   let(:merchant) do

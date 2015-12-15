@@ -9,6 +9,10 @@ RSpec.describe OrdersController, type: :controller do
     Product.create(name: "Stuff", price: 500, quantity: 5)
   end
 
+  let(:order) do
+    Order.create(:good_params)
+  end
+
   let(:good_params) do
     {order: {
       name: "Katherine",
@@ -54,10 +58,25 @@ RSpec.describe OrdersController, type: :controller do
     }
   end
 
+  let(:session_data) do
+    {
+      email: "info@kdefliese.com",
+      username: "kdefliese",
+      password: "cats"
+    }
+  end
+
+  let(:merchant) do
+    Merchant.create(good_merchant_params[:merchant])
+  end
+
+  let(:orderitem) do
+    OrderItem.create(quantity: 3, order_id: 1, status: "shipped")
+  end
+
   before :each do
     session[:cart] = cart_items
   end
-
 
   describe "GET 'checkout'" do
     it "renders the checkout page" do
@@ -100,9 +119,15 @@ RSpec.describe OrdersController, type: :controller do
 
   describe "GET 'index'" do
     it "renders the index page for merchants to see their orders" do
-      test_merchant = Merchant.create(good_merchant_params[:merchant])
-      get :index, merchant_id: test_merchant.id
+      # log in merchant
+      merchant.authenticate(session_data)
+      session[:user_id] = merchant.id
+      merchant.products << product
+      product.order_items << orderitem
+      binding.pry
+      get :index, merchant_id: merchant.id
       expect(subject).to render_template :index
     end
+
   end
 end
