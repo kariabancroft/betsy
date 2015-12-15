@@ -125,14 +125,15 @@ RSpec.describe ProductsController, type: :controller do
       end
     end
 
-  # describe "create a review" do
-  #   it "redirects to product show page" do
-  #     @review = Review.new(rating: 3, description: "not bad", product_id: 1)
-  #     post :create_review, good_review
-  #     expect(subject).redirect_to product_path(@review.product.id)
-  #     expect(Review.count).to eq(1)
-  #   end
-  # end
+
+  describe "create a review" do
+    it "redirects to product show page" do
+      @review = Review.new(rating: 3, description: "not bad")
+      post :create_review, good_review
+      expect(subject).redirect_to product_path(1)
+      expect(Review.count).to eq(1)
+    end
+  end
 
   describe "retire a product" do
     it "redirects to merchant index page" do
