@@ -49,8 +49,14 @@ class ProductsController < ApplicationController
   end
 
   def create_review
-    @review = Review.create(review_params)
-    redirect_to product_path(@review.product.id)
+    if current_merchant_product?
+      @review = Review.create(review_params)
+    else
+      flash[:error] = "A merchant cannot review their own product."
+      binding.pry
+    end
+
+    redirect_to product_path(params[:id])
   end
 
   def retire
