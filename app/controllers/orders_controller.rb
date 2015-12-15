@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   before_action :require_login, only: [:index, :pending, :cancelled, :paid, :completed]
   before_action :get_order_items, only: [:index, :status]
+  before_action :get_order_item_revenue, only: [:confirm, :show]
 
   def checkout
     # get @current_order info from carts controller
@@ -71,15 +72,7 @@ class OrdersController < ApplicationController
   end
 
   def confirm
-    @order = Order.find(params[:id])
-    @order_items = @order.order_items
-    # find total $ amount for order
-    @order_total = 0
-    @order_items.each do |item|
-      product = Product.find(item.product_id)
-      subtotal = product.price * item.quantity
-      @order_total += subtotal
-    end
+
   end
 
   def index
@@ -91,15 +84,7 @@ class OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find(params[:id])
-    @order_items = @order.order_items
-    # find total $ amount for order
-    @order_total = 0
-    @order_items.each do |item|
-      product = Product.find(item.product_id)
-      subtotal = product.price * item.quantity
-      @order_total += subtotal
-    end
+
   end
 
   def status
@@ -167,7 +152,18 @@ class OrdersController < ApplicationController
     @all_orderitems.each do |orderitem|
       @orders.push(orderitem.order)
     end
+  end
 
+  def get_order_item_revenue
+    @order = Order.find(params[:id])
+    @order_items = @order.order_items
+    # find total $ amount for order
+    @order_total = 0
+    @order_items.each do |item|
+      product = Product.find(item.product_id)
+      subtotal = product.price * item.quantity
+      @order_total += subtotal
+    end
   end
 
 end
