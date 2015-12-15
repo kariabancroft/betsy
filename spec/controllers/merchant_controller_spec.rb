@@ -2,19 +2,20 @@ require 'rails_helper'
 
 RSpec.describe MerchantsController, type: :controller do
   let(:good_params) do
-    {merchant: {
-      username: "kdefliese",
-      email: "kdefliese@gmail.com",
-      password: "cats",
-      password_confirmation: "cats"}
+    { merchant: {
+        username: "kdefliese",
+        email: "kdefliese@gmail.com",
+        password: "cats",
+        password_confirmation: "cats"}
     }
   end
+
   let(:bad_params) do
-    {merchant: {
-      username: nil,
-      email: nil,
-      password: nil,
-      password_confirmation: nil}
+    { merchant: {
+        username: nil,
+        email: nil,
+        password: nil,
+        password_confirmation: nil}
     }
   end
 
@@ -28,7 +29,9 @@ RSpec.describe MerchantsController, type: :controller do
 
   describe "POST 'create'" do
     it "successful create redirects to log in page" do
+      binding.pry
       post :create, good_params
+      expect(Merchant.all.length).to eq 1
       expect(response.status).to eq 302
       expect(subject).to redirect_to new_session_path
     end

@@ -5,6 +5,10 @@ class ProductsController < ApplicationController
   def index
   end
 
+  def all_products
+    @products = Product.all
+  end
+
   def new
     @product = Product.new
     @action = "create"
@@ -53,10 +57,9 @@ class ProductsController < ApplicationController
       @review = Review.create(review_params)
     else
       flash[:error] = "A merchant cannot review their own product."
-      binding.pry
     end
 
-    redirect_to product_path(params[:id])
+    redirect_to product_path(review_params[:product_id])
   end
 
   def retire

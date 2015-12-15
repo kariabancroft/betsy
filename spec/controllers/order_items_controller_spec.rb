@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe OrderItemsController, type: :controller do
+  before(:each) do
+    # must be logged in as merchant
+    merchant.authenticate(session_data)
+    session[:user_id] = merchant.id
+    # merchant must own the product
+    product
+  end
+
   let(:orderitem) do
     OrderItem.create(quantity: 3, order_id: 1, product_id: 1, status: "shipped")
   end
@@ -36,13 +44,6 @@ RSpec.describe OrderItemsController, type: :controller do
 
   describe "GET 'edit'" do
     it "renders edit template" do
-      # must be logged in as merchant
-      merchant.authenticate(session_data)
-      session[:user_id] = merchant.id
-
-      # merchant must own the product
-      product
-
       get :edit, id: orderitem.id, merchant_id: merchant.id
       expect(response.status).to eq 200
       expect(subject).to render_template :edit
@@ -51,12 +52,6 @@ RSpec.describe OrderItemsController, type: :controller do
 
   describe "PATCH 'edit'" do
     it "redirects to merchant orders page after updating" do
-      # must be logged in as merchant
-      merchant.authenticate(session_data)
-      session[:user_id] = merchant.id
-
-      # merchant must own the product
-      product
       orderitem
 
       patch :update, order_item_update

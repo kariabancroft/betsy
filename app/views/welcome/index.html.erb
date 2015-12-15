@@ -1,7 +1,7 @@
 <div class="jumbotron">
   <h2><span class="brand">SEABAY</span> is your #1 stop shop for all things related to the sea!</h2>
 </div>
-<div class="container">
+<div class="container container-home-page">
   <%= render 'layouts/navbar' %>
   <% @categories.each_with_index do |cat, i| %>
     <% if i.odd? %>
@@ -12,7 +12,7 @@
          <% if cat.image_file_name.nil? %>
           <img src="<%= cat.photo_url %>" alt="<% cat.name %>">
          <% else %>
-          <%= image_tag(cat.image.url(:medium))%>
+          <%= image_tag(cat.image.url(:large))%>
          <% end %>
         <div class="caption">
           <%= link_to cat.name, category_path(cat.id), class: "h3" %>
