@@ -63,10 +63,11 @@ RSpec.describe ProductsController, type: :controller do
     end
   end
 
-  describe "GET #new" do
-    it "renders new view" do
-    get :new, merchant_id: @product.merchant_id
-    expect(subject).to render_template :new
+  describe "GET 'new'" do
+    it "is renders new view" do
+      get :new, merchant_id: @product.merchant_id
+      expect(response.status).to eq 200
+      expect(subject).to render_template :new
     end
   end
 
@@ -87,6 +88,13 @@ RSpec.describe ProductsController, type: :controller do
     it "renders new template on error" do
       post :create, bad_params
       expect(subject).to render_template :new,(@product.merchant_id)
+    end
+  end
+
+  describe 'GET #edit' do
+    it "renders edit template" do
+    get :edit, merchant_id: @product.merchant_id, id: @product.id
+    expect(subject).to render_template :edit
     end
   end
 
