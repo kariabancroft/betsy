@@ -6,14 +6,29 @@ RSpec.describe CategoriesController, type: :controller do
       name:"category"}
     }
   end
+  
   let(:bad_params) do
     {category: {
       name: nil
       }}
   end
 
+  let(:merchant) do
+    Merchant.create(username: "Apple", email: "email345@email.com", password: "password", password_confirmation: "password")
+  end
+
+  let(:session_data) do
+    {
+      username: "Apple",
+      password: "password"
+    }
+  end
+
   describe "GET 'new'" do
     it "is successful" do
+      merchant.authenticate(session_data)
+      session[:user_id] = merchant.id
+
       get :new
       expect(response.status).to eq 200
       expect(subject).to render_template :new
