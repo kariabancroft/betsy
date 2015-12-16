@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_action :require_login, only: [:index, :pending, :cancelled, :paid, :completed]
+  before_action :require_login, only: [:index, :pending, :cancelled, :paid, :completed, :show]
   before_action :get_order_items, only: [:index, :status]
   before_action :get_order_item_revenue, only: [:confirm, :show]
 
