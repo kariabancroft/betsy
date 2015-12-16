@@ -29,7 +29,6 @@ RSpec.describe MerchantsController, type: :controller do
 
   describe "POST 'create'" do
     it "successful create redirects to log in page" do
-      binding.pry
       post :create, good_params
       expect(Merchant.all.length).to eq 1
       expect(response.status).to eq 302
@@ -37,6 +36,7 @@ RSpec.describe MerchantsController, type: :controller do
     end
     it "unsuccessful create renders new page" do
       post :create, bad_params
+      expect(Merchant.all.length).to eq 0
       expect(response.status).to eq 200
       expect(subject).to render_template :new
     end
