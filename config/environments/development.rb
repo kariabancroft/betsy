@@ -39,9 +39,15 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  #paperclip config from paperclip wiki doc
-config.paperclip_defaults = {
+  #paperclip config from heroku tutorial
+  config.paperclip_defaults = {
   :storage => :s3,
-  :bucket => 'S3_BUCKET_NAME'
+  :bucket => ENV['S3_BUCKET_NAME'],
+  :s3_host_name => 's3-website-us-west-2.amazonaws.com',
+  :s3_credentials => {
+    :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+    :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+  }
 }
+
 end
