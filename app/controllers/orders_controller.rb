@@ -79,7 +79,7 @@ class OrdersController < ApplicationController
     @total_revenue = 0
 
     @all_orderitems.each do |orderitem|
-      @total_revenue += Product.find(orderitem.product_id).price * orderitem.quantity
+      @total_revenue += orderitem.product.price * orderitem.quantity
     end
   end
 
@@ -136,9 +136,14 @@ class OrdersController < ApplicationController
   end
 
   def get_order_items
-    # find all products for current merchant
     @products = current_merchant.products
-    # find all order items for these products
+
+    @orders = []
+
+    @products.each do |product|
+      @orders.push(product.orders)
+    end
+
     @all_orderitems = []
 
     @products.each do |product|
@@ -146,23 +151,28 @@ class OrdersController < ApplicationController
     end
 
     @all_orderitems = @all_orderitems.flatten
-
-    # find all orders with those order items
-    @orders = []
-    @all_orderitems.each do |orderitem|
-      @orders.push(orderitem.order)
-    end
   end
 
   def get_order_item_revenue
     @order = Order.find(params[:id])
-    @order_items = @order.order_items
-    # find total $ amount for order
+
+    # get all order items for an order
+    @all_order_items = @order.order_items
+
+    # get all order items for the order that belong to signed in merchant
+    @order_items = []
+
+    @all_order_items.each do |oi|
+      if oi.product.merchant_id == current_merchant.id
+        @order_items.push(oi)
+      end
+    end
+
+    # find total revenue for the signed in merchant's order items
     @order_total = 0
-    @order_items.each do |item|
-      product = Product.find(item.product_id)
-      subtotal = product.price * item.quantity
-      @order_total += subtotal
+
+    @order_items.each do |oi|
+      @order_total += oi.product.price * oi.quantity
     end
   end
 
