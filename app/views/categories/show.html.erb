@@ -18,10 +18,10 @@ background-position:
 <div class="container container-home-page">
   <%= render 'layouts/navbar' %>
   <% @category.products.each_with_index do |product, i| %>
-    <% if i.odd? %>
+    <% if i + 1 % 3 == 0 %>
       <div class="row">
     <% end %>
-    <div class="col-sm-6 col-md-6">
+    <div class="col-sm-4 col-md-4">
       <div class="thumbnail">
         <img src="<%= product.photo_url %>" alt="<% product.name %>">
         <div class="caption">
@@ -29,7 +29,7 @@ background-position:
         </div>
       </div>
     </div>
-    <% if i.odd? %>
+    <% if i + 1 % 3 == 0 %>
       </div>
     <% end %>
   <% end %>

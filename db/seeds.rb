@@ -28,7 +28,11 @@ end
 seed_products = [
   {name: "Sea Anemone", price: 5.00, photo_url: "http://www.cabrillomarineaquarium.org/_photos/species-green-sea-anemone.jpg", description: "Is it fluffy, or slimy?", quantity: 5, merchant_id: 1},
   {name: "Starfish", price: 5.00, photo_url: "http://www.buckeyescuba.com/wp-content/uploads/2012/04/starfish2.jpg", description: "", quantity: 5, merchant_id: 2},
-  {name: "Dolphin", price: 5.00, photo_url: "http://weknowyourdreams.com/images/dolphin/dolphin-01.jpg", description: "", quantity: 0, merchant_id: 2}
+  {name: "Dolphin", price: 5.00, photo_url: "http://weknowyourdreams.com/images/dolphin/dolphin-01.jpg", description: "", quantity: 0, merchant_id: 2},
+  {name: "Shark Hat", price: 5.00, photo_url: "http://img.costumecraze.com/images/vendors/rasta/3690-Sharknado-Man-Eating-Shark-Costume-Hat-large.jpg", description: "THIS IS AMAZING", quantity: 5, merchant_id: 2},
+  {name: "PAWS", price: 5.00, photo_url: "http://www.tshirtvortex.net/wp-content/uploads/PAWS.jpg", description: "Cats are scarier than sharks anyways, let's be real.", quantity: 5, merchant_id: 2},
+  {name: "Finding Nemo Sweatshirt", price: 5.00, photo_url: "http://g02.a.alicdn.com/kf/HTB1o5_5JFXXXXXsXXXXq6xXFXXXB/Finding-Nemo-Crewneck-Sweatshirt-Dory-and-Marlin-Cartoon-Jumper-Women-Men-Fashion-Clothing-Jogging-Sport-Tops.jpg", description: "Neeeeeemo", quantity: 5, merchant_id: 2},
+  {name: "Clownfish Costume", price: 5.00, photo_url: "http://images.halloweencostume.com/products/9676/1-1/newborn-clown-fish-costume.jpg", description: "Squee", quantity: 5, merchant_id: 2}
 ]
 
 seed_products.each do |pro|
@@ -37,6 +41,11 @@ end
 
 Product.find(1).categories << Category.find(2)
 Product.find(2).categories << Category.find(1)
+Product.find(3).categories << Category.find(1)
+Product.find(4).categories << Category.find(4)
+Product.find(5).categories << Category.find(4)
+Product.find(6).categories << Category.find(4)
+Product.find(7).categories << Category.find(4)
 
 seed_orders = [
   {purchase_time: Time.now, name: "Ricky", email: "ricky@awesome.com", street: "Ada Street", city: "Seattle", state: "WA", zip: 98112, cc_num: "1234", cc_exp: Time.now.to_date, sec_code: 123, bill_zip: 98112, status: "Paid"}
