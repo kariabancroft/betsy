@@ -103,3 +103,20 @@ html, body {
   background-color: rgba(248,248,248,.7);
   border-radius: 7px;
 }
+
+.jumbotron-category {
+  height: $jumbo-height;
+  width: 100%;
+  padding-top: 270px;
+  margin-bottom: 30px;
+  h2{
+    padding-left: 10%;
+    font-family: 'Ubuntu Condensed', sans-serif;
+    color: #F5F9FA;
+  }
+  .brand{
+    color: white;
+    font-weight: 900;
+    font-family: 'Raleway', sans-serif;
+  }
+}

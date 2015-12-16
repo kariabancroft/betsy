@@ -1,7 +1,22 @@
-<div class="container">
+<div class="jumbotron-category" style='background:
+    linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.2),
+    rgba(0, 0, 0, 0.3)
+  ),
+  url(<%= @category.jumbotron_photo_url %>) no-repeat center center;
+background-position:
+<% if @category.name == "Seashells" %>
+  50% 80%;'>
+<% elsif @category.name == "Clothing" %>
+  50% 61%;'>
+<% else %>
+  50% 20%;'>
+<% end %>
+  <h2><%= @category.name.upcase %></h2>
+</div>
+<div class="container container-home-page">
   <%= render 'layouts/navbar' %>
-  <h1>Category: <%= @category.name %></h1>
-
   <% @category.products.each_with_index do |product, i| %>
     <% if i.odd? %>
       <div class="row">

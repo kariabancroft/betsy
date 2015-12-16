@@ -9,7 +9,7 @@ seed_categories = [
   {name: "Animals", photo_url: "http://www.h2tuga.net/assets/fullimage/clown-fish-wallpapers-pictures-photos-images-1mkdkx9qwrawplnc.jpg", jumbotron_photo_url: "http://www.sfltimes.com/wp-content/uploads/2015/07/Green-Sea-Turtle.jpg" },
   {name: "Plants", photo_url: "http://b.fastcompany.net/multisite_files/coexist/poster/2013/07/1682596-poster-1280-seaweed.jpg", jumbotron_photo_url: "http://b.fastcompany.net/multisite_files/coexist/poster/2013/07/1682596-poster-1280-seaweed.jpg" },
   {name: "Seashells", photo_url: "http://miriadna.com/desctopwalls/images/max/Seashell-on-the-sand.jpg", jumbotron_photo_url: "http://7-themes.com/data_images/out/12/6809283-seashells.jpg"},
-  {name: "Clothing", photo_url: "http://img.costumecraze.com/images/vendors/rasta/3690-Sharknado-Man-Eating-Shark-Costume-Hat-large.jpg" }
+  {name: "Clothing", photo_url: "https://img1.etsystatic.com/005/0/6888069/il_fullxfull.376652283_qwmm.jpg", jumbotron_photo_url: "https://img1.etsystatic.com/005/0/6888069/il_fullxfull.376652283_qwmm.jpg" }
 ]
 
 seed_categories.each do |cat|
