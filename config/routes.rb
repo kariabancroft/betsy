@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   resources :categories
   resources :products, :only => [:show]
 
-  get "merchants/:id/home" => "merchants#home", as: :merchant_home
+  get "merchants/home" => "merchants#home", as: :merchant_home
 
   resources :merchants do
     resources :products
