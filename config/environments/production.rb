@@ -80,8 +80,8 @@ Rails.application.configure do
   #paperclip config from heroku tutorial
   config.paperclip_defaults = {
   :storage => :s3,
+  :bucket => ENV['ada-seabay'],
   :s3_credentials => {
-    :bucket => ENV['ada-seabay'],
     :access_key_id => ENV['AKIAJKA6QXD7XFEPAXGA'],
     :secret_access_key => ENV['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']
   }
