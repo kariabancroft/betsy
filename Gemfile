@@ -33,6 +33,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 # use Paperclip as the photo uploader
 gem "paperclip", "~> 4.3"
+gem 'aws-sdk'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

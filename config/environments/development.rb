@@ -38,4 +38,14 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  #paperclip config from heroku tutorial
+  config.paperclip_defaults = {
+  :storage => :s3,
+  :s3_credentials => {
+    :bucket => ENV['ada-seabay'],
+    :access_key_id => ENV['AKIAJKA6QXD7XFEPAXGA'],
+    :secret_access_key => ENV['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']
+  }
+}
 end
