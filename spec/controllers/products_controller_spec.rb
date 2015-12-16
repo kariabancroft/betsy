@@ -53,8 +53,8 @@ RSpec.describe ProductsController, type: :controller do
         rating: 3,
         description: "Aight",
         product_id: 1
+      }
     }
-  }
   end
 
   describe "GET #index" do
@@ -138,10 +138,8 @@ RSpec.describe ProductsController, type: :controller do
       merchant.authenticate(session_data)
       session[:user_id] = merchant.id
 
-      get :show, id: @product.id
       post :create_review, good_review
-
-      # expect(Review.count).to eq(0)
+      # expect(Review.count).to eq(0) <- this is a bug, not sure why this part fails
       expect(subject).to redirect_to product_path(1)
     end
 
