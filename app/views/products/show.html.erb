@@ -45,6 +45,9 @@
             <%= review.rating %>: <%= review.description %>
           </div>
         <% end %>
+        <% if @reviews.count == 0 %>
+          <p> There are currently no reviews for this product.</p>
+        <% end %>
     </div>
   </div>
 
