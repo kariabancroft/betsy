@@ -13,20 +13,22 @@
       </div>
     <% else %>
       <% @products.each_with_index do |product, i| %>
-        <% if product.status == "Active" %>
-          <% if i + 1 % 3 == 0 %>
-            <div class="row">
-          <% end %>
-          <div class="col-sm-4 col-md-4">
-            <div class="thumbnail">
-              <img src="<%= product.photo_url %>" alt="<% product.name %>">
-              <div class="caption">
-                <%= link_to product.name, product_path(product.id), class: "h3" %>
+        <% if product.quantity != 0 %>
+          <% if product.status == "Active" %>
+            <% if i + 1 % 3 == 0 %>
+              <div class="row">
+            <% end %>
+            <div class="col-sm-4 col-md-4">
+              <div class="thumbnail">
+                <img src="<%= product.photo_url %>" alt="<% product.name %>">
+                <div class="caption">
+                  <%= link_to product.name, product_path(product.id), class: "h3" %>
+                </div>
               </div>
             </div>
-          </div>
-          <% if i + 1 % 3 == 0 %>
-            </div>
+            <% if i + 1 % 3 == 0 %>
+              </div>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>
