@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  before_action :require_login, only: [:new]
+
   def new
     @title = "Create a new category"
     @category = Category.new
