@@ -14,7 +14,7 @@
       <% end %>
     </div>
     <div class="col-md-8">
-      <% if @product.status == "Active" %>
+      <% if @product.status == "Active" && @product.quantity != 0 %>
         <h1><%= @product.name %></h1>
         <h4>Sold by: <%= @product.merchant.username %></h4>
         <br>
