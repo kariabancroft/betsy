@@ -57,6 +57,13 @@ RSpec.describe ProductsController, type: :controller do
   }
   end
 
+  describe "GET #all_products" do
+    it "is successful" do
+      get :all_products
+      expect(response.status).to eq 200
+    end
+  end
+
   describe "GET #index" do
     it "is successful" do
       merchant.authenticate(session_data)
