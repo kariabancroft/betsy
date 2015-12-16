@@ -20,8 +20,8 @@ $jumbo-height: 350px;
   background:
       linear-gradient(
       to bottom,
-      rgba(255, 255, 255, 0.5),
-      rgba(0, 0, 0, 0.3)
+      rgba(255, 255, 255, 0.4),
+      rgba(63, 83, 89, 0.3)
     ),
     image_url("jumping-dolphins-sea.jpg") no-repeat center center;
   width: 100%;
@@ -32,6 +32,7 @@ $jumbo-height: 350px;
     padding-left: 18%;
     font-family: 'Ubuntu Condensed', sans-serif;
     color: #F5F9FA;
+    text-shadow: 0 0.5px 0 #7A8F96;
   }
   .brand{
     color: white;
