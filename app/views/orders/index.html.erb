@@ -43,9 +43,9 @@
             <td><%= link_to orderitem.order_id, merchant_order_path(@current_merchant.id, orderitem.order_id) %></td>
             <td><%= orderitem.created_at.to_date %></td>
             <td><%= link_to Product.find(orderitem.product_id).name, product_path(Product.find(orderitem.product_id).id) %></td>
-            <td><%= number_to_currency(Product.find(orderitem.product_id).price.to_f/100) %></td>
+            <td><%= number_to_currency(Product.find(orderitem.product_id).price) %></td>
             <td><%= orderitem.quantity %></td>
-            <td><%= number_to_currency(Product.find(orderitem.product_id).price.to_f/100 * orderitem.quantity) %></td>
+            <td><%= number_to_currency(Product.find(orderitem.product_id).price * orderitem.quantity) %></td>
             <td><%= orderitem.order.status %></td>
             <td><%= orderitem.status %></td>
             <td><%= link_to "Edit Status", edit_merchant_order_item_path(@current_merchant.id, orderitem.id) %></td>
