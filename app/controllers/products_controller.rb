@@ -29,14 +29,7 @@ class ProductsController < ApplicationController
     @reviews = @product.reviews
     @review = Review.new
     @can_review = current_merchant_product?
-
-    if @reviews.length != 0
-      total = 0
-      @reviews.each do |review|
-        total += review.rating
-      end
-      @average = (total / @reviews.length)
-    end
+    @average = @product.average_review
   end
 
   def edit
