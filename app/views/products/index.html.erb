@@ -12,7 +12,7 @@
   <tbody>
     <% @current_merchant.products.each do |product| %>
     <tr>
-      <td><%= link_to product.name.capitalize, merchant_product_path(@current_merchant.id, product.id) %></td>
+      <td><%= link_to product.name.capitalize, product_path(product.id) %></td>
       <td><%= link_to "Edit", edit_merchant_product_path(@current_merchant.id, product.id) %></td>
       <td><%= link_to "Delete", merchant_product_path(@current_merchant.id, product.id), method: :delete, data: {confirm: "Confirm Deletion"} %></td>
        <% if product.status == "Active" %>
