@@ -30,7 +30,7 @@
       <th>Quantity</th>
       <th>Price</th>
       <th>Subtotal</th>
-      <% @order_items.each do |orderitem| %>
+      <% @all_order_items.each do |orderitem| %>
       <% product = Product.find(orderitem.product_id) %>
         <tr>
           <td><%= link_to product.name, product_path(product.id) %></td>
