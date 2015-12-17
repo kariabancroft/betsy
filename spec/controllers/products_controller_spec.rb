@@ -88,10 +88,20 @@ RSpec.describe ProductsController, type: :controller do
     end
   end
 
-  describe "GET #show" do
+  describe "#show" do
+    before :each do
+      Review.create(good_review[:review])
+      Review.create(rating: 1, description: "Aight", product_id: @product.id)
+    end
+
     it "renders show view" do
       get :show, merchant_id: @product.merchant_id, id: @product.id
       expect(subject).to render_template :show
+    end
+
+    it "finds the average review of a product with a review" do
+      get :show, merchant_id: @product.merchant_id, id: @product.id
+      expect(assigns(:average)).to eq(2)
     end
   end
 

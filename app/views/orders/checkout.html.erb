@@ -12,18 +12,21 @@
           It looks like all the products that were in your cart are sold out! You must add in-stock products before you can checkout.
         <% else %>
           <table class="table table-hover">
-            <tr>
+            <tr class="active">
               <th>Product</th>
-              <!-- <th>Quantity</th> -->
+              <th>Quantity</th>
               <th>Price</th>
-              <!-- <th>Subtotal</th> -->
+              <th>Subtotal</th>
             </tr>
-              <% @products.each do |product| %>
+            <% if !@cart_items.nil? %>
+              <% @cart_items.each do |product, quantity| %>
+                <% product = Product.find(product.to_i) %>
                 <tr>
                   <td><%= product.name %></td>
-                  <!-- <td><%= product.quantity %></td> -->
+                  <td><%= quantity %></td>
                   <td><%= number_to_currency(product.price) %></td>
-                  <!-- <td><%= number_to_currency(product.price * product.quantity) %></td> -->
+                  <td><%= number_to_currency(product.price * quantity) %></td>
+              <% end %>
             <% end %>
                 </tr>
           </table>
