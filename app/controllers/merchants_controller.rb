@@ -8,7 +8,8 @@ class MerchantsController < ApplicationController
   def create
     @merchant = Merchant.new(strong_params)
       if @merchant.save
-        redirect_to new_session_path
+        session[:user_id] = @merchant.id
+        redirect_to merchant_home_path(@merchant)
       else
         render :new
       end

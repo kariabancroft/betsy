@@ -33,6 +33,15 @@
       <% if @product.description.length == 0 %>
       <p>For just <%= number_to_currency(@product.price) %>, this ocean-related item can soon be yours!</p>
       <% end %>
+      <br>
+  <h3>Average rating:</h3>
+  <% if @reviews.length != 0 %>
+    <% @average.times do |average| %>
+      <%= image_tag("starfish.jpg", size: "15x15", alt: "Starfish rating") %>
+    <% end %>
+  <% else %>
+   <p> This product does not yet have a review. If you've purchased this product, leave it a starry review!</p>
+  <% end %>
     </div>
   </div>
 
@@ -46,8 +55,10 @@
             <th>Comment</th>
           </tr>
           <% @reviews.each do |review| %>
-            <tr>
-              <td><%= review.rating %></td>
+              <% each_review = review.rating %>
+              <tr><td><% each_review.times do |rating| %>
+                <%= image_tag("starfish.jpg", size: "15x15", alt: "Starfish rating") %>
+              <% end %></td>
               <td><%= review.description %></td>
             </tr>
           <% end %>
