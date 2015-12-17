@@ -38,8 +38,6 @@ Rails.application.routes.draw do
     resources :order_items, :only => [:edit, :update]
   end
 
-
-
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
