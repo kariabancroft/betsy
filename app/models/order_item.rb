@@ -8,4 +8,14 @@ class OrderItem < ActiveRecord::Base
   def cost
     self.product.price * self.quantity
   end
+
+  def self.cost_of_many(array)
+    total = 0
+
+    array.each do |orderitem|
+      total += orderitem.cost
+    end
+
+    return total
+  end
 end

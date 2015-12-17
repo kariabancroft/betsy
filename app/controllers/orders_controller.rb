@@ -19,6 +19,7 @@ class OrdersController < ApplicationController
       end
     end
     @order_total = 0
+
     @products.each do |product|
       @order_total += product.price
     end
@@ -74,23 +75,17 @@ class OrdersController < ApplicationController
   end
 
   def confirm
-    # get all order items for an order
     @all_order_items = @order.order_items
 
-    # find total revenue for the order's order_items
-    @order_total = 0
-
-    @all_order_items.each do |oi|
-      @order_total += oi.cost
-    end
+    @order_total = @order.total_cost
   end
 
   def index
-    @total_revenue = 0
+    @total_revenue = OrderItem.cost_of_many(@all_orderitems)
 
-    @all_orderitems.each do |orderitem|
-      @total_revenue += orderitem.cost
-    end
+    # @all_orderitems.each do |orderitem|
+    #   @total_revenue += orderitem.cost
+    # end
   end
 
   def show
@@ -185,11 +180,7 @@ class OrdersController < ApplicationController
     end
 
     # find total revenue for the signed in merchant's order items
-    @order_total = 0
-
-    @order_items.each do |oi|
-      @order_total += oi.product.price * oi.quantity
-    end
+    @order_total = OrderItem.cost_of_many(@order_items)
   end
 
 end
