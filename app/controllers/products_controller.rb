@@ -29,7 +29,7 @@ class ProductsController < ApplicationController
     @reviews = @product.reviews
     @review = Review.new
     @can_review = current_merchant_product?
-    @average = @product.average_review
+    @average = @product.average_review.round
   end
 
   def edit
