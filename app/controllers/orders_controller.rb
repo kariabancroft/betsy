@@ -40,6 +40,7 @@ class OrdersController < ApplicationController
         discrepancy = (v - product.quantity).abs
         discrepancy.times do
           session[:cart][k] -= 1
+          session[:cart].delete_if { |key,value| value == 0 }
         end
       end
     end
