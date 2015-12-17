@@ -46,8 +46,10 @@
             <th>Comment</th>
           </tr>
           <% @reviews.each do |review| %>
-            <tr>
-              <td><%= review.rating %></td>
+              <% each_review = review.rating %>
+              <tr><td><% each_review.times do |rating| %>
+                <%= image_tag("starfish.jpg", size: "15x15", alt: "Starfish rating") %>
+              <% end %></td>
               <td><%= review.description %></td>
             </tr>
           <% end %>
