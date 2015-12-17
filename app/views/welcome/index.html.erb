@@ -12,7 +12,7 @@
          <% if cat.image_file_name.nil? %>
           <img src="<%= cat.photo_url %>" alt="<% cat.name %>">
          <% else %>
-          <%= image_tag(cat.image.url(:large))%>
+          <%= image_tag(cat.image.url(:home))%>
          <% end %>
         <div class="caption">
           <%= link_to cat.name, category_path(cat.id), class: "h3" %>

@@ -1,7 +1,8 @@
 class OrdersController < ApplicationController
   before_action :require_login, only: [:index, :pending, :cancelled, :paid, :completed, :show]
+  before_action :get_order, only: [:confirm, :show]
   before_action :get_order_items, only: [:index, :status]
-  before_action :get_order_item_revenue, only: [:confirm, :show]
+  before_action :get_order_item_revenue, only: :show
 
   def checkout
     # get @current_order info from carts controller
@@ -40,6 +41,7 @@ class OrdersController < ApplicationController
         discrepancy = (v - product.quantity).abs
         discrepancy.times do
           session[:cart][k] -= 1
+          session[:cart].delete_if { |key,value| value == 0 }
         end
       end
     end
@@ -72,7 +74,15 @@ class OrdersController < ApplicationController
   end
 
   def confirm
+    # get all order items for an order
+    @all_order_items = @order.order_items
 
+    # find total revenue for the order's order_items
+    @order_total = 0
+
+    @all_order_items.each do |oi|
+      @order_total += oi.product.price * oi.quantity
+    end
   end
 
   def index
@@ -106,7 +116,7 @@ class OrdersController < ApplicationController
         end
       end
       @orderitems.each do |orderitem|
-        @total_revenue += Product.find(orderitem.product_id).price * orderitem.quantity
+        @total_revenue += orderitem.product.price * orderitem.quantity
       end
     elsif @status == "complete"
       @all_orderitems.each do |orderitem|
@@ -115,7 +125,7 @@ class OrdersController < ApplicationController
         end
       end
       @orderitems.each do |orderitem|
-        @total_revenue += Product.find(orderitem.product_id).price * orderitem.quantity
+        @total_revenue += orderitem.product.price * orderitem.quantity
       end
     elsif @status == "cancelled"
       @all_orderitems.each do |orderitem|
@@ -124,7 +134,7 @@ class OrdersController < ApplicationController
         end
       end
       @orderitems.each do |orderitem|
-        @total_revenue += Product.find(orderitem.product_id).price * orderitem.quantity
+        @total_revenue += orderitem.product.price * orderitem.quantity
       end
     end
   end
@@ -133,6 +143,10 @@ class OrdersController < ApplicationController
 
   def order_params
     params.permit(order:[:purchase_time, :name, :email, :street, :city, :state, :zip, :cc_num, :cc_exp, :sec_code, :bill_zip, :status])
+  end
+
+  def get_order
+    @order = Order.find(params[:id])
   end
 
   def get_order_items
@@ -154,8 +168,6 @@ class OrdersController < ApplicationController
   end
 
   def get_order_item_revenue
-    @order = Order.find(params[:id])
-
     # get all order items for an order
     @all_order_items = @order.order_items
 
