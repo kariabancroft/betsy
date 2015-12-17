@@ -35,8 +35,12 @@
       <% end %>
       <br>
   <h3>Average rating:</h3>
-  <% @average.times do |average| %>
-    <%= image_tag("starfish.jpg", size: "15x15", alt: "Starfish rating") %>
+  <% if @reviews.length != 0 %>
+    <% @average.times do |average| %>
+      <%= image_tag("starfish.jpg", size: "15x15", alt: "Starfish rating") %>
+    <% end %>
+  <% else %>
+   <p> This product does not yet have a review. If you've purchased this product, leave it a starry review!</p>
   <% end %>
     </div>
   </div>
