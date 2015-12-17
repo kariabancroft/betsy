@@ -30,13 +30,14 @@ Rails.application.routes.draw do
   get "merchants/:id/orders/show/:status" => 'orders#status', as: :status_orders
 
   # merchants routes
+  get "merchants/home" => "merchants#home", as: :merchant_home
+
   resources :merchants, :except => :destroy do
     resources :products, :except => :show
     resources :orders, :except => [:destroy, :new, :create]
     resources :order_items, :only => [:edit, :update]
   end
 
-  get "merchants/home" => "merchants#home", as: :merchant_home
 
 
   # You can have the root of your site routed with "root"
