@@ -4,4 +4,8 @@ class OrderItem < ActiveRecord::Base
   validates :order_id, presence: true
   validates :product_id, presence: true
   validates :quantity, presence: true, numericality: { greater_than: 0 }
+
+  def cost
+    self.product.price * self.quantity
+  end
 end

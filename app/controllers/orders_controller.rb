@@ -81,7 +81,7 @@ class OrdersController < ApplicationController
     @order_total = 0
 
     @all_order_items.each do |oi|
-      @order_total += oi.product.price * oi.quantity
+      @order_total += oi.cost
     end
   end
 
@@ -89,7 +89,7 @@ class OrdersController < ApplicationController
     @total_revenue = 0
 
     @all_orderitems.each do |orderitem|
-      @total_revenue += orderitem.product.price * orderitem.quantity
+      @total_revenue += orderitem.cost
     end
   end
 
@@ -103,9 +103,9 @@ class OrdersController < ApplicationController
     @status = params[:status]
 
     if @status == "pending"
-      @all_orderitems.each do |oi|
-        if oi.order.status == "Pending"
-          @orderitems.push(oi)
+      @all_orderitems.each do |orderitem|
+        if orderitem.order.status == "Pending"
+          @orderitems.push(orderitem)
         end
       end
 
@@ -152,12 +152,16 @@ class OrdersController < ApplicationController
   def get_order_items
     @products = current_merchant.products
 
+    # get all orders with at least one of current merchant's products
     @orders = []
 
     @products.each do |product|
       @orders.push(product.orders)
     end
 
+    @orders = @orders.flatten
+
+    # get all order items for current merchant's products
     @all_orderitems = []
 
     @products.each do |product|
