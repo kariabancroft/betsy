@@ -16,7 +16,7 @@
     <div class="col-md-7">
       <% if @product.status == "Active" && @product.quantity != 0 %>
         <h1><%= @product.name %></h1>
-        <h4>Sold by: <%= @product.merchant.username %></h4>
+        <h4>Sold by: <%= link_to @product.merchant.username, merchant_path(@product.merchant_id) %></h4>
         <br>
         <h4>Price: <%= number_to_currency(@product.price) %></h4>
         <%= link_to "Add to Cart", add_quantity_path(@product.id), :class => "btn btn-success btn-sm", :method => :post %>
@@ -51,11 +51,13 @@
               <td><%= review.description %></td>
             </tr>
           <% end %>
+          <% if @reviews.count == 0 %>
+          <tr>
+            <td colspan="2"> There are currently no reviews for this product.</td>
+          </tr>
+          <% end %>
         </tbody>
       </table>
-      <% if @reviews.count == 0 %>
-        <p> There are currently no reviews for this product.</p>
-      <% end %>
     </div>
   </div>
 
