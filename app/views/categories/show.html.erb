@@ -23,7 +23,7 @@ background-position:
     <% end %>
     <div class="col-sm-4 col-md-4">
       <div class="thumbnail">
-        <img src="<%= product.photo_url %>" alt="<% product.name %>">
+        <%= image_tag(product.image.url(:medium)) %>
         <div class="caption">
           <%= link_to product.name, product_path(product.id), class: "h3" %>
         </div>
