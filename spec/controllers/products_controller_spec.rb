@@ -39,6 +39,10 @@ RSpec.describe ProductsController, type: :controller do
     Merchant.create(username: "Apple", email: "email345@email.com", password: "password", password_confirmation: "password")
   end
 
+  let(:merchant2) do
+    Merchant.create(username: "Ricky", email: "testing@testing.com", password: "password", password_confirmation: "password")
+  end
+
   let(:session_data) do
     {
       username: "Apple",
@@ -48,7 +52,7 @@ RSpec.describe ProductsController, type: :controller do
 
   let(:good_review) do
     {
-      id: 2,
+      id: 1,
       review: {
         rating: 3,
         description: "Aight",
@@ -146,16 +150,19 @@ RSpec.describe ProductsController, type: :controller do
       session[:user_id] = merchant.id
 
       post :create_review, good_review
-      # expect(Review.count).to eq(0) <- this is a bug, not sure why this part fails
+      expect(Review.count).to eq(0)
       expect(subject).to redirect_to product_path(1)
     end
 
     it "can be created if merchant reviews a product they don't own" do
-      # log in merchant
-      merchant.authenticate(session_data)
-      session[:user_id] = merchant.id
       merchant.products << @product
+
+      # log in merchant
+      merchant2.authenticate(session_data)
+      session[:user_id] = merchant2.id
+
       post :create_review, good_review
+
       expect(Review.count).to eq(1)
       expect(subject).to redirect_to product_path(1)
     end

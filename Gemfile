@@ -3,8 +3,8 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+
+gem 'pg'
 # bootsrtap for styling
 gem 'bootstrap-sass', '~> 3.3.6'
 # Use SCSS for stylesheets
@@ -33,6 +33,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 # use Paperclip as the photo uploader
 gem "paperclip", "~> 4.3"
+gem 'aws-sdk', '< 2.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -51,6 +52,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'rails-erd'
   gem 'pry'
+  gem 'sqlite3'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'

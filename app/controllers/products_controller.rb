@@ -85,10 +85,9 @@ class ProductsController < ApplicationController
       current_merchant.products.each do |product|
         if product.id == params[:id].to_i
           return false
-        else
-          return true
         end
       end
+      return true
     end
   end
 
