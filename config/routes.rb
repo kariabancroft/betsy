@@ -9,32 +9,34 @@ Rails.application.routes.draw do
   post "/carts/:product_id/add" => 'carts#add_quantity', as: :add_quantity
   delete "/carts/" => 'carts#destroy'
 
-
-  post "/products/:id/add_review" => 'products#create_review', as: :create_review
-  get "/products/" => 'products#all_products', as: :products
-
+  # sessions routes
   resources :sessions, :only => [:new, :create]
   delete "/logout", to: 'sessions#destroy', as: :logout
 
+  # categories routes
+  resources :categories, :only => [:show, :create, :new]
+
+  # products routes (see more below under resources :merchants)
+  resources :products, :only => :show
+  post "/products/:id/add_review" => 'products#create_review', as: :create_review
+  get "/products/" => 'products#all_products', as: :products
+  patch "products/:id/retire" => "products#retire", as: :retire_product
+  patch "products/:id/activate" => "products#activate", as: :activate_product
+
+  # orders routes
   get 'orders/checkout' => 'orders#checkout', as: :checkout
   post 'orders/checkout' => 'orders#create'
   get 'orders/:id/confirm' => 'orders#confirm', as: :order_confirm
 
-  resources :categories
-  resources :products, :only => [:show]
-
+  # merchants routes
   get "merchants/home" => "merchants#home", as: :merchant_home
+  get "merchants/:id/orders/show/:status" => 'orders#status', as: :status_orders
 
   resources :merchants do
-    resources :products
-    resources :orders, :only => [:index, :show, :edit, :update]
+    resources :products, :except => :show
+    resources :orders, :except => [:destroy, :new, :create]
     resources :order_items, :only => [:edit, :update]
   end
-
-  patch "products/:id/retire" => "products#retire", as: :retire_product
-  patch "products/:id/activate" => "products#activate", as: :activate_product
-
-  get "merchants/:id/orders/show/:status" => 'orders#status', as: :status_orders
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
