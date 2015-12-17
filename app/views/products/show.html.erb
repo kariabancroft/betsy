@@ -33,6 +33,11 @@
       <% if @product.description.length == 0 %>
       <p>For just <%= number_to_currency(@product.price) %>, this ocean-related item can soon be yours!</p>
       <% end %>
+      <br>
+  <h3>Average rating:</h3>
+  <% @average.times do |average| %>
+    <%= image_tag("starfish.jpg", size: "15x15", alt: "Starfish rating") %>
+  <% end %>
     </div>
   </div>
 
