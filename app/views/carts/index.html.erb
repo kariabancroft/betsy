@@ -6,7 +6,7 @@
   <div class="col-lg-10 fake-modal-cart-top">
     <h1>Your Cart</h1>
     <% if @cart_items.nil? %>
-      <p>Your cart's as empty as this beach! <%= link_to "Get shopping!", root_path %></p>
+      <h4>Your cart's as empty as this beach! <%= link_to "Get shopping!", root_path %></h4>
     <% else %>
       <% if !flash[:error].nil? %>
         <div class= "alert alert-danger" role="alert"><%= flash[:error] %></div>

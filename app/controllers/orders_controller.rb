@@ -19,6 +19,7 @@ class OrdersController < ApplicationController
       end
     end
     @order_total = 0
+
     @products.each do |product|
       @order_total += product.price
     end
@@ -74,23 +75,13 @@ class OrdersController < ApplicationController
   end
 
   def confirm
-    # get all order items for an order
     @all_order_items = @order.order_items
 
-    # find total revenue for the order's order_items
-    @order_total = 0
-
-    @all_order_items.each do |oi|
-      @order_total += oi.product.price * oi.quantity
-    end
+    @order_total = @order.total_cost
   end
 
   def index
-    @total_revenue = 0
-
-    @all_orderitems.each do |orderitem|
-      @total_revenue += orderitem.product.price * orderitem.quantity
-    end
+    @total_revenue = OrderItem.cost_of_many(@all_orderitems)
   end
 
   def show
@@ -103,9 +94,9 @@ class OrdersController < ApplicationController
     @status = params[:status]
 
     if @status == "pending"
-      @all_orderitems.each do |oi|
-        if oi.order.status == "Pending"
-          @orderitems.push(oi)
+      @all_orderitems.each do |orderitem|
+        if orderitem.order.status == "Pending"
+          @orderitems.push(orderitem)
         end
       end
 
@@ -116,7 +107,7 @@ class OrdersController < ApplicationController
         end
       end
       @orderitems.each do |orderitem|
-        @total_revenue += orderitem.product.price * orderitem.quantity
+        @total_revenue += orderitem.cost
       end
     elsif @status == "complete"
       @all_orderitems.each do |orderitem|
@@ -125,7 +116,7 @@ class OrdersController < ApplicationController
         end
       end
       @orderitems.each do |orderitem|
-        @total_revenue += orderitem.product.price * orderitem.quantity
+        @total_revenue += orderitem.cost
       end
     elsif @status == "cancelled"
       @all_orderitems.each do |orderitem|
@@ -134,7 +125,7 @@ class OrdersController < ApplicationController
         end
       end
       @orderitems.each do |orderitem|
-        @total_revenue += orderitem.product.price * orderitem.quantity
+        @total_revenue += orderitem.cost
       end
     end
   end
@@ -152,12 +143,16 @@ class OrdersController < ApplicationController
   def get_order_items
     @products = current_merchant.products
 
+    # get all orders with at least one of current merchant's products
     @orders = []
 
     @products.each do |product|
       @orders.push(product.orders)
     end
 
+    @orders = @orders.flatten
+
+    # get all order items for current merchant's products
     @all_orderitems = []
 
     @products.each do |product|
@@ -181,11 +176,7 @@ class OrdersController < ApplicationController
     end
 
     # find total revenue for the signed in merchant's order items
-    @order_total = 0
-
-    @order_items.each do |oi|
-      @order_total += oi.product.price * oi.quantity
-    end
+    @order_total = OrderItem.cost_of_many(@order_items)
   end
 
 end
