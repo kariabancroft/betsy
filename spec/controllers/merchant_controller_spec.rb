@@ -32,7 +32,7 @@ RSpec.describe MerchantsController, type: :controller do
       post :create, good_params
       expect(Merchant.all.length).to eq 1
       expect(response.status).to eq 302
-      expect(subject).to redirect_to new_session_path
+      expect(subject).to redirect_to merchant_home_path(1)
     end
     it "unsuccessful create renders new page" do
       post :create, bad_params
