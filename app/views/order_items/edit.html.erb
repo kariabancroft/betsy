@@ -13,6 +13,7 @@
         <%= form_for [@current_merchant, @orderitem], url: { action: "update"}, method: :patch, class: "form" do |f| %>
           <div class="form-group">
             <%= f.radio_button :status, "not shipped", class: "radio-inline" %>
+            <% asdf %>
             <%= label :status, "Not Shipped" %>
             <br>
             <%= f.radio_button :status, "shipped", label: "Shipped", class: "radio-inline" %>
