@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151216052342) do
+ActiveRecord::Schema.define(version: 20151218003713) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -77,11 +77,11 @@ ActiveRecord::Schema.define(version: 20151216052342) do
   create_table "products", force: :cascade do |t|
     t.string   "name"
     t.decimal  "price"
-    t.string   "photo_url"
+    t.string   "photo_url",          default: "https://s3-us-west-2.amazonaws.com/ada-seabay/defaultsea.jpg"
     t.string   "description"
     t.integer  "quantity"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                                                                                  null: false
+    t.datetime "updated_at",                                                                                  null: false
     t.integer  "merchant_id"
     t.string   "image_file_name"
     t.string   "image_content_type"
