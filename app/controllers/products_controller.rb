@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :require_login, only: [:index, :edit, :new]
+  before_action :find_product, only: [:show, :edit, :retire, :activate]
 
   def index
   end
@@ -25,7 +26,6 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
     @reviews = @product.reviews
     @review = Review.new
     @can_review = current_merchant_product?
@@ -33,7 +33,6 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    @product = Product.find(params[:id])
     @action = "update"
     @method = :patch
   end
@@ -63,14 +62,12 @@ class ProductsController < ApplicationController
   end
 
   def retire
-    @product = Product.find(params[:id])
     @product.status = "Retired"
     @product.save!
     redirect_to merchant_products_path(@product.merchant_id)
   end
 
   def activate
-    @product = Product.find(params[:id])
     @product.status = "Active"
     @product.save!
     redirect_to merchant_products_path(@product.merchant_id)
@@ -97,6 +94,10 @@ class ProductsController < ApplicationController
 
   def review_params
     params.require(:review).permit(:rating, :description, :product_id)
+  end
+
+  def find_product
+    @product = Product.find(params[:id])
   end
 
 end

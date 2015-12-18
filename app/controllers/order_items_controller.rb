@@ -1,12 +1,11 @@
 class OrderItemsController < ApplicationController
   before_action :require_login
+  before_action :find_orderitem, only: [:edit, :update]
 
   def edit
-    @orderitem = OrderItem.find(params[:id])
   end
 
   def update
-    @orderitem = OrderItem.find(params[:id])
     @orderitem.update(order_items_params)
     redirect_to merchant_orders_path(@current_merchant.id)
   end
@@ -15,5 +14,9 @@ class OrderItemsController < ApplicationController
 
   def order_items_params
     params.require(:order_item).permit(:status)
+  end
+
+  def find_orderitem
+    @orderitem = OrderItem.find(params[:id])
   end
 end
