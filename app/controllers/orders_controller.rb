@@ -82,10 +82,6 @@ class OrdersController < ApplicationController
 
   def index
     @total_revenue = OrderItem.cost_of_many(@all_orderitems)
-
-    # @all_orderitems.each do |orderitem|
-    #   @total_revenue += orderitem.cost
-    # end
   end
 
   def show
@@ -111,7 +107,7 @@ class OrdersController < ApplicationController
         end
       end
       @orderitems.each do |orderitem|
-        @total_revenue += orderitem.product.price * orderitem.quantity
+        @total_revenue += orderitem.cost
       end
     elsif @status == "complete"
       @all_orderitems.each do |orderitem|
@@ -120,7 +116,7 @@ class OrdersController < ApplicationController
         end
       end
       @orderitems.each do |orderitem|
-        @total_revenue += orderitem.product.price * orderitem.quantity
+        @total_revenue += orderitem.cost
       end
     elsif @status == "cancelled"
       @all_orderitems.each do |orderitem|
@@ -129,7 +125,7 @@ class OrdersController < ApplicationController
         end
       end
       @orderitems.each do |orderitem|
-        @total_revenue += orderitem.product.price * orderitem.quantity
+        @total_revenue += orderitem.cost
       end
     end
   end
