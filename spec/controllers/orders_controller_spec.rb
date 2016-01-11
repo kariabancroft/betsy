@@ -5,13 +5,17 @@ RSpec.describe OrdersController, type: :controller do
     { product.id => 2 }
   end
 
-  let(:product) do
-    Product.create(name: "Stuff", price: 500, quantity: 5)
-  end
+  # let(:product) do
+  #   Product.create(name: "Stuff", price: 500, quantity: 5)
+  # end
 
-  let(:order) do
-    Order.create(good_params[:order])
-  end
+  let(:product) { create(:factory_product) }
+
+  # let(:order) do
+  #   Order.create(good_params[:order])
+  # end
+
+  let(:order) { create(:order) }
 
   let(:good_params) do
     {order: {
