@@ -5,12 +5,12 @@ RSpec.describe OrdersController, type: :controller do
     { product.id => 2 }
   end
 
-  let(:product) do
-    Product.create(name: "Stuff", price: 500, quantity: 5)
-  end
+  let(:product) { create(:product) }
 
-  let(:order) do
-    Order.create(good_params[:order])
+  let(:order) { create(:order) }
+
+  let(:orderitem) do
+    OrderItem.create(quantity: 3, order_id: 1, product_id: 1, status: "shipped")
   end
 
   let(:good_params) do
@@ -115,10 +115,6 @@ RSpec.describe OrdersController, type: :controller do
 
   let(:merchant) do
     Merchant.create(good_merchant_params[:merchant])
-  end
-
-  let(:orderitem) do
-    OrderItem.create(quantity: 3, order_id: 1, status: "shipped")
   end
 
   before :each do

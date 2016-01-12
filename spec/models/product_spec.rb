@@ -4,14 +4,6 @@ RSpec.describe Product, type: :model do
 
   empty_product = Product.new
 
-  let(:good_product) do
-  Product.create({
-      name: "Dolphin",
-      price: 2,
-      description: "description"
-    })
-  end
-
   describe "model validations" do
     it "requires that a product name be present" do
       expect(empty_product).to be_invalid
@@ -19,8 +11,8 @@ RSpec.describe Product, type: :model do
     end
 
     it "requires that a product have a unique name" do
-      good_product
-      dup_product = good_product.dup
+      create(:product)
+      dup_product = build(:product).dup
       dup_product.save
       expect(dup_product).to_not be_valid
       expect(dup_product.errors[:name]).to include("has already been taken")
@@ -32,12 +24,12 @@ RSpec.describe Product, type: :model do
     end
 
     it "expects price to be an integer" do
-      bad_price = Product.create({ name: "Dolphin", price: "a", description: "description"})
+      bad_price = build(:product, price: "a")
       expect(bad_price).to be_invalid
       expect(bad_price.errors.keys).to include (:price)
     end
     it "expects price to be greater than 0" do
-      bad_price = Product.create({ name: "Dolphin", price: 0, description: "description"})
+      bad_price = build(:product, price: 0)
       expect(bad_price).to be_invalid
       expect(bad_price.errors.keys).to include (:price)
     end
