@@ -29,3 +29,30 @@
     <br>
     <%= f.submit value:"Save", class:"btn btn-default" %>
   <% end %>
+
+
+<div>
+For length, width, and height, use centimeters.  For weight, use grams.
+</div>
+
+
+<%= form_for @order, url: order_shipping_path do |f| %>|f| %>
+  <div><%= f.label :name  %></div>
+  <div><%= f.text_field :name %></div>
+  <div><%= f.label :city %></div>
+  <div><%= f.text_field :city %></div>
+  <div><%= f.label :state %></div>
+  <div><%= f.text_field :state %></div>
+  <div><%= f.label :postal_code %></div>
+  <div><%= f.text_field :zip %></div>
+
+  <div>
+    <%= f.radio_button %>
+    <%= f.label :fast %>
+  </div>
+
+  <%= f.radio_button %>
+  <%= f.label :slow %>
+
+  <div><%= f.submit %></div>
+<% end %>

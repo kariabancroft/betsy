@@ -142,15 +142,15 @@ class OrdersController < ApplicationController
     ship = {
       shipment: {
         origin: {
-          country: "USA", 
-          city: "Seattle", 
-          state: "Washington", 
+          country: "USA",  
+          state: "WA", 
+          city: "Seattle",
           zip: "98121"
         },
         destination: {
           street: "Ada Street", 
-          city: "Seattle", 
           state: "WA", 
+          city: "Seattle", 
           zip: 98112
         },
         packages: {
@@ -164,7 +164,7 @@ class OrdersController < ApplicationController
     json_ship = ship.to_json
     response = HTTParty.get(BASE_URI, query: { json_data: json_ship })
 
-    @all_rates = response
+    @all_rates = response.parsed_response
   end
 
   private
