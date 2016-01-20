@@ -68,7 +68,7 @@ class OrdersController < ApplicationController
       end
       # remove items from cart
       session[:cart] = nil
-      redirect_to order_confirm_path(@order.id)
+      redirect_to order_shipping_path(@order.id)
     else
       # tells guest which products were sold out and removed from cart
       if !@inventory_errors.empty?
@@ -80,8 +80,12 @@ class OrdersController < ApplicationController
 
   def confirm
     @all_order_items = @order.order_items
-
     @order_total = @order.total_cost
+  end
+
+  def shipping
+    get_order
+    #redirect_to order_confirm_path(@order.id)
   end
 
   def index
