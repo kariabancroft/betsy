@@ -80,6 +80,10 @@ class OrdersController < ApplicationController
     @order_total = @order.total_cost
   end
 
+  def shipping
+    
+  end
+
   def index
     @total_revenue = OrderItem.cost_of_many(@all_orderitems)
   end
