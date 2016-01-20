@@ -1,8 +1,12 @@
+require 'httparty'
+
 class OrdersController < ApplicationController
   before_action :require_login, only: [:index, :pending, :cancelled, :paid, :completed, :show]
   before_action :get_order, only: [:confirm, :show]
   before_action :get_order_items, only: [:index, :status]
   before_action :get_order_item_revenue, only: :show
+
+  BASE_URI = "http://localhost:3001/rates/"
 
   def checkout
     # get @current_order info from carts controller
@@ -128,6 +132,35 @@ class OrdersController < ApplicationController
         @total_revenue += orderitem.cost
       end
     end
+  end
+
+  def shipping
+    ship = {
+      shipment: {
+        origin: {
+          country: "USA", 
+          city: "Seattle", 
+          state: "Washington", 
+          zip: "98121"
+        },
+        destination: {
+          street: "Ada Street", 
+          city: "Seattle", 
+          state: "WA", 
+          zip: 98112
+        },
+        packages: {
+          weight: 10,
+          height: 5,
+          length: 5,
+          width: 5
+        }
+      }
+    }
+    json_ship = ship.to_json
+    response = HTTParty.get(BASE_URI, query: { json_data: json_ship })
+
+    @all_rates = response
   end
 
   private
