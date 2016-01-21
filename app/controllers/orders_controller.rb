@@ -139,24 +139,24 @@ class OrdersController < ApplicationController
   end
 
   def shipping
-    order = Order.find(params[:id])
+    @order = Order.find(params[:id])
     @all_rates = {}
 
-    order.order_items.each do |item|
+    @order.order_items.each do |item|
       ship = {
         shipment: {
           origin: {
-            country:  "US",  
-            state:    item.product.merchant[:state], 
+            country:  "US",
+            state:    item.product.merchant[:state],
             city:     item.product.merchant[:city],
             zip:      item.product.merchant[:zip]
           },
           destination: {
             country:  "US",
-            street:   order[:street], 
-            state:    order[:state], 
-            city:     order[:city], 
-            zip:      order[:zip]
+            street:   @order[:street],
+            state:    @order[:state],
+            city:     @order[:city],
+            zip:      @order[:zip]
           },
           packages: {
             weight:   item.product[:weight],

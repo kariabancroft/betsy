@@ -1,11 +1,10 @@
-<ul>
-<% @all_rates.each do |product, rates| %>
-  Product: <%= product %> 
-  <% rates.each do |rate| %> 
-    <li><%= rate[0] %>: <%= number_to_currency(rate[1] / 100) %></li>
-  <% end %> 
-<% end %> 
-</ul>
-
-
-
+<% @order.order_items.each do |item| %>
+  <%= form_for item, :url => order_confirm_path(@order) do |f|%>
+    <% @all_rates.each do |product, rates| %>
+      Product: <%= product %>
+      <% rates.each do |rate| %>
+        <%= f.radio_button :shipping_type, "#{rate[0]}: #{number_to_currency(rate[1] / 100)}" %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
