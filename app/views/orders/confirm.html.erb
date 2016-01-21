@@ -29,6 +29,8 @@
       <th>Product</th>
       <th>Quantity</th>
       <th>Price</th>
+      <th>Shipping Type</th>
+      <th>Shipping Cost</th>
       <th>Subtotal</th>
       <% @all_order_items.each do |orderitem| %>
       <% product = Product.find(orderitem.product_id) %>
@@ -42,6 +44,8 @@
       <tr>
         <td></td>
         <td></td>
+        <td><%= orderitem.shipping_type %></td>
+        <td><%= orderitem.shipping_cost %></td>
         <td>Order Total:</td>
         <td><%= number_to_currency(@order_total) %></td>
       </tr>
