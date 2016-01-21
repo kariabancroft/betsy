@@ -152,6 +152,7 @@ class OrdersController < ApplicationController
             zip:      item.product.merchant[:zip]
           },
           destination: {
+            country:  "US",
             street:   order[:street], 
             state:    order[:state], 
             city:     order[:city], 
