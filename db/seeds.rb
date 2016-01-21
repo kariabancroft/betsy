@@ -25,8 +25,8 @@
  end
  seed_products = [
    {name: "Sea Anemone", price: 5.00, photo_url: "http://www.cabrillomarineaquarium.org/_photos/species-green-sea-anemone.jpg", description: "Is it fluffy, or slimy?", quantity: 5, merchant_id: 1, height: 10, width: 10, length: 10, weight: 10},
-   {name: "Starfish", price: 5.00, photo_url: "http://www.buckeyescuba.com/wp-content/uploads/2012/04/starfish2.jpg", description: "", quantity: 5, merchant_id: 2},
-   {name: "Dolphin", price: 5.00, photo_url: "http://weknowyourdreams.com/images/dolphin/dolphin-01.jpg", description: "", quantity: 0, merchant_id: 2},
+   {name: "Starfish", price: 5.00, photo_url: "http://www.buckeyescuba.com/wp-content/uploads/2012/04/starfish2.jpg", description: "", quantity: 5, merchant_id: 2, height: 10, width: 10, length: 10, weight: 10},
+   {name: "Dolphin", price: 5.00, photo_url: "http://weknowyourdreams.com/images/dolphin/dolphin-01.jpg", description: "", quantity: 0, merchant_id: 2, height: 10, width: 10, length: 10, weight: 10},
    {name: "Shark Hat", price: 5.00, photo_url: "http://img.costumecraze.com/images/vendors/rasta/3690-Sharknado-Man-Eating-Shark-Costume-Hat-large.jpg", description: "THIS IS AMAZING", quantity: 5, merchant_id: 2, height: 10, width: 10, length: 10, weight: 10},
    {name: "PAWS", price: 5.00, photo_url: "http://www.tshirtvortex.net/wp-content/uploads/PAWS.jpg", description: "Cats are scarier than sharks anyways, let's be real.", quantity: 5, merchant_id: 2, height: 10, width: 10, length: 10, weight: 10},
    {name: "Finding Nemo Sweatshirt", price: 5.00, photo_url: "http://g02.a.alicdn.com/kf/HTB1o5_5JFXXXXXsXXXXq6xXFXXXB/Finding-Nemo-Crewneck-Sweatshirt-Dory-and-Marlin-Cartoon-Jumper-Women-Men-Fashion-Clothing-Jogging-Sport-Tops.jpg", description: "Neeeeeemo", quantity: 5, merchant_id: 2, height: 10, width: 10, length: 10, weight: 10},

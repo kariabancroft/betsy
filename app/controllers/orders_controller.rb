@@ -167,12 +167,11 @@ class OrdersController < ApplicationController
       }
 
       json_ship = ship.to_json
-      response = HTTParty.get(BASE_URI, query: { json_data: json_ship })
+      response = HTTParty.get(BASE_URI, query: { json_data: json_ship }).parsed_response
 
-      @all_rates[item.id] = response
+      @all_rates[item.product.name] = response
     end
 
-    raise
   end
 
   private
