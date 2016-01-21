@@ -3,8 +3,9 @@
     <% @all_rates.each do |product, rates| %>
       Product: <%= product %>
       <% rates.each do |rate| %>
-        <%= f.radio_button :shipping_type, "#{rate[0]}: #{number_to_currency(rate[1] / 100)}" %>
+        <%= f.radio_button :shipping_type, rate[0] %> <%="#{rate[0]}: #{number_to_currency(rate[1] / 100)}" %>
       <% end %>
     <% end %>
+    <%= f.submit %>
   <% end %>
 <% end %>
