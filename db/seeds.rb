@@ -16,8 +16,8 @@
    Category.create cat
  end
  seed_merchants = [
-   {username: "kdefliese", email: "kdefliese@gmail.com", password: "cats", password_confirmation: "cats", country: "USA", city: "Seattle", state: "Washington", zip: "98121"},
-   {username: "seabay", email: "seabay@seabay.com", password: "seabay", password_confirmation: "seabay", country: "USA", city: "Seattle", state: "Washington", zip: "98121"}
+   {username: "kdefliese", email: "kdefliese@gmail.com", password: "cats", password_confirmation: "cats", country: "USA", city: "Seattle", state: "WA", zip: "98121"},
+   {username: "seabay", email: "seabay@seabay.com", password: "seabay", password_confirmation: "seabay", country: "USA", city: "Seattle", state: "WA", zip: "98121"}
  ]
 
  seed_merchants.each do |mer|

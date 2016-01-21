@@ -139,32 +139,40 @@ class OrdersController < ApplicationController
   end
 
   def shipping
-    ship = {
-      shipment: {
-        origin: {
-          country: "USA",  
-          state: "WA", 
-          city: "Seattle",
-          zip: "98121"
-        },
-        destination: {
-          street: "Ada Street", 
-          state: "WA", 
-          city: "Seattle", 
-          zip: 98112
-        },
-        packages: {
-          weight: 10,
-          height: 5,
-          length: 5,
-          width: 5
+    order = Order.find(params[:id])
+    @all_rates = {}
+
+    order.order_items.each do |item|
+      ship = {
+        shipment: {
+          origin: {
+            country:  "US",  
+            state:    item.product.merchant[:state], 
+            city:     item.product.merchant[:city],
+            zip:      item.product.merchant[:zip]
+          },
+          destination: {
+            street:   order[:street], 
+            state:    order[:state], 
+            city:     order[:city], 
+            zip:      order[:zip]
+          },
+          packages: {
+            weight:   item.product[:weight],
+            height:   item.product[:height],
+            length:   item.product[:length],
+            width:    item.product[:width]
+          }
         }
       }
-    }
-    json_ship = ship.to_json
-    response = HTTParty.get(BASE_URI, query: { json_data: json_ship })
 
-    @all_rates = response.parsed_response
+      json_ship = ship.to_json
+      response = HTTParty.get(BASE_URI, query: { json_data: json_ship })
+
+      @all_rates[item.id] = response
+    end
+
+    raise
   end
 
   private
