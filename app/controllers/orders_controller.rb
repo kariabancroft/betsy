@@ -6,9 +6,9 @@ class OrdersController < ApplicationController
   before_action :get_order_items, only: [:index, :status]
   before_action :get_order_item_revenue, only: :show
 
-  if Rails.env.production?
+  if Rails.env.development?
     BASE_URI = "http://localhost:3001/rates/"
-  else
+  elsif
     BASE_URI = "http://api-shipping-seabay.herokuapp.com/"
   end
 
@@ -116,7 +116,7 @@ class OrdersController < ApplicationController
 
       @all_rates[item] = response
     end
-    
+
     if !params[:order].nil?
       params[:order][:order_items_attributes].each do |oi|
         order_item = OrderItem.find(oi.last[:id])
