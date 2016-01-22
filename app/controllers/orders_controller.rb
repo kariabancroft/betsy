@@ -214,10 +214,11 @@ class OrdersController < ApplicationController
 
       json_ship = ship.to_json
       response = HTTParty.get(BASE_URI, query: { json_data: json_ship }).parsed_response
-
-      @all_rates[item] = response
-
-    end
+      if response.class == String
+        puts "invalid input mmmmmm"
+      else
+        @all_rates[item] = response
+      end
   end
 
   private
