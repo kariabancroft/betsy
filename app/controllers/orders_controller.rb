@@ -79,15 +79,11 @@ class OrdersController < ApplicationController
   end
 
   def confirm
+    raise
     @order.shipping_cost = params[:shipping_cost].to_i
     @order.shipping_type = params[:shipping_type]
     @all_order_items = @order.order_items
     @order_total = @order.total_cost
-  end
-
-  def shipping
-    get_order
-    #redirect_to order_confirm_path(@order.id)
   end
 
   def index
@@ -173,14 +169,7 @@ class OrdersController < ApplicationController
       response = HTTParty.get(BASE_URI, query: { json_data: json_ship }).parsed_response
 
       @all_rates[item] = response
-      @rates = []
-      @all_rates.values.each do |v|
-        v.each do |r|
-          @rates << r[0]
-        end
-      end
-
-
+      
     end
   end
 
