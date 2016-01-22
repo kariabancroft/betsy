@@ -6,7 +6,7 @@ RSpec.describe OrdersController, type: :controller do
   end
 
   let(:product) do
-    Product.create(name: "Stuff", price: 500, quantity: 5)
+    Product.create(name: "Stuff", price: 500, quantity: 5, height: 10, width: 2, length: 100, weight: 24)
   end
 
   let(:order) do
@@ -102,7 +102,11 @@ RSpec.describe OrdersController, type: :controller do
       username: "kdefliese",
       email: "kdefliese@gmail.com",
       password: "cats",
-      password_confirmation: "cats"}
+      password_confirmation: "cats",
+      country: "USA",
+      city: "Seattle",
+      state: "WA",
+      zip: "98121"}
     }
   end
 
@@ -133,9 +137,9 @@ RSpec.describe OrdersController, type: :controller do
   end
 
   describe "POST 'create'" do
-    it "redirects to order confirm view" do
+    it "redirects to order shipping view" do
       post :create, good_params
-      expect(subject).to redirect_to order_confirm_path(1)
+      expect(subject).to redirect_to order_shipping_path(1)
     end
 
     it "redirects to the checkout view if given bad data" do

@@ -27,6 +27,6 @@ class MerchantsController < ApplicationController
   private
 
   def strong_params
-    params.require(:merchant).permit(:username, :email, :password, :password_confirmation)
+    params.require(:merchant).permit(:username, :email, :country, :city, :state, :zip, :password, :password_confirmation)
   end
 end
