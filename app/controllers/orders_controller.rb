@@ -112,7 +112,7 @@ class OrdersController < ApplicationController
 
       @all_rates[item] = response
     end
-      
+
     params[:order][:order_items_attributes].each do |oi|
       order_item = OrderItem.find(oi.last[:id])
       order_item.shipping_cost = @all_rates[order_item][oi.last[:shipping_type].to_i][1]
@@ -123,7 +123,7 @@ class OrdersController < ApplicationController
 
 
     @all_order_items = @order.order_items
-    @order_total = @order.total_cost + @order.total_shipping
+    @order_total = @order.total_cost + @order.total_shipping/100
   end
 
   def index
@@ -209,7 +209,7 @@ class OrdersController < ApplicationController
       response = HTTParty.get(BASE_URI, query: { json_data: json_ship }).parsed_response
 
       @all_rates[item] = response
-      
+
     end
   end
 
