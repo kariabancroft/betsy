@@ -215,7 +215,7 @@ class OrdersController < ApplicationController
       json_ship = ship.to_json
       response = HTTParty.get(BASE_URI, query: { json_data: json_ship }).parsed_response
       if response.class == String
-        puts "invalid input mmmmmm"
+        Rails.logger.error("We recieved error from Shipping API #{response}")
       else
         @all_rates[item] = response
       end
