@@ -6,7 +6,7 @@
       <%= form_for @order, :url => order_confirm_path(@order) , class: "form-inline" do |f| %>
       <% if @all_rates.class == String %>
         <%= @all_rates %>
-        <% else %>
+      <% else %>
         <% @all_rates.each do |item, rates| %>
           <%= f.fields_for :order_items, item do |shipping_type| %>
           <h3><%= item.product.name %></h3>
