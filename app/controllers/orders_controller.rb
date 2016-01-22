@@ -6,7 +6,11 @@ class OrdersController < ApplicationController
   before_action :get_order_items, only: [:index, :status]
   before_action :get_order_item_revenue, only: :show
 
-  BASE_URI = "http://localhost:3001/rates/"
+  if Rails.env.production?
+    BASE_URI = "http://localhost:3001/rates/"
+  else
+    BASE_URI = "http://api-shipping-seabay.herokuapp.com/"
+  end
 
   def checkout
     # get @current_order info from carts controller
