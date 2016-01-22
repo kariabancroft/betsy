@@ -6,7 +6,11 @@ class OrdersController < ApplicationController
   before_action :get_order_items, only: [:index, :status]
   before_action :get_order_item_revenue, only: :show
 
-  BASE_URI = "http://localhost:3001/rates/"
+  if Rails.env.development?
+    BASE_URI = "http://localhost:3001/rates/"
+  elsif Rails.env.production?
+    BASE_URI = "http://api-shipping-seabay.herokuapp.com/"
+  end
 
   def checkout
     # get @current_order info from carts controller
@@ -112,7 +116,7 @@ class OrdersController < ApplicationController
 
       @all_rates[item] = response
     end
-    
+
     if !params[:order].nil?
       params[:order][:order_items_attributes].each do |oi|
         order_item = OrderItem.find(oi.last[:id])
@@ -210,9 +214,11 @@ class OrdersController < ApplicationController
 
       json_ship = ship.to_json
       response = HTTParty.get(BASE_URI, query: { json_data: json_ship }).parsed_response
-
-      @all_rates[item] = response
-
+      if response.class == String
+        puts "invalid input mmmmmm"
+      else
+        @all_rates[item] = response
+      end
     end
   end
 

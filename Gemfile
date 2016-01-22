@@ -5,6 +5,7 @@ gem 'httparty'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
 
+gem 'rails_12factor', group: :production 
 gem 'pg'
 # bootsrtap for styling
 gem 'bootstrap-sass', '~> 3.3.6'
