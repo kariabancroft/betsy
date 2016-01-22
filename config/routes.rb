@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   post 'orders/checkout' => 'orders#create'
   get 'orders/:id/shipping' => 'orders#shipping', as: :order_shipping
   post 'orders/:id/shipping' => 'orders#shipping'
-  get 'orders/:id/confirm' => 'orders#confirm', as: :order_confirm
+  patch 'orders/:id/confirm' => 'orders#confirm', as: :order_confirm
   get "merchants/:id/orders/show/:status" => 'orders#status', as: :status_orders
 
   # merchants routes

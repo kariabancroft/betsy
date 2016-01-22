@@ -79,6 +79,8 @@ class OrdersController < ApplicationController
   end
 
   def confirm
+    @order.shipping_cost = params[:shipping_cost].to_i
+    @order.shipping_type = params[:shipping_type]
     @all_order_items = @order.order_items
     @order_total = @order.total_cost
   end
@@ -170,7 +172,7 @@ class OrdersController < ApplicationController
       json_ship = ship.to_json
       response = HTTParty.get(BASE_URI, query: { json_data: json_ship }).parsed_response
 
-      @all_rates[item.product.name] = response
+      @all_rates[item] = response
     end
 
   end

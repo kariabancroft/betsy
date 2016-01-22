@@ -14,7 +14,7 @@ class Order < ActiveRecord::Base
 
     order_items.each do |orderitem|
       total_revenue += orderitem.cost
-      total_revenue += orderitem.shipping_cost
+      total_revenue += self.shipping_cost
     end
 
     return total_revenue
