@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
   if Rails.env.development?
     BASE_URI = "http://localhost:3001/rates/"
   elsif Rails.env.production?
-    BASE_URI = "http://api-shipping-seabay.herokuapp.com/"
+    BASE_URI = "http://api-shipping-seabay.herokuapp.com/rates/"
   end
 
   def checkout
