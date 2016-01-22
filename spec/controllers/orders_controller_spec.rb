@@ -158,6 +158,7 @@ RSpec.describe OrdersController, type: :controller do
   describe "GET 'confirm'" do
     it "renders the order confirm page" do
       order = Order.create(good_params[:order])
+      order.order_items << orderitem
       get :confirm, id: order.id
       expect(subject).to render_template :confirm
     end
