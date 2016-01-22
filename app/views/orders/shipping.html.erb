@@ -6,6 +6,7 @@
       <%= form_for @order, :url => order_confirm_path(@order) , class: "form-inline" do |f| %>
         <% @all_rates.each do |item, rates| %>
           <%= f.fields_for :order_items, item do |shipping_type| %>
+          <h3><%= item.product.name %></h3>
             <% rates.each_with_index do |r, i| %>
             <div class="form-group radio">
               <%= shipping_type.radio_button :shipping_type, i %><%= r[0] %>: <%= number_to_currency(r[1]/100) %><br>
