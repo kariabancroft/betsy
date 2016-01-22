@@ -79,9 +79,6 @@ class OrdersController < ApplicationController
   end
 
   def confirm
-    raise
-    @order.shipping_cost = params[:shipping_cost].to_i
-    @order.shipping_type = params[:shipping_type]
     @all_order_items = @order.order_items
     @order_total = @order.total_cost
   end

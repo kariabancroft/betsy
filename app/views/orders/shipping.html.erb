@@ -1,21 +1,21 @@
 <%= render 'layouts/navbar' %>
+<div class="container">
   <div class="row">
     <div class="col-lg-12">
       <h2>Select Shipping Method</h2>
       <%= form_for @order, :url => order_confirm_path(@order) , class: "form-inline" do |f| %>
         <% @all_rates.each do |item, rates| %>
           <%= f.fields_for :order_items, item do |shipping_type| %>
-            <% rates.each do |r| %> 
+            <% rates.each_with_index do |r, i| %> 
             <div class="form-group radio">
-              <%= shipping_type.radio_button :shipping_type, r[0] %><%= r[0] %>: <%= r[1] %><br>
-              <%= shipping_type.hidden_field :shipping_cost, r[1] %>
+              <%= shipping_type.radio_button :shipping_type, i %><%= r[0] %>: <%= r[1] %><br>
             </div>
             <% end %><br>
           <% end %>
-         <% end %><br \>
+         <% end %><br>
       <%= submit_tag "Place Order", class: "btn btn-primary" %>
 
     <% end %>
-    </div>
   </div>
 </div>  
+</div>
