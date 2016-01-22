@@ -219,6 +219,7 @@ class OrdersController < ApplicationController
       else
         @all_rates[item] = response
       end
+    end
   end
 
   private
