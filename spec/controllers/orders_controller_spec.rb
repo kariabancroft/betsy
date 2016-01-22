@@ -234,4 +234,18 @@ RSpec.describe OrdersController, type: :controller do
       expect(subject).to render_template :show
     end
   end
+
+  describe "GET 'shipping" do 
+    it "renders the shipping template" do 
+      merchant.authenticate(session_data)
+      session[:user_id] = merchant.id
+      merchant.products << product
+      product.order_items << orderitem
+      order.order_items << orderitem
+
+      patch :shipping, merchant_id: merchant.id, id: order.id
+      expect(response.status).to eq 200
+    end
+
+  end
 end
