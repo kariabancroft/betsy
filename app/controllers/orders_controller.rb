@@ -121,11 +121,12 @@ class OrdersController < ApplicationController
         order_item.update(shipping_cost: order_item.shipping_cost)
         order_item.save
       end
+
     end
 
 
     @all_order_items = @order.order_items
-    @order_total = @order.total_cost + @order.total_shipping
+    @order_total = @order.total_cost + @order.total_shipping/100
   end
 
   def index
@@ -211,7 +212,7 @@ class OrdersController < ApplicationController
       response = HTTParty.get(BASE_URI, query: { json_data: json_ship }).parsed_response
 
       @all_rates[item] = response
-      
+
     end
   end
 
