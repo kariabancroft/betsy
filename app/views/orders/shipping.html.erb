@@ -1,17 +1,20 @@
 <div class="container">
-<h2>Select Shipping Method</h2>
-    <%= form_for @order, :url => order_confirm_path(@order) , class: "form-inline" do |f| %>
-    <% @all_rates.each do |item, rates| %>
-      <h4>Product: <%= item.product.name %></h4>
-      <% rates.each do |rate| %>
-        <div class="form-group radio">
-          <%= f.radio_button :shipping_type, rate[0] %><br \><%="#{rate[0]}: #{number_to_currency(rate[1] / 100)}" %>
-          <%= hidden_field_tag :shipping_cost, rate[1] %>
-        </div>
-      <% end %><br \>
-    <% end %>
-  
-  <%= submit_tag "Place Order", class: "btn btn-primary" %>
-
-  <% end %>
-</div>
+  <%= render 'layouts/navbar' %>
+  <div class="row">
+    <div class="col-lg-12">
+      <h2>Select Shipping Method</h2>
+      <%= form_for @order, :url => order_confirm_path(@order) , class: "form-inline" do |f| %>
+        <% @all_rates.each do |item, rates| %>
+          <h4>Product: <%= item.product.name %></h4>
+          <% rates.each do |rate| %>
+            <div class="form-group radio">
+              <%= f.radio_button :shipping_type, rate[0] %><br \><%="#{rate[0]}: #{number_to_currency(rate[1] / 100)}" %>
+              <%= hidden_field_tag :shipping_cost, rate[1] %>
+            </div>
+          <% end %><br \>
+        <% end %>
+        <%= submit_tag "Place Order", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+</div>  
