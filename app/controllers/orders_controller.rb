@@ -143,7 +143,7 @@ class OrdersController < ApplicationController
       ship = {
         shipment: {
           origin: {
-            country:  "US",
+            country:  item.product.merchant[:country],
             state:    item.product.merchant[:state],
             city:     item.product.merchant[:city],
             zip:      item.product.merchant[:zip]
