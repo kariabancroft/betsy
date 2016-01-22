@@ -85,11 +85,6 @@ class OrdersController < ApplicationController
     @order_total = @order.total_cost
   end
 
-  def shipping
-    get_order
-    #redirect_to order_confirm_path(@order.id)
-  end
-
   def index
     @total_revenue = OrderItem.cost_of_many(@all_orderitems)
   end
