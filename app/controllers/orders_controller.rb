@@ -173,8 +173,15 @@ class OrdersController < ApplicationController
       response = HTTParty.get(BASE_URI, query: { json_data: json_ship }).parsed_response
 
       @all_rates[item] = response
-    end
+      @rates = []
+      @all_rates.values.each do |v|
+        v.each do |r|
+          @rates << r[0]
+        end
+      end
 
+
+    end
   end
 
   private
