@@ -112,13 +112,15 @@ class OrdersController < ApplicationController
 
       @all_rates[item] = response
     end
-      
-    params[:order][:order_items_attributes].each do |oi|
-      order_item = OrderItem.find(oi.last[:id])
-      order_item.shipping_cost = @all_rates[order_item][oi.last[:shipping_type].to_i][1]
-      order_item.shipping_type = @all_rates[order_item][oi.last[:shipping_type].to_i][0]
-      order_item.update(shipping_cost: order_item.shipping_cost)
-      order_item.save
+    
+    if !params[:order].nil?
+      params[:order][:order_items_attributes].each do |oi|
+        order_item = OrderItem.find(oi.last[:id])
+        order_item.shipping_cost = @all_rates[order_item][oi.last[:shipping_type].to_i][1]
+        order_item.shipping_type = @all_rates[order_item][oi.last[:shipping_type].to_i][0]
+        order_item.update(shipping_cost: order_item.shipping_cost)
+        order_item.save
+      end
     end
 
 
