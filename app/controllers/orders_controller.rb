@@ -79,8 +79,51 @@ class OrdersController < ApplicationController
   end
 
   def confirm
+    @order = Order.find(params[:id])
+    @all_rates = {}
+
+    @order.order_items.each do |item|
+      ship = {
+        shipment: {
+          origin: {
+            country:  item.product.merchant[:country],
+            state:    item.product.merchant[:state],
+            city:     item.product.merchant[:city],
+            zip:      item.product.merchant[:zip]
+          },
+          destination: {
+            country:  "US",
+            street:   @order[:street],
+            state:    @order[:state],
+            city:     @order[:city],
+            zip:      @order[:zip]
+          },
+          packages: {
+            weight:   item.product[:weight],
+            height:   item.product[:height],
+            length:   item.product[:length],
+            width:    item.product[:width]
+          }
+        }
+      }
+
+      json_ship = ship.to_json
+      response = HTTParty.get(BASE_URI, query: { json_data: json_ship }).parsed_response
+
+      @all_rates[item] = response
+    end
+      
+    params[:order][:order_items_attributes].each do |oi|
+      order_item = OrderItem.find(oi.last[:id])
+      order_item.shipping_cost = @all_rates[order_item][oi.last[:shipping_type].to_i][1]
+      order_item.shipping_type = @all_rates[order_item][oi.last[:shipping_type].to_i][0]
+      order_item.update(shipping_cost: order_item.shipping_cost)
+      order_item.save
+    end
+
+
     @all_order_items = @order.order_items
-    @order_total = @order.total_cost
+    @order_total = @order.total_cost + @order.total_shipping
   end
 
   def index

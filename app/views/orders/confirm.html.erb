@@ -38,8 +38,8 @@
           <td><%= link_to product.name, product_path(product.id) %></td>
           <td><%= orderitem.quantity %></td>
           <td><%= number_to_currency(product.price) %></td>
-          <td><%= @order.shipping_type %></td>
-          <td><%= number_to_currency(@order.shipping_cost/100) %></td>
+          <td><%= orderitem.shipping_type %></td>
+          <td><%= number_to_currency(orderitem.shipping_cost/100) %></td>
           <td><%= number_to_currency(product.price * orderitem.quantity) %></td>
         </tr>
       <% end %>
@@ -57,7 +57,7 @@
         <td></td>
         <td></td>
         <td>Shipping Total:</td>
-        <td><%= number_to_currency(@order.shipping_cost/100) %></td>
+        <td><%= number_to_currency(@order.total_shipping/100) %></td>
       </tr>
       <tr>
         <td></td>
